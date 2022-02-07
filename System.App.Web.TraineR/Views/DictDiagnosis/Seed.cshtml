@@ -1,0 +1,288 @@
+﻿@using System.App.Model.Resources
+@using System.App.Web.TraineR.Models.Domain
+@using System.App.Model.Enums
+@using System.App.Utility.Helpers
+
+<h4>@Resource.DictDiagnosis</h4>
+
+@{
+    var lines = @"[
+                {
+                    'id': 'D000',
+                    'text': '无ROP'
+                },
+                {
+                    'id': 'D001',
+                    'text': '视网膜发育不全',
+                    'children': [
+                          {
+                              'id': 'D001.P001',
+                              'text': '视网膜发育不全+'
+                          },
+                          {
+                              'id': 'D001.P002',
+                              'text': '视网膜发育不全++'
+                          },
+                          {
+                              'id': 'D001.P003',
+                              'text': '视网膜发育不全+++'
+                          },
+                          {
+                              'id': 'D001.P102',
+                              'text': '视网膜发育不全+~++'
+                          },
+                          {
+                              'id': 'D001.P203',
+                              'text': '视网膜发育不全++~+++'
+                          }
+                    ]
+                },
+                {
+                    'id': 'D002',
+                    'text': '早产儿视网膜病变',
+                    'children': [
+                          {
+                              'id': 'D002.A001',
+                              'text': '急性期ROP',
+                              'children': [
+                                  {
+                                      'id': 'D002.A001.Z',
+                                      'text': '分区',
+                                      'children': [
+                                        {
+                                            'id': 'D002.A001.Z001',
+                                            'text': '1区'
+                                        },
+                                        {
+                                            'id': 'D002.A001.Z002',
+                                            'text': '2区'
+                                        },
+                                        {
+                                            'id': 'D002.A001.Z003',
+                                            'text': '3区'
+                                        },
+                                        {
+                                            'id': 'D002.A001.Z012',
+                                            'text': '1-2区'
+                                        },
+                                        {
+                                            'id': 'D002.A001.Z023',
+                                            'text': '2-3区'
+                                        },
+                                      ]
+                                  },
+                                  {
+                                      'id': 'D002.A001.S',
+                                      'text': '分期',
+                                      'children': [
+                                        {
+                                            'id': 'D002.A001.S001',
+                                            'text': '1期'
+                                        },
+                                        {
+                                            'id': 'D002.A001.S002',
+                                            'text': '2期'
+                                        },
+                                        {
+                                            'id': 'D002.A001.S003',
+                                            'text': '3期'
+                                        },
+                                        {
+                                            'id': 'D002.A001.S004',
+                                            'text': '4期'
+                                        },
+                                        {
+                                            'id': 'D002.A001.S005',
+                                            'text': '5期'
+                                        },
+                                        {
+                                            'id': 'D002.A001.S012',
+                                            'text': '1-2期'
+                                        },
+                                        {
+                                            'id': 'D002.A001.S023',
+                                            'text': '2-3期'
+                                        },
+                                        {
+                                            'id': 'D002.A001.S034',
+                                            'text': '3-4期'
+                                        },
+                                        {
+                                            'id': 'D002.A001.S045',
+                                            'text': '4-5期'
+                                        },
+                                      ]
+                                  },
+                                  {
+                                      'id': 'D002.A001.P',
+                                      'text': 'Plus病变',
+                                      'children': [
+                                        {
+                                            'id': 'D002.A001.P001',
+                                            'text': '+'
+                                        },
+                                        {
+                                            'id': 'D002.A001.P002',
+                                            'text': '++'
+                                        },
+                                        {
+                                            'id': 'D002.A001.P003',
+                                            'text': '+++'
+                                        },
+                                        {
+                                            'id': 'D002.A001.P012',
+                                            'text': '+~++'
+                                        },
+                                        {
+                                            'id': 'D002.A001.P023',
+                                            'text': '++~+++'
+                                        },
+                                      ]
+                                  },
+                              ]
+                          },
+                           {
+                               'id': 'D002.A010',
+                               'text': 'APROP',
+                           },
+                           {
+                               'id': 'D002.A020',
+                               'text': '阈值ROP',
+                           },
+                           {
+                               'id': 'D002.A031',
+                               'text': '阈值前期1型ROP',
+                           },
+                           {
+                               'id': 'D002.A032',
+                               'text': '阈值前期2型ROP',
+                           }
+                    ]
+                },
+                {
+                    'id': 'D003',
+                    'text': '退行性ROP',
+                    'children': [
+                    {
+                        'id': 'D003.Z001',
+                        'text': '周边'
+                    },
+                    {
+                        'id': 'D003.Z002',
+                        'text': '后极'
+                    }]
+                },
+                {
+                    'id': 'D004',
+                    'text': 'ROP术后',
+                    'children': [
+                    {
+                        'id': 'D004.G001',
+                        'text': '注药术后',
+                        'children': [
+                        {
+                            'id': 'D004.G001.M001',
+                            'text': '雷珠单抗'
+                        },
+                        {
+                            'id': 'D004.G001.M002',
+                            'text': '贝伐单抗'
+                        },
+                        {
+                            'id': 'D004.G001.M003',
+                            'text': '康柏西普'
+                        }]
+                    },
+                    {
+                        'id': 'D004.G002',
+                        'text': '激光术后'
+                    },
+                    {
+                        'id': 'D004.G003',
+                        'text': '玻璃体视网膜手术后'
+                    },
+                    {
+                        'id': 'D004.G004',
+                        'text': '晶状体切除术后'
+                    },
+                    {
+                        'id': 'D004.G010',
+                        'text': '其他'
+                    }
+                    ]
+                },
+                {
+                    'id': 'D010',
+                    'text': '其它诊断',
+                    'children': [
+                    {
+                        'id': 'D010.D101',
+                        'text': 'FEVR'
+                    },
+                    {
+                        'id': 'D010.D102',
+                        'text': 'PHPV'
+                    },
+                    {
+                        'id': 'D010.D103',
+                        'text': '脉络膜缺损'
+                    },
+                    {
+                        'id': 'D010.D104',
+                        'text': '视网膜母细胞瘤'
+                    },
+                    {
+                        'id': 'D010.D105',
+                        'text': '牵牛花综合征'
+                    },
+                    {
+                        'id': 'D010.D106',
+                        'text': 'Norries病'
+                    },
+                    {
+                        'id': 'D010.D107',
+                        'text': 'Coats病'
+                    },
+                    {
+                        'id': 'D010.D110',
+                        'text': '其它'
+                    }
+                    ]
+                },
+    ]".Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+            .Where(x => x.Contains("'id':") || x.Contains("'text':"));
+
+    var db = new NewbornContainer();
+    db.Database.ExecuteSqlCommand("delete from Dict_Diagnosis");
+
+    var code = string.Empty;
+    var text = string.Empty;
+
+    <table>
+        @foreach (var line in lines)
+        {
+            if (line.Contains("'id':"))
+            {
+                code = line.Replace("'id':", "").Split(new char[] { '\'' }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault(x => string.IsNullOrWhiteSpace(x) == false);
+                continue;
+            }
+            if (line.Contains("'text':"))
+            {
+                text = line.Replace("'text':", "").Split(new char[] { '\'' }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault(x => string.IsNullOrWhiteSpace(x) == false);
+            <tr>
+                <td>@code</td>
+                <td>@text</td>
+            </tr>
+                db.Dict_Diagnosis.Add(new Dict_Diagnosis() {
+                    Code = code,
+                    Name = text,
+                    CodingSystem = "ROP_MST"
+                });
+                continue;
+            }
+        }
+    </table>
+
+    db.SaveChanges();
+    db.Dispose();
+}

@@ -1,0 +1,11 @@
+﻿@{
+    // if the website is accessed via trainer.host, use the trainer-specific layout.
+    if(Request.Url.Authority!= null && Request.Url.Authority.ToLower().StartsWith("trainer"))
+    {
+        Layout = "~/Views/Shared/_LayoutTrainer.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}

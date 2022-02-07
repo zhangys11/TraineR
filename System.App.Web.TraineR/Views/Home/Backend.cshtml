@@ -1,0 +1,67 @@
+﻿@using System.App.Model.Resources
+@using System.App.Model.Enums
+@using System.App.Web.TraineR.Models
+
+@{
+    ViewBag.Title = Resource.SystemTool;
+}
+
+<script>
+    $(document).ready(function () {
+        $('a.btn').attr('target', '_blank');
+    });    
+</script>
+
+@if (GlobalSetting.DemoMode == true || User.Identity.Name == GlobalSetting.WEBPORTAL_USER_DEMO)
+{
+    <div class="alert alert-warning">
+        <i class="fa fa-info-circle"></i>
+        You are in the demo mode. <a href="/Account/Login">Login</a> with an authorized account to enable all functions.
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.demo_lock').attr('disabled', 'disabled');
+            //$('.demo_lock').attr('href', '#');
+            //$(".demo_lock").click(function (event) {
+            //    event.stopPropagation();
+            //});
+        }); 
+    </script>
+}
+
+@*<div class="page-header">
+    <h2>@Resource.SystemTool</h2>
+</div>*@
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>@Resource.DictionaryMaintenance</h3>
+            <p>
+                @Resource.ToolTip_DictionaryMaintenance
+            </p>
+            <div class="btn-group">
+                @Html.ActionLink(Resource.Diagnosis, "Index", "DictDiagnosis", null, new { @class = "btn btn-default" })
+                @Html.ActionLink(Resource.ExaminationMethod, "Index", "DictExaminationMethod", null, new { @class = "btn btn-default" })
+                @Html.ActionLink(Resource.Modality, "Index", "DictModality", null, new { @class = "btn btn-default" })
+            </div>
+            <br /><br />
+            <h3>@Resource.Reference</h3>
+            <p>
+                ROP_MST (Retinopathy of Prematurity Minimal Standard Terminology, 早产儿视网膜病变标准术语集)
+            </p>
+            <p>
+                @Html.ActionLink(Resource.Terminology, "Terminology", "Home", null, new { @class = "btn btn-default" })
+            </p>
+            <div class="alert alert-info">
+                A domain-specific terminology for retinopathy of prematurity and its applications in clinical settings[J].
+                Journal of Healthcare Engineering. 2018,
+                DOI：10.1155/2018/9237319
+            </div>
+            <div class="alert alert-info">
+                团体标准，早产儿视网膜病变术语编码规范，T/SZSMDA 001—2021，2021
+            </div>
+        </div>
+    </div>    
+</div>

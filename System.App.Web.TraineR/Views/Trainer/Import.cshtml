@@ -1,0 +1,60 @@
+﻿@using System.App.Model.Resources
+@using System.App.Web.TraineR.Models.Domain
+@using System.App.Model.Enums
+@using System.App.Utility.Helpers
+@using System.Data.SQLite
+@using System.App.Web.TraineR.Services
+@using System.App.Model
+@using Npgsql
+
+<p>@ViewBag.Message</p>
+
+@{
+    var db = new NewbornContainer();
+
+    var LOCAL_REPO = @"C:\Users\eleve\Documents\codex\cs\System.App.Web.ROP2\App_Data\卵黄样黄斑营养不良\新\";
+    var RELATIVE_FOLDER = @"\Quiz\卵黄样黄斑营养不良\";
+
+    <div class="alert alert-warning">
+        * This action will rename the images in folder "@LOCAL_REPO" and add records to db.
+    </div>
+
+    var prefix = GlobalSetting.ThumbnailPrefix;
+
+    foreach (var fn in new DirectoryInfo(LOCAL_REPO).EnumerateFiles())
+    {
+        var g = new Image();
+        var g60 = Base64Convertor.GetDataURLForImageThumbnail(fn.FullName, 60, 45, true, false, 10);
+
+        g.LabelCode = "D010.D123";
+        g.Label = "卵黄样黄斑营养不良";
+        g.Tag06 = true; // 包含到培训系统题库v
+
+        var md5 = DigestGenerator.GetMD5(fn.FullName);
+        File.Move(fn.FullName, LOCAL_REPO + md5 + Path.GetExtension(fn.Name));
+
+        g.Description = fn.FullName; // source path
+        g.ImageFilePath = RELATIVE_FOLDER + md5 + Path.GetExtension(fn.Name);
+        g.Name = md5;
+        g.Type = "fundus";
+        g.Comment = @"OCT：病灶多位于RPE水平，可伴有视网膜神经上皮层隆起，视网膜下液可见低反射信号，但很少发生视网膜内囊样水肿。
+SLO：黄斑区可见以类圆形黄白色渗出。";
+
+        //
+        // Base64 is redundant. Remove common prefix to save storage space
+        if (g60.StartsWith(prefix))
+        {
+            g.Thumbnail = g60.Replace(prefix, "");
+        }
+        else
+        {
+            g.Thumbnail = g60;
+        }
+
+
+        db.Image.Add(g);
+        db.SaveChanges();
+    }
+}
+
+<p>IMPORT COMPLETE. Go back to @Url.Action("Trainer Home","Index")</p>

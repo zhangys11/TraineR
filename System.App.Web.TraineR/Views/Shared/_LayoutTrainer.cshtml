@@ -1,0 +1,218 @@
+﻿@using System.App.Model.Resources
+@using System.App.Model.Enums
+@using System.App.Model.Consts
+@using System.App.Web.TraineR.Models
+@using System.App.Web.TraineR.Models.Domain
+
+@* REPLACE _Layout with this one for standalone TraineR system *@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>视网膜病变阅片培训系统</title>
+
+    <link rel="SHORTCUT ICON" type="image/x-icon" href="@EmbededImages.Smiley" />
+
+    @Styles.Render("~/bundles/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        var needPrompt = true; // indicate whether need to prompt user save before leaving current page. When user deletes a record, needPrompt is false.
+
+        // datetime picker, combobox, editable select
+        $(document).ready(function () {
+            $('#dialog-confirm').dialog({
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    //                "@Resource.ReturnHome": function () {
+                    //                    $(this).dialog("close");
+                    //                    document.location = '@Url.Action("Index")';
+                    //                },
+                    "@Resource.Close": function () {
+                        $(this).dialog("close");
+                        if ($('#dialog-confirm-url').val())
+                            document.location = $('#dialog-confirm-url').val();
+                        $('#dialog-confirm-url').val('');
+                    }
+                }
+            });
+
+            // Set selected status for navigation tabs
+            var tabs = $("#menu > li > a");
+            var active_tab = null;
+            var found = false;
+            if (window.location.href && window.location.href.indexOf("/Home/Error") === -1) { // For error page don't select any tab
+                for (var i = 0; i < tabs.length; i++) {
+                    if (tabs[i].href == window.location.href) { //exact match
+                        active_tab = tabs[i];
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (found == false) {
+                    if ($('#config-navigation-list') && $('#config-navigation-list').length > 0) { // config-navigation-list only exists in config pages
+                        active_tab = $('#menu-config')[0];
+                        found = true;
+                    }
+                }
+
+                if (found == false) {
+                    for (var i = tabs.length - 1; i >= 0; i--) { //Home tab can match everything. We assume it is the first tab. Access it at the last.
+                        if (tabs[i].href.indexOf(window.location.href) !== -1 || window.location.href.indexOf(tabs[i].href) !== -1 || tabs[i].href.indexOf(window.location.pathname) !== -1) { //contains match
+                            active_tab = tabs[i];
+                            break;
+                        }
+                    }
+                }
+            }
+            if (active_tab) {
+                active_tab.style.backgroundColor = "white";
+                active_tab.style.color = "navy";
+            }
+
+            $("#dialog-delete-confirm").dialog({
+                modal: true,
+                autoOpen: false,
+                buttons: {
+                    '@Resource.OK': function () {
+                        $(this).dialog("close");
+                        needPrompt = false;
+                        document.location = '@Url.Action("Delete")' + '/' + $('#Id').val();
+                        needPrompt = true;
+                    },
+                    '@Resource.Cancel': function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $('#dialog-add-image').dialog({
+                autoOpen: false,
+                modal: true,
+                width: 580,
+                height: 400
+            });
+
+            $('#dialog-add-image').bind('dialogclose', function (event) {
+                $("#imageFiles").val("");
+                $("#imageDescription").val("");
+                $("#imageName").val("");
+                $("#imageLink").val("");
+
+                $("#imageID").val("@GlobalSetting.UNINITIALIZED_ENTITY_ID");
+            });
+
+            $("#form-add-image").submit(function () {
+                var filepaths = $("input[name='imageFiles']").val();
+                if (filepaths) { // if user selected any file, judge file format
+                    var arr = filepaths.split(',');
+                    for (var i = 0; i < arr.length; i++) {
+                        var filepath = arr[i].trim();
+                        var extStart = filepath.lastIndexOf(".");
+                        var ext = filepath.substring(extStart, filepath.length).toUpperCase();
+                        if (ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG" && ext != ".PDF") {
+                            alert('@String.Format(Resource.Message_FileTypeInvalid, "BMP,PNG,GIF,JPG,JPEG,PDF")');
+                            return false;
+                        }
+                    }
+                }
+            })
+        });
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <span class="navbar-brand">TraineR</span>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink(Resource.ImageReading_Title, "Quiz", "Trainer")</li>
+                    <li>@Html.ActionLink(Resource.QuizDBM, "Index", "Trainer")</li>
+                    <li>@Html.ActionLink(Resource.Wiki, "Wiki", "Home")</li>
+                    <li>@Html.ActionLink(Resource.VersionInfo, "Version", "Home")</li>
+                </ul>
+                @Html.Partial("_CulturePartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content" id="mainbody">
+        @RenderBody()
+    </div>
+    <div class="container">
+        <hr/>
+        @Html.Partial("_FooterPartial")
+    </div>
+</body>
+</html>
+
+
+<div id="hidden-area">
+    <!-- For interchanging global information -->
+    <input type="hidden" id="dialog-confirm-url" /><!-- The reason of not putting this control inside dialog-confirm is jquery complains "Can't move focus to the control" error. The hidden input control seems to get focus when pop up the dialog. -->
+</div>
+
+<div id="dialog-delete-confirm" title="@Resource.Delete">
+    <p>@Resource.Message_DeleteConfirm</p>
+</div>
+
+<div id="dialog-add-image" title="@Resource.AddImageFile">
+    @using (Html.BeginForm("UploadImage", "Case", FormMethod.Post, new { enctype = "multipart/form-data", id = "form-add-image" }))
+    {
+        <fieldset class="ui-helper-reset">
+            <input type="hidden" id="imageID" name="imageID" value="@GlobalSetting.UNINITIALIZED_ENTITY_ID" />
+            <div class="editor-label">
+                @Resource.ChooseFile (@Resource.SupportMultiselect)
+            </div>
+            <div>
+                <input type="file" name="imageFiles" id="imageFiles" multiple="multiple" style="width: 300px;" />
+            </div>
+            <br />
+            @Resource.Type
+            <div>
+                <select id="imageName" name="imageName">
+                    <!--HTML5 has datalist which is editable select-->
+                    <option></option>
+                    @{
+                        var db = new NewbornContainer();
+                        var modalities = db.Dict_Modality.Select(x => x.Name).ToList();
+                        foreach (var item in modalities)
+                        {
+                            <option>@item</option>
+                        }
+                    }
+                </select>
+            </div>
+            <br />
+            外部索引号（e.g.检查号）
+            <div>
+                <input type="text" id="imageLink" name="imageLink" />
+            </div>
+            <br />
+            @Resource.AdditionalInstruction
+            <div>
+                <textarea cols="30" rows="2" name="imageDescription" id="imageDescription"></textarea>
+            </div>
+            <div class="editor-field">
+                <input type="submit" value="@Resource.Save" />
+                <input type="button" value="@Resource.Cancel" onclick="$('#dialog-add-image').dialog('close');" />
+            </div>
+            <p id="dialog-add-image-progress" class="hidden">正在上传... </p>
+        </fieldset>
+    }
+</div>

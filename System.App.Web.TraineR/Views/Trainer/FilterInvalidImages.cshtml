@@ -1,0 +1,72 @@
+﻿@using System.App.Model.Enums
+@using System.App.Utility.Helpers
+@using Aliyun.OSS
+@using System.IO
+@using System.App.Web.TraineR.Models.Domain
+
+@{
+    ViewBag.Title = "清理无效数据";
+}
+
+<p>@ViewBag.Title</p>
+
+@{
+    var LOCAL_REPO = @"W:\ROPDB_202101\uploaded\exam\";
+
+    var db = new NewbornContainer();
+
+    foreach (var x in db.Image
+        .Where(x => x.Type == "眼底彩照" || x.Type.Contains("RetCam"))
+        .Where(x => x.Thumbnail == null || x.Thumbnail == "")
+        .Where(x => x.Deleted != true))
+    {
+        <hr />
+        <h4>@x.Id</h4>
+
+        <div>
+            <p>@x.ImageFilePath</p>
+            <p>@x.Name</p>
+            <p>@x.Type</p>
+            <p>@x.TimeStamp</p>
+
+            @if (x.Visit == null)
+            {
+                <p>No visit</p>
+            }
+            else
+            {
+                <a target="_blank" href="/Visit/Edit/@x.Visit.VisitId">@x.Visit.VisitId</a>
+            }
+
+        </div>
+
+        var path = x.ImageFilePath;
+        if (path.ToLower().StartsWith("http") == false)
+        {
+            if (path.StartsWith("/Upload"))
+            {
+                path = Server.MapPath(path);
+            }
+            else
+            {
+                path = LOCAL_REPO + path;
+            }
+        }
+        else
+        {
+            <img src="@path" style="width:200px;" />
+        }
+
+        x.Thumbnail = Base64Convertor.GetDataURLForImageThumbnail(path, 64, 48);
+        <img src="@x.Thumbnail" style="width:200px;" />
+        if (x.Thumbnail == null || x.Thumbnail == "")
+        {
+            x.Deleted = true;
+        }
+
+        x.Type = "荧光造影";
+    }
+
+    // db.SaveChanges();
+}
+

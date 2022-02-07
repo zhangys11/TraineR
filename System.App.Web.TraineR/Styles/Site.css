@@ -1,0 +1,51 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-family: Verdana, Tahoma, Arial, SimHei, 黑体, "Helvetica Neue", Helvetica, Sans-Serif;    
+    /*background-color: #abbed0;*/    
+    
+    /* background: url(../Styles/images/clinician.jpg) no-repeat center center scroll;
+    background-size: cover;*/    
+}
+
+#mainbody {
+    min-height: 550px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* invisible table for layout purposes */
+.layout_table
+{
+    border:none;
+}
+.layout_table tr
+{
+    border:none;
+}
+.layout_table td
+{
+    border:none;
+    vertical-align: top;
+}
+.narrow {
+    max-width: 60px;
+}

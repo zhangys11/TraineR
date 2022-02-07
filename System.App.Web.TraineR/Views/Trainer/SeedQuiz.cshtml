@@ -1,0 +1,100 @@
+﻿@using System.App.Model.Enums
+@using System.App.Utility.Helpers
+@using Aliyun.OSS
+@using System.IO
+@using System.App.Web.TraineR.Models.Domain
+@using Newtonsoft.Json
+@using System.App.Web.TraineR.Services
+
+@{
+    ViewBag.Title = "导入老题库数据";
+}
+
+@{
+    var f = Server.MapPath("~/Upload/Image/Quiz/old_quiz.txt");
+    var lines = File.ReadAllLines(f);
+    var diags = @"先天性视网膜劈裂症:D010.D117
+Coats 病:D010.D107
+视网膜有髓神经纤维:D010.D118
+白化病眼底:D010.D119
+RB:D010.D113
+PHPV:D010.D102
+脉络膜缺损:D010.D103
+FEVR:D010.D101
+豹纹状眼底:D010.D120
+MGS:D010.D105
+ROP3期:D002.A001.S003
+ROP2期:D002.A001.S002
+AP-ROP:D002.A010
+ROP:D002
+ROP1期:D002.A001.S001
+ROP4B期:D002.A001.S004.B
+ROP4A期:D002.A001.S004.A
+RP:D010.D121
+ROP5期:D002.A001.S005".Split(new char[] { '\r','\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+    var dct_diags = new Dictionary<string, string>();
+    <h4>Used Terms</h4>
+    foreach(var d in diags)
+    {
+        var c = d.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+        dct_diags[c[0]] = c[1];
+    }
+
+    <table class="table table-responsive">
+        @foreach (var kv in dct_diags.Keys)
+        {
+            <tr>
+                <td>@kv</td>
+                <td>@dct_diags[kv]</td>
+                <td>@TerminologyService.GetReadableStringFromDiagnosisCode(dct_diags[kv])</td>
+            </tr>
+        }
+    </table>
+
+    <h4>Data to be imported</h4>
+
+    <table class="table table-bordered">
+
+        @foreach (var line in lines.Skip(1))
+        {
+            var img = new Image();
+            var segs = line.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
+
+            img.ImageFilePath = "/Upload/Image/Quiz/" + segs[3];
+            img.Comment = segs[5];
+            var dic = JsonConvert.DeserializeObject<Dictionary<string, string>>(segs[10]);
+            img.Description = dic[segs[4].Replace("{","").Replace("}","")];
+            img.LabelCode = dct_diags[img.Description];
+            img.Label = TerminologyService.GetReadableStringFromDiagnosisCode(img.LabelCode);
+            var path = Server.MapPath(img.ImageFilePath);
+            img.Thumbnail = Base64Convertor.GetDataURLForImageThumbnail(path, 90, 60);
+            img.Name = "眼底彩照";
+            img.Editor = "Trainer/SeedQuiz";
+            img.Tag09 = true; // included for quiz
+
+            var db = new NewbornContainer();
+            db.Image.Add(img);
+            db.SaveChanges();
+            db.Dispose();
+
+            @*<tr>
+                <img src="@img.ImageFilePath" />
+                <span>@img.Comment</span>
+            </tr>*@
+        <tr>
+            <td class="bg-info">@img.Comment</td>
+            <td class="bg-info">@img.Description</td>
+            <td class="bg-info">@img.Label</td>
+            <td class="bg-info">@img.LabelCode</td>
+
+            @foreach (var seg in segs)
+            {
+                <td>
+                    @seg
+                </td>
+            }
+        </tr>
+        }
+    </table>
+}

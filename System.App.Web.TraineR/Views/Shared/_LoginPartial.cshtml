@@ -1,0 +1,24 @@
+﻿@using System.App.Model.Resources
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a>@Resource.Welcome,@User.Identity.Name</a>
+        </li>
+        <li>
+            <a href="javascript:document.getElementById('logoutForm').submit()">@Resource.LogOff</a>
+        </li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink(Resource.LogOn, "Logon", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

@@ -1,0 +1,141 @@
+﻿@using System.App.Model.Enums
+@using System.App.Utility.Helpers
+@using Aliyun.OSS
+@using System.IO
+@using System.App.Web.TraineR.Models.Domain
+
+@{
+    ViewBag.Title = "Seed";
+}
+
+@{ 
+    var db = new NewbornContainer();
+    var ids = db.Image.Where(x => x.Name == "眼底彩照" || x.Name.Contains("RetCam"))
+        .Select(x=>x.Id).ToList();
+
+    <h3>@ids.Count()</h3>
+
+    foreach (var id in ids)
+    {
+        db = new NewbornContainer();
+        var img = db.Image.Find(id);
+
+        if(img.ImageFilePath.ToLower().StartsWith("/upload") == false)
+        {
+            <b>@img.ImageFilePath</b>
+            continue;
+        }
+
+        var path = Server.MapPath(img.ImageFilePath);
+        if(File.Exists(path))
+        {
+            <h4>@id</h4>
+            <p>@path</p>            
+            img.Thumbnail = Base64Convertor.GetDataURLForImageThumbnail(path, 90, 60);
+            <img src="@img.Thumbnail" />
+
+            db.Entry(img).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        db.Dispose();
+    }
+}
+
+
+@{ return; }
+
+
+@*<h2>@ViewBag.Title</h2>
+
+@{
+    /*
+     {
+            'id': 'C.0', // n/a
+            'text': '不是有效的眼底照片'
+        },
+        {
+            'id': 'C.1', // low quality
+            'text': '图片质量太差，无法用于诊断'
+        },
+        {
+            'id': 'C.2', // negative
+            'text': '正常（无ROP及其它眼底病）'
+        },
+        {
+            'id': 'C.3', // postive
+            'text': '异常（有ROP或其它眼底病）'
+        },
+    */
+    bool UPLOAD2OSS = true; // whether upload to OSS at the same times
+    var LABELCODE = "C.3";
+    bool LOCALDISK = true; // whether use server local folder or web site folder
+
+    var path = LOCALDISK? GlobalSetting.LabelSampleDir: Server.MapPath(GlobalSetting.LabelSampleDir);
+
+    if (Directory.Exists(path) == false)
+    {
+        <p>Folder @path does NOT exist. Configure the folder path by the LabelSampleDir node in the config file.</p>
+        return;
+    }
+
+    <h4>Seed from @path</h4>
+    var db = new GalleryContainer();
+
+#if false
+    db.Database.ExecuteSqlCommand("delete from ImageSet");
+    db.SaveChanges();
+#endif
+
+    // OSS client 
+    // Open 80 port Inbound & Outbound rules on the firewall setting
+    OssClient client = new OssClient(GlobalSetting.OSSEndpoint, GlobalSetting.OSSAccessKeyId, GlobalSetting.OSSAccessKeySecret);
+    // OssClient client = new OssClient(GlobalSetting.OSSEndpoint, "LTAIPglyHzHlHFTh", "XOs1U7ILM9rrc0IgvQ6qXzQDXnlfP0");
+
+    int skipped = 0;
+    string[] extensions = { ".jpg", ".jpeg", ".png", ".bmp", ".gif" };
+    var files = new DirectoryInfo(path).EnumerateFiles("*.*", SearchOption.AllDirectories)
+        .Where(f => extensions.Any(ext => ext == Path.GetExtension(f.FullName).ToLower()));
+    foreach (var file in files)
+    {
+        db = new GalleryContainer();
+
+        if (db.ImageSet.Any(x=>x.ImageFileName == file.Name))
+        {
+            skipped++;
+            continue;
+        }
+
+        var image = new Image();
+        image.ImageFileName = file.Name;
+        image.ImageFilePath = file.FullName;
+        image.Annotation = string.Empty;
+        image.Deleted = false;
+        // image.TimeStamp = DateTime.Now;
+        image.Editor = this.GetType().Name;
+        image.LabelCode = LABELCODE; //new List<string> { "D001.P203", "D000", "D002.A001.S034", "D003", "D004.G003" }.OrderBy(x => RandomNumberHelper.GetRandomNumber()).First();
+        image.Label = TerminologyService.GetReadableStringFromDiagnosisCode(image.LabelCode);
+        image.Name = string.Empty;
+        image.Link = GlobalSetting.LabelSampleDir + file.Name;
+        image.Thumbnail = ImageBase64Convertor.GetDataURLForImageThumbnail(file.FullName, 90, 60);
+        image.CheckSum = ImageHelper.GetMD5(file.FullName);
+
+        if (UPLOAD2OSS)
+        {
+            var metadata = new ObjectMetadata();
+            metadata.ContentLength = file.Length;
+            metadata.ContentType = MIMEMapper.GetMimeMapping(file.Name);
+            metadata.CacheControl = "private";
+            client.PutObject(GlobalSetting.OSSBucket, GlobalSetting.OSSFolder + "/" + file.Name, file.FullName, metadata);
+
+            image.Link = GlobalSetting.OSSPublicUrl + GlobalSetting.OSSFolder + "/" + file.Name;
+        }
+
+        db.ImageSet.Add(image);
+        db.SaveChanges();
+    }
+
+    <p>Complete @@ @DateTime.Now. @files.Count() files have been imported. @skipped files are skipped.</p>
+    <p>Preset Label Code is @LABELCODE (@TerminologyService.GetReadableStringFromDiagnosisCode(LABELCODE))</p>
+    <p>Use System.App.Web.TraineR.Tool.Label to generate a qualified image set.</p>
+}*@

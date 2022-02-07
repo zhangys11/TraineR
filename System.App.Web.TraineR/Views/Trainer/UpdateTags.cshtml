@@ -1,0 +1,20 @@
+﻿@using System.App.Model.Enums
+@using System.App.Utility.Helpers
+@using Aliyun.OSS
+@using System.IO
+@using System.App.Web.TraineR.Models.Domain
+@using Newtonsoft.Json
+@using System.App.Web.TraineR.Services
+
+@{
+    ViewBag.Title = "更新tag字段";
+}
+
+@{
+    var db = new NewbornContainer();
+    foreach(var img in db.Image.Where(x=>x.Tag09 == true))
+    {
+        img.Tag08 = true;
+    }
+    db.SaveChanges();
+}

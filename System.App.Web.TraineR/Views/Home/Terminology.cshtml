@@ -1,0 +1,290 @@
+﻿@using System.App.Model.Resources
+@using System.App.Web.TraineR.Models.Domain
+@using System.App.Model.Enums
+@using System.App.Utility.Helpers
+
+<script>
+    $(document).ready(function () {
+        $("#tabs").tabs();
+    });
+</script>
+
+<h3>ROP_MST (Retinopathy of Prematurity Minimal Standard Terminology)</h3>
+
+ <div id="tabs">
+    <ul>
+        <li><a href="#fragment-1"><span>@Resource.Terminology</span></a></li>
+        <li><a href="#fragment-2"><span>@Resource.Application</span></a></li>        
+    </ul>
+          
+    <div id="fragment-1" class="row">
+        <div class="row">
+            @{
+                var db = new NewbornContainer();
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4>Introduction</h4>
+                        <p>
+                            A terminology (or coding system) is a formal set of controlled vocabulary in a specific domain.
+                            With a well-defined terminology, each concept in the target domain is assigned with a unique code,
+                            which can be identified and processed across different medical systems in an unambiguously way.
+                            ROP_MST (Retinopathy of Prematurity Minimal Standard Terminology) is designed for the Telemed-R project,
+                            in order to provide highly-structured and semantic-rich clinical data.
+                        </p>
+
+                        <h4>Publication</h4>
+                        <div class="alert alert-info">
+                           A domain-specific terminology for retinopathy of prematurity and its applications in clinical settings[J]. Journal of Healthcare Engineering. 2018 (2018), Article ID 9237319, 6 pages，DOI：10.1155/2018/9237319
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <h4>Upper Ontology</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>English</th>
+                                    <th>Chinese</th>
+                                    <th>Japanese</th>
+                                    <th>@Resource.Code</th>
+                                    <th>@Resource.CodingSystem</th>
+                                    <th>Code in 3rd-party terminology</th>
+                                    <th>3rd-party terminology</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var x in db.Concept.Where(y => y.Code.Length <= 2))
+                                {
+                                    <tr>
+                                        <td>@x.Name</td>
+                                        <td>@x.Alias1</td>
+                                        <td>@x.Alias2</td>
+                                        <td>@x.Code</td>
+                                        <td>@x.CodingSystem</td>
+                                        <td>@x.Code1</td>
+                                        <td>@x.CodingSystem1</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <p>Some types of common concepts/terms that are available in other existing terminologies are not included</p>
+                    </div>
+                </div>
+
+
+                foreach (var h in db.Concept.Where(y => y.Code.Length <= 2))
+                {
+                    var list = db.Concept.ToList().Where(z => z.Code.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries).Any(y => y.StartsWith(h.Code)));
+                    if (h.Code == "T") // distinguish T from TM
+                    {
+                        list = list.Where(x => x.Code.StartsWith("TM") == false);
+                    }
+                    <div class="col-lg-6">
+                        <h4>@h.Name @h.Alias1 @h.Alias2 @h.Code</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>English</th>
+                                    <th>Chinese</th>
+                                    <th>Japanese</th>
+                                    <th>@Resource.Code</th>
+                                    <th>@Resource.CodingSystem</th>
+                                    <th>Code in 3rd-party terminology</th>
+                                    <th>3rd-party terminology</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var x in list)
+                                {
+                                    <tr>
+                                        <td>@x.Name</td>
+                                        <td>@x.Alias1</td>
+                                        <td>@x.Alias2</td>
+                                        <td>@x.Code</td>
+                                        <td>@x.CodingSystem</td>
+                                        <td>@x.Code1</td>
+                                        <td>@x.CodingSystem1</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+     <div id="fragment-2">
+         <div id="accordion" class="panel-group">
+             <div class="panel panel-default">
+                 <div class="panel-heading">
+                     <h4 class="panel-title">
+                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Structed Data Entry (click to expand)</a>
+                     </h4>
+                 </div>
+
+                 <div id="collapseOne" class="panel-collapse collapse">
+                     <div class="panel-body">
+                         <div class="col-lg-3">
+                             <img src="~/assets/Diagnosis SDE in CMS-R.png" width="240" />
+                         </div>
+                         <div>
+                             A basic usage of ROP_MST in CMS-R is Structed Data Entry (SDE), which ensures highly-structured and semantic-rich clinical data
+                             for ROP-related applications. The diagnostic tree is arranged by terms’ conceptual hierarchy.
+                             Users can click the triangle icon to expand or collapse branches. When user clicks a child node,
+                             all parent nodes along its path will also be selected
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+             <div class="panel panel-default">
+                 <div class="panel-heading">
+                     <h4 class="panel-title">
+                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Fundus Image Labelling (click to expand)</a>
+                     </h4>
+                 </div>
+
+                 <div id="collapseTwo" class="panel-collapse collapse">
+                     <div class="panel-body">
+                         <div>
+                             <img src="~/assets/Labeling Tool in Label_R.png" width="1000" />
+                             <p>
+                                 LabelR (Labeling Tool for ROP, http://label.brahma.top) allows user to assign multiple unambiguous and fine-grained diagnostic labels from ROP_MST
+                                 to each fundus image. The labeled images are used to train DNNs (Deep Neural Network) in telemed-R for computer-aided diagnosis.
+                             </p>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+</div>
+
+<p><i>* Last Update: 2021/06/19</i></p>
+
+@*@{ 
+    db = new NewbornContainer();
+
+    // Seed concepts from existing dicts
+    foreach (var x in db.Dict_Anatomy)
+    {
+        var c = new Concept();
+        TypeHelper.CloneByReflection<Concept, Dict_Anatomy>(c, x, true);
+        db.Concept.Add(c);
+    }
+    db.SaveChanges();
+}*@
+
+@*@{
+        // Seed topmost concepts
+        var db = new NewbornContainer();
+        db.Database.ExecuteSqlCommand("delete from Concept");
+        db.Concept.Add(new Concept()
+        {
+            Name = "Laterality",
+            Code = "L",
+            Alias1 = "眼别",
+            Alias2 = "目の左右差",
+            Alias5 = "e.g. OS, OD, OU",
+            CodingSystem = "ROP_MST",
+        });
+        db.Concept.Add(new Concept()
+        {
+            Name = "Time",
+            Code = "TM",
+            Alias1 = "时间",
+            Alias2 = "時間",
+            Alias5 = "e.g. 年, 月, 日, 周",
+            CodingSystem = "ROP_MST",
+        });
+        db.Concept.Add(new Concept()
+        {
+            Name = "Diagnosis",
+            Code = "D",
+            Alias1 = "诊断",
+            Alias2 = "診断",
+            Alias5 = "e.g. ROP Zone II Stage 3, Threshold ROP, ARROP",
+            CodingSystem = "ROP_MST",
+        });
+        db.Concept.Add(new Concept()
+        {
+            Name = "Treatment",
+            Code = "T",
+            Alias1 = "治疗",
+            Alias2 = "治療",
+            Alias5 = "e.g. Laser photocoagulation, Intravitreal injection, Vitreoretinal surgery",
+            CodingSystem = "ROP_MST",
+        });
+        db.Concept.Add(new Concept()
+        {
+            Name = "Examination",
+            Code = "E",
+            Alias1 = "检查",
+            Alias2 = "検査",
+            Alias5 = "e.g. Binocular indirect endoscopic, RetCam",
+            CodingSystem = "ROP_MST",
+        });
+        db.Concept.Add(new Concept()
+        {
+            Name = "Body Part (Anatomy)",
+            Code = "B",
+            Alias1 = "人体解剖学",
+            Alias2 = "解剖学的構造",
+            Alias5 = "e.g. Posterior pole, Peripheral retina, Blood",
+            CodingSystem = "ROP_MST",
+        });
+        db.Concept.Add(new Concept()
+        {
+            Name = "Acute ROP Stage",
+            Code = "S",
+            Alias1 = "急性ROP分期",
+            Alias2 = "急性のROP ステージ",
+            Alias5 = "e.g. Stage 1/2/3/4/5",
+            CodingSystem = "ROP_MST",
+        });
+        db.Concept.Add(new Concept()
+        {
+            Name = "Acute ROP Zone",
+            Code = "Z",
+            Alias1 = "急性ROP分区",
+            Alias2 = "急性のROP ゾーン",
+            Alias5 = "e.g. Zone I/II/III",
+            CodingSystem = "ROP_MST",
+        });
+
+        // Seed concepts from existing dicts
+        foreach(var x in db.Dict_Diagnosis)
+        {
+            var c = new Concept();
+            TypeHelper.CloneByReflection<Concept, Dict_Diagnosis>(c, x, true);
+            db.Concept.Add(c);
+        }
+
+        foreach (var x in db.Dict_Procedure)
+        {
+            var c = new Concept();
+            TypeHelper.CloneByReflection<Concept, Dict_Procedure>(c, x, true);
+            db.Concept.Add(c);
+        }
+
+        foreach (var x in db.Dict_ExaminationMethod)
+        {
+            var c = new Concept();
+            TypeHelper.CloneByReflection<Concept, Dict_ExaminationMethod>(c, x, true);
+            db.Concept.Add(c);
+        }
+
+        db.SaveChanges();
+
+        foreach (var x in db.Concept)
+        {
+            if (string.IsNullOrWhiteSpace(x.Alias1))
+            {
+                x.Alias1 = x.Name;
+            }
+        }
+
+        db.SaveChanges();
+    }*@

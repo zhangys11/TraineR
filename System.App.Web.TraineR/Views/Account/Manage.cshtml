@@ -1,0 +1,44 @@
+﻿@using System.App.Model.Resources
+@using System.App.Model.Enums;
+
+@{
+    ViewBag.Title = Resource.Manage;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (string.IsNullOrEmpty(ViewBag.Message) == false)
+{
+    <div class="alert alert-info">
+        <span class="fa fa-info-circle"></span>
+        @ViewBag.Message
+    </div>
+}
+
+<div>
+    <h4>@Resource.ChangeAccountSettings</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dd>
+            [ @Html.ActionLink(Resource.ChangePassword, "ChangePassword", "Account") ]
+        </dd>
+
+        @if (Request.IsAuthenticated)
+        {
+            <dd>
+                @Resource.Roles [@(Roles.GetRolesForUser(User.Identity.Name).Aggregate((x, y) => x + "," + y))]
+            </dd>
+        }
+
+        @if (Request.IsAuthenticated && User.IsInRole("root"))
+        {
+            <dd>
+                [ @Html.ActionLink(Resource.Create, "Register", "Account") ]
+            </dd>
+        }
+
+        <dd>
+            [ <a href="/">@Resource.ReturnHome</a> ]
+        </dd>
+    </dl>
+</div>

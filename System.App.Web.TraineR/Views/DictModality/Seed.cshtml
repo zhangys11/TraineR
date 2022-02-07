@@ -1,0 +1,42 @@
+﻿@using System.App.Model.Resources
+@using System.App.Web.TraineR.Models.Domain
+@using System.App.Model.Enums
+@using System.App.Utility.Helpers
+
+<h4>@Resource.Modality @Resource.Seed</h4>
+
+@{ 
+    var modalities = @"
+                    <option>验光</option>
+                    <option>角膜地形图</option>
+                    <option>眼底彩照</option>
+                    <option>OCT</option>
+                    <option>人工晶体度数测量</option>
+                    <option>眼外观照</option>
+                    <option>RetCam照相</option>
+                    <option>RetCam2</option>
+                    <option>RetCam3</option>
+                    <option>荧光造影</option>
+                    <option>VEP</option>
+                    <option>B超</option>
+                    <option>ERG</option>
+                    <option>检查报告扫描</option>
+".Split(new string[] { "<option>", "</option>", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries)
+            .ToList().Select(x => x.Trim());
+
+    var db = new NewbornContainer();
+    db.Database.ExecuteSqlCommand("delete from Dict_Modality");
+    foreach (var item in modalities)
+    {
+        db.Dict_Modality.Add(new Dict_Modality()
+        {
+            Name = item,
+            Code = InputCodeGenerator.GetInputCode(item),
+            CodingSystem = "拼音码"
+        });
+
+        <p>@item</p>
+    }
+    db.SaveChanges();
+    db.Dispose();
+}

@@ -1,0 +1,79 @@
+﻿@using System.App.Model.Enums
+@using System.App.Utility.Helpers
+@using Aliyun.OSS
+@using System.IO
+@using System.App.Web.TraineR.Models.Domain
+
+@{
+    ViewBag.Title = "Image的类型选择不准确，根据DL分类器结果校准";
+}
+
+<p>@ViewBag.Title</p>
+
+@{
+
+    //
+    // Non-fundus
+
+    var dir = @"C:\Users\eleve\Documents\codex\cs\System.App.Web.ROP2\Upload\Image";
+    var lst = Directory.GetFiles(dir, "*.*", SearchOption.TopDirectoryOnly).ToList();
+    foreach (var f in lst)
+    {
+        var fname = Path.GetFileName(f);
+        var db = new NewbornContainer();
+        var img = db.Image.FirstOrDefault(x => x.ImageFilePath.Contains(fname));
+        if (img != null)
+        {
+            if (img.Name == "眼底彩照" || (img.Name!= null && img.Name.Contains("RetCam")))
+            {
+                img.Name = string.Empty;
+            }
+
+            if (string.IsNullOrEmpty(img.Thumbnail))
+            {
+                img.Thumbnail = Base64Convertor.GetDataURLForImageThumbnail(
+                    f, 90, 60);
+            }
+
+            // db.Entry(img).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            db.Dispose();
+        }
+    }
+
+
+    //
+    // Fundus
+
+    dir = @"C:\Users\eleve\Documents\codex\cs\System.App.Web.ROP2\Upload\Fundus";
+    lst = Directory.GetFiles(dir, "*.*", SearchOption.TopDirectoryOnly).ToList();
+    foreach (var f in lst)
+    {
+        var fname = Path.GetFileName(f);
+        var db = new NewbornContainer();
+        var img = db.Image.FirstOrDefault(x => x.ImageFilePath.Contains(fname));
+        if (img != null)
+        {
+            if (img.Name == "眼底彩照" || img.Name.Contains("RetCam"))
+            {
+                // skip
+            }
+            else
+            {
+                img.Name = "眼底彩照";
+            }
+
+            if (string.IsNullOrEmpty(img.Thumbnail))
+            {
+                img.Thumbnail = Base64Convertor.GetDataURLForImageThumbnail(
+                    f, 90, 60);
+            }
+
+            db.Entry(img).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            db.Dispose();
+        }
+    }
+
+}
+

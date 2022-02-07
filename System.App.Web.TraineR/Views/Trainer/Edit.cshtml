@@ -1,0 +1,40 @@
+@using System.App.Model.Resources
+@using System.App.Web.TraineR.Models.Domain
+
+@model Image
+
+@{
+    ViewBag.Title = Resource.Edit;
+    bool showAll = false;
+    if (ViewBag.ShowAll == true)
+    {
+        showAll = true;
+    }
+}
+
+<div class="col-md-3">
+    @{Html.RenderAction("List", new { showAll = showAll });}
+</div>
+
+<div id="image-view" class="col-md-9">
+    @{
+        if (Model == null)
+        {
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <br/><br/>
+                    <h5>Click an image to start labelling!</h5>
+                </div>
+            </div>
+        }
+        else
+        {
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    editImage('@Model.Id')
+                });
+            </script>
+        }
+    }
+</div>
+

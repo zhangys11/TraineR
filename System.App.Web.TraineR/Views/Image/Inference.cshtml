@@ -1,0 +1,97 @@
+﻿@using System.App.Model.Enums
+@using System.App.Model.Consts
+@using System.App.Model.Resources
+@using System.App.Web.TraineR.Models.Domain
+@using Newtonsoft.Json
+
+@{
+    int OFFSET = (int)ViewBag.Offset;
+    int CNT = (int)ViewBag.Count;
+
+    var HOST = "http://rop.brahma.pub/";
+    var db = new NewbornContainer();
+    float[] CUTOFFS = { 0.3F, 0.6F }; //0.2F,0.3F, 0.4F,0.5F,0.6F
+
+    <p>每个病例标定最多1张（分类错误最严重的）</p>
+
+    using (Html.BeginForm("InferenceFeedback", "Image", FormMethod.Post, new { id = "case-edit-form" }))
+    {
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>@Resource.FilePath</th>
+                <th>@Resource.Image (点击显示大图)</th>
+                <th>@Resource.Probability @Resource.Prediction [Normal, ROP Stage 1~2, ROP Stage 3~4]</th>
+                @foreach (var cut in CUTOFFS)
+                {
+                    <th>二分类(阈值 @cut)</th>
+                }
+                <th>@Resource.Review *若分类明显错误，需人工标注 (0: normal, 1-5: ROP Stage 1-5)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var img in db.FundusImageQuery.Where(x=>x.Inference1!=null && x.Inference1!="").OrderBy(x => x.Id).
+        Skip(OFFSET).Take(CNT)) //.Where(x=>x.Inference1 == null
+            {
+                img.Type = ""; // not typical fundus
+            <tr>
+                <td>
+                    <a href="@(HOST + img.URL)" target="_blank">
+                        @img.ImageFilePath
+                    </a>                    
+                </td>
+                <td>
+                    <a href="@(HOST + img.URL)" target="_blank">
+                        <img src="@img.ThumbnailForView" />
+                    </a>
+                </td>
+                <td>
+                    @img.Inference1
+                    @if (img.Inference2 != null)
+                    {
+                        <br/>
+                        @img.Inference2
+                    }
+                </td>
+                @if (img.Inference1 != null)
+                {
+                    var pn1 = float.Parse(img.Inference1.Replace("[", "")
+                        .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0]);
+
+                    foreach (var cut in CUTOFFS)
+                    {
+                        <td>
+                            @(pn1 > cut ? "Normal" : "ROP")
+                            @if (img.Inference2 != null)
+                            {                                
+                                var pn2 = float.Parse(img.Inference2.Replace("[", "")
+                                .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0]);
+                                <br />
+                                @(pn2 > cut ? "Normal" : "ROP")            
+                            }
+                        </td>
+                    }
+                    <td>
+                        <select id="@img.Name" name="@img.Name">
+                            <option value="" selected="selected"></option>
+                            <option value="0">Normal</option>
+                            <option value="1">Stage1</option>
+                            <option value="2">Stage2</option>
+                            <option value="3">Stage3</option>
+                            <option value="4">Stage4</option>
+                            <option value="5">Stage5</option>
+                        </select>
+                        <script>
+                            $('#@img.Name').val(@img.GroundTruth1);
+                        </script>
+                    </td>
+                }
+            </tr>
+
+                // db.SaveChanges();
+            }
+        </tbody>
+    </table>
+    <input type="submit" value="@Resource.Submit @Resource.Feedback" />
+    }
+}

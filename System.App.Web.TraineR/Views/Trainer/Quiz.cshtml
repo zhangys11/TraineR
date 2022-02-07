@@ -1,0 +1,158 @@
+﻿@using System.App.Model.Resources
+@using System.App.Utility.Helpers
+@using System.App.Web.TraineR.Models.Domain
+@using System.App.Model.Enums
+@using System.App.Web.TraineR.Services
+
+@model List<Image>
+
+@{ 
+    string labelcode = ViewBag.LabelCode;
+    var db = new NewbornContainer();
+
+    int i = 0;
+    List<string> candidates = null;
+    int N_OPTIONS = 6;
+    var rnd = new Random();
+
+    var token = XorEncryptor.Encrypt(DateTime.Now.ToString("yyyyMMdd"));
+}
+
+@if (string.IsNullOrWhiteSpace(labelcode) == false)
+{
+    <div class="container row">        
+        <h4>
+            @TerminologyService.GetReadableStringFromDiagnosisCode(labelcode)
+            <i class="badge">@labelcode</i>
+        </h4>
+    </div>
+}
+else
+{
+    candidates = ViewBag.Candidates;
+
+    <div class="container row">
+        <div class="pull-right">
+            <a id="new_quiz" class="btn btn-success btn-lg answer hidden"
+               href="@Url.Action("QuizInner", "Trainer", new { token = token })">@Resource.StartNewQuiz</a>
+
+            <input type="button" class="btn btn-default btn-lg"
+                   value="@Resource.Submit/@Resource.ShowAnswer"
+                   onclick="if (confirm('Are you sure to submit?')) { $('.answer').removeClass('hidden'); }" />
+
+            <span class="countdown" style="font-size:160%">
+            </span>
+            <script>
+            var timer2 = "@Model.Count:01";
+            var interval = setInterval(function () {
+                var timer = timer2.split(':');
+                //by parsing integer, I avoid all extra string processing
+                var minutes = parseInt(timer[0], 10);
+                var seconds = parseInt(timer[1], 10);
+                --seconds;
+                minutes = (seconds < 0) ? --minutes : minutes;
+                if (minutes < 0) clearInterval(interval);
+                seconds = (seconds < 0) ? 59 : seconds;
+                seconds = (seconds < 10) ? '0' + seconds : seconds;
+                //minutes = (minutes < 10) ?  minutes : minutes;
+                $('.countdown').html(minutes + ':' + seconds);
+                timer2 = minutes + ':' + seconds;
+            }, 1000);
+            </script>
+        </div>
+
+        <h4><b class="badge">@Resource.TestTime @(Model.Count) @Resource.Minute</b></h4>
+    </div>
+}
+
+
+<div class="row">
+    <!-- 轮播（Carousel）导航 -->
+    <a class="left btn btn-lg" href="#carousel_quiz" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span>@Resource.Previous</span>
+    </a>
+    <a class="right btn btn-lg pull-right" href="#carousel_quiz" role="button" data-slide="next">
+        <span>@Resource.Next</span>
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    </a>
+</div>
+
+<div class="carousel" id="carousel_quiz" data-interval="600000">
+    <div class="carousel-inner">
+        @foreach (var x in Model)
+        {
+            i++;
+        <div class="form-group item" style="border-style:dotted; border-width:thin; padding: 3px;">
+            <h5># @i [@x.Id]</h5>
+            <a href="@x.URL" target="_blank">
+                <img src="@x.URL" style="width: 100%" />
+            </a>
+
+            @if (string.IsNullOrWhiteSpace(labelcode))
+            {
+                <i>@Resource.SelectYourDiagnosis：</i>
+                <select id="@x.Id" name="@x.Id" class="form-control">
+                    <option value="">@Resource.PleaseSelect...</option>
+                    @{
+                        char cap = 'A';
+                        var terms = candidates.Where(y => y != x.LabelCode).Take(N_OPTIONS - 1).ToList();
+                        terms.Add(x.LabelCode);
+                        terms = terms.OrderBy(z => rnd.Next()).ToList(); // shuffle
+
+                        foreach (var t in terms)
+                        {
+                            <option value="@t">@cap @TerminologyService.GetReadableStringFromDiagnosisCode(t)</option>
+                            cap = (char)((int)cap + 1);
+                        }
+                    }
+                </select>
+
+                <p class="answer hidden">
+                    <span style="color: green">
+                        @Resource.CorrectAnswer: <b>@x.Label</b>
+                        <br />
+                        @x.Comment
+                    </span>
+                    &nbsp;&nbsp;
+                    <span style="color: red">
+                        <a style="color: red;" target="_blank" href="@Url.Action("Edit", "Trainer", new { id = x.Id })">[@Resource.ReportError]</a>
+                    </span>
+                </p>
+            }
+            else
+            {
+                <p>
+                    <span style="color: green">
+                        <b>@x.Label</b>
+                        <br />
+                        @x.Comment
+                    </span>
+                    &nbsp;&nbsp;
+                    <span style="color: red">
+                        <a style="color: red;" target="_blank" href="@Url.Action("Edit", "Trainer", new { id = x.Id })">[@Resource.ReportError]</a>
+                    </span>
+                </p>
+            }
+        </div>
+        }
+    </div>
+
+    <div>
+        <!-- 轮播（Carousel）导航 -->
+        <a class="left btn btn-lg" href="#carousel_quiz" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span>@Resource.Previous</span>
+        </a>
+        <a class="right btn btn-lg pull-right" href="#carousel_quiz" role="button" data-slide="next">
+            <span>@Resource.Next</span>
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </a>
+    </div>
+</div>
+
+<script>
+    $('.carousel-inner :first-child').addClass('active');
+</script>
+
+<p class="hidden">Leave your email to receive the quiz report.</p>

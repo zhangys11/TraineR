@@ -1,0 +1,35 @@
+﻿@using System.App.Model.Resources
+@using System.App.Web.TraineR.Models.Domain
+@using System.App.Model.Enums
+@using System.App.Utility.Helpers
+
+<h4>@Resource.DictExam @Resource.Seed</h4>
+
+@{ 
+    var exams = @"
+眼底照相
+眼底照相(鹦鹉螺照相)
+眼底照相(RetCam照相)
+双目间接镜
+SLO
+全麻下眼底检查
+眼底照相,双目间接镜
+眼底照相(鹦鹉螺照相),双目间接镜
+眼底照相(RetCam照相),双目间接镜
+".Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+            .ToList().Select(x => x.Trim());
+
+    var db = new NewbornContainer();
+    db.Database.ExecuteSqlCommand("delete from Dict_ExaminationMethod");
+    foreach (var item in exams)
+    {
+        db.Dict_ExaminationMethod.Add(new Dict_ExaminationMethod()
+        {
+            Name = item,
+            Code = InputCodeGenerator.GetInputCode(item),
+            CodingSystem = "拼音码"
+        });
+    }
+    db.SaveChanges();
+    db.Dispose();
+}

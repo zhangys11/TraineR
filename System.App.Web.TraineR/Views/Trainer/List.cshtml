@@ -1,0 +1,116 @@
+﻿<script type="text/javascript">
+    function editImage(id) {
+
+        $.blockUI({ message: '<h4>' + '@Resource.Loading' + '</h4>', fadeIn: 0 });
+
+        $.ajax({
+            url: '@Url.Action("ImageView")',
+            data: { id: id },
+            type: 'GET',
+            async: true, // wait until ajax returns
+            cache: false,
+            timeout: 10000
+            //dataType: 'json'
+        }).done(function (data) {
+            $("#image-view").html(data);
+            $.unblockUI();
+        });
+    }
+
+    $(document).ready(function () {
+
+        var columns = [
+            { "bVisible": false },
+            {
+                "render": function (data, type, row) {
+                    var a = '<img style="cursor:pointer" title="' + row[4] + '" onclick="editImage(\'' + row[0] + '\');" src="' + row[7] + '" alt="thumb" />';
+                    return a;
+                }
+            }, // thumbnail
+            {
+                "render": function (data, type, row) {
+                    var a = '<span title="' + data + '">' + row[3] + '</span>';
+                    return a;
+                }
+            }, // label
+            //{
+            //    "render": function (data, type, row) {
+            //        var a = '<span title="@Resource.Editor：' + row[9] + '">' + row[8] + '</span>';
+            //        return a;
+            //    }
+            //}, // timestamp
+        ];
+
+        @*var url = "@Url.Action("SubsetImageTableAjaxHandler")";
+        @if (ViewBag.ShowAll == true)
+        {
+            <text>
+            url = "@Url.Action("FullsetImageTableAjaxHandler")";
+            </text>
+        }*@
+        var url = "@Url.Action("FullsetImageTableAjaxHandler")"; // Now we always show all images used in quiz.
+
+        $('#thumbnail_list').dataTable({
+            "sPaginationType": "simple", // "full_numbers",
+            "bJQueryUI": false, /* whether use JQueryUI style */
+            "bServerSide": true,
+            "sAjaxSource": url,
+            "bProcessing": true,
+            "aLengthMenu": [[10, 15, 25, 50, 100, 200, -1], [10, 15, 25, 50, 100, 200, "All"]],
+            // "iDisplayLength": 15,
+            // "bAutoWidth": false,
+            "bSort": false, /* disable sorting */
+            "bRetrieve": true,
+            // SAVE STATE, so that users can come back to their previous workspace
+            "bStateSave": true,
+            "fnStateSave": function (oSettings, oData) {
+                localStorage.setItem('DataTables_' + window.location.pathname, JSON.stringify(oData));
+            },
+            "fnStateLoad": function (oSettings) {
+                var data = localStorage.getItem('DataTables_' + window.location.pathname);
+                return JSON.parse(data);
+            },
+            // "bDestroy": true,
+            "columns": columns
+        });
+
+        //
+        // uncomment to enable search
+        //$('.dataTables_filter').remove();
+
+        //$('.dataTables_filter input[type="search"]').
+        //    attr('placeholder', '检索诊断').
+        //    css({ 'width': '120px', 'display': 'inline-block' });
+
+        //
+        // Fix the overlapping problem
+        $('#thumbnail_list_filter').css("text-align", "left");
+        $('#thumbnail_list_filter').parent().removeClass("col-sm-6").addClass("col-sm-12");
+        $('#thumbnail_list_paginate').parent().removeClass("col-sm-7").addClass("col-sm-12");
+    });
+</script> 
+
+<style>
+    #thumbnail_list > tbody > tr > td:first-child {
+        padding: 0px !important;
+    }
+    /*#thumbnail_list > tbody > tr > td:nth-child(2) {
+        font-size: 70%;
+    }*/
+</style>
+
+<div>
+    <br/>
+    <table id="thumbnail_list" class="table table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>@Resource.Image</th>
+                <th>@Resource.Label</th>
+                @*<th>Time</th>*@
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>

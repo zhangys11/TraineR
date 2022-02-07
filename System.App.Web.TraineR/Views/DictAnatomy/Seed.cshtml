@@ -1,0 +1,85 @@
+﻿@using System.App.Model.Resources
+@using System.App.Web.TraineR.Models.Domain
+@using System.App.Model.Enums
+@using System.App.Utility.Helpers
+
+<h4>@Resource.Anatomy</h4>
+
+@{
+    var lines = @"Fovea
+Macula
+OpticDisk
+Stage 1: demarcation line
+Stage 2: ridge
+Stage 3: ridge with neovascularization
+bleeding
+artifact
+carcinoma
+Laser Photocoagulation Spot
+proliferation
+Retina detachment".Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+    var db = new NewbornContainer();
+    db.Database.ExecuteSqlCommand("delete from Dict_Anatomy");
+
+    db.Dict_Anatomy.Add(new Dict_Anatomy()
+    {
+        Code = "A.R",
+        Name = "Region of Interest",
+        CodingSystem = "ROP_MST"
+    });
+
+    int index = 1;
+    var code = string.Empty;
+    var text = string.Empty;
+
+    <table class="table table-striped">
+        @foreach (var line in lines)
+        {
+            code = "A.R" + index.ToString("000");
+            text = line.Trim();
+            <tr>
+                <td>@code</td>
+                <td>@text</td>
+            </tr>
+            db.Dict_Anatomy.Add(new Dict_Anatomy() {
+                Code = code,
+                Name = text,
+                CodingSystem = "ROP_MST"
+            });
+
+            index++;
+        }
+    </table>
+
+    db.Dict_Anatomy.Add(new Dict_Anatomy()
+    {
+        Code = "A.L",
+        Name = "Eye Laterality",
+        CodingSystem = "ROP_MST"
+    });
+
+    db.Dict_Anatomy.Add(new Dict_Anatomy()
+    {
+        Code = "A.L001",
+        Name = "OD",
+        CodingSystem = "ROP_MST"
+    });
+
+    db.Dict_Anatomy.Add(new Dict_Anatomy()
+    {
+        Code = "A.L002",
+        Name = "OS",
+        CodingSystem = "ROP_MST"
+    });
+
+    db.Dict_Anatomy.Add(new Dict_Anatomy()
+    {
+        Code = "A.L003",
+        Name = "OU",
+        CodingSystem = "ROP_MST"
+    });
+
+    db.SaveChanges();
+    db.Dispose();
+}

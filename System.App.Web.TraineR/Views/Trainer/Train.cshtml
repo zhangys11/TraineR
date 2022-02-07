@@ -1,0 +1,55 @@
+﻿@using System.App.Model.Resources
+@using System.App.Utility.Helpers
+@using System.App.Web.TraineR.Models.Domain
+@using System.App.Model.Enums
+@using System.App.Web.TraineR.Services
+
+@{ 
+    var db = new NewbornContainer();
+    var token = XorEncryptor.Encrypt(DateTime.Now.ToString("yyyyMMdd"));
+}
+
+<br/>
+
+<div class="row">
+    <div class="col-md-3 col-lg-2 col-sm-6 col-xs-12 center-block text-center"
+         style="border-style: dotted; border-width: thin"
+         align="center">
+        <h5>
+            <b>
+                TraineR - ROP阅片及培训系统
+            </b>
+        </h5>
+        <p>
+            点击下面“测试”按钮进入测试 或 按病种浏览示例图片。
+        </p>
+        <p>
+            @Html.ActionLink(Resource.Quiz, "QuizInner", new { token = token }, new { @class = "btn btn-danger" })
+        </p>
+    </div>
+</div>
+
+<br/>
+
+<div class="row">
+    @{        
+        var grps = db.FundusImageForQuizQuery.GroupBy(x => x.LabelCode, (k, v) => new { key = k, a = v.Select(y => y.Id), c = v.Count() }).ToList();
+        foreach (var g in grps)
+        {
+            <div class="col-md-3 col-lg-2 col-sm-6 col-xs-12 center-block text-center"
+                 style="border-style: dotted; border-width: thin"
+                 align="center">
+                <h5 title="@g.key">
+                    @TerminologyService.GetReadableStringFromDiagnosisCode(g.key)
+                    <span class="badge">图片数量：@g.c</span>
+                </h5>
+                <h5>@g.key</h5>
+
+                <p>
+                    @Html.ActionLink(Resource.View, "QuizInner", new { labelcode = g.key, token = token }, new { @class = "btn btn-success" })
+                </p>
+            </div>
+        }
+    }
+</div>
+

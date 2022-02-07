@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = Resource.About;
+}
+
+<script type="text/javascript">
+    function getc()
+    {
+        alert(getHumanReadableRopTreatmentFromTreeView('#tree_treatment'));
+        return;
+    }
+
+    $(document).ready(function () {
+        createTreeviewForRopDiagnosis('#tree_diagnosis', 'D010.D106,D002.A001.Z002,D004,D004.G001,D004.G001.M001');
+        createTreeviewForRopTreatment('#tree_treatment', '', true);
+    });
+</script>
+
+<p>Diagnosis</p>
+<div id="tree_diagnosis"></div>
+<p>Treatment</p>
+<div id="tree_treatment"></div>
+
+<input type="button" value="Get Checked" onclick="getc();" />

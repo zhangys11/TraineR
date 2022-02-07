@@ -1,0 +1,77 @@
+﻿@using System.App.Model.Resources
+@using System.App.Model.Consts
+@using System.App.Model
+
+@model AccountViewModel
+
+@{
+    ViewBag.Title = Resource.LogOn;
+}
+
+
+<div class="container">
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="alert alert-info" style="font-style:italic">
+                    <span class="fa fa-info-circle"></span>
+                    *@Resource.ToolTip_DemoLogin
+                </div>
+                <div class="alert alert-info" style="font-style:italic">
+                    <span class="fa fa-info-circle"></span>
+                    *@Resource.ToolTip_UpdateVerificationCode
+                </div>
+                <div class="panel-heading">
+                    <h3 class="panel-title">@ViewBag.Title</h3>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.HiddenFor(u => u.Role)
+                        @Html.HiddenFor(u => u.Device)
+                        <fieldset>
+                            <div class="form-group">
+                                @Html.TextBoxFor(u => u.User, new { placeholder = Resource.UserName, @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                @Html.PasswordFor(u => u.Password, new { placeholder = Resource.Password, @class = "form-control" })
+                            </div>
+
+                            <div>
+                                <img style="width:100%; max-width: 300px; min-height: 100px" src="@Url.Action("RandomCode")"
+                                     title="@Resource.ClickToRefresh"
+                                     onclick="window.location.assign('@HttpContext.Current.Request.RawUrl');"
+                                     onmouseover="this.style.cursor='pointer';" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="code" id="code" , placeholder="@Resource.InputVerificationCode" class="form-control" />
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(u => u.RememberMe)
+                                    @Resource.RememberMe
+                                </label>
+                            </div>
+                            <input class="btn btn-lg btn-success btn-block" type="submit" value="@Resource.LogOn">
+                        </fieldset>
+                    }
+                </div>
+                <div class="panel-footer">
+                    <p class="text-danger">
+                        @Html.ValidationSummary()
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />

@@ -1,0 +1,48 @@
+/*
+    JS and/or CSS will not allow you to override the default page setup of the client's browser.
+
+    1. Print Style Sheets cannot solve your problem. 
+    Setting the margin on the body to 0px 0px 0px 0px is not the same thing as clicking File > Page Setup and setting all of your margins to 0. 
+    Despite what Print Style Sheeters would like you to believe, 
+    they are different.
+    2. Can you image if every page that you visited modified your local JS properties? 
+    To allow each page to have access to your local print setups would be a security breach, and is not allowed.     
+*/
+
+/*
+    A4 size in pixel
+    72 dpi (web) = 595 X 842 pixels
+*/
+
+@page {
+    size: 21cm 29.7cm;
+    margin: 10mm 20mm 10mm 10mm; /* change the margins as you want them to be. */
+}
+
+body {
+    height: 842px;
+    width: 595px;
+    /* to centre page on screen*/
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+pre {
+    font-size: smaller;
+    background-color: white;
+}
+
+input[type="text"] {
+    max-width: 100px;
+    border: none;
+    outline: none;
+    background: transparent;
+    border-bottom: 1px solid black;
+}
+
+img {
+    max-width: 200px;
+    height: auto;
+}
+

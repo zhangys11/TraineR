@@ -1,0 +1,65 @@
+﻿@using System.App.Model.Resources
+@using System.App.Model.Enums
+@using System.App.Model
+
+@model AccountViewModel
+
+@{
+    ViewBag.Title = Resource.Register;
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<script>
+    // add pre-submit validation logic here
+    function prepareSubmit() {
+
+        if ('@GlobalSetting.AlwaysAllowCreateAccount' == 'false')
+        {
+            alert('@Resource.Message_OperationForbidden');
+            return false;
+        }
+
+        @*if ($('#Password').val() != $('#ConfirmPassword').val()) {
+            alert('@Resource.Message_PasswordUnmatched');
+            return false;
+        }*@
+    }
+</script>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.Role)
+    @Html.HiddenFor(m => m.Device)
+
+    <h4>@Resource.CreateNewAccount</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.Label(Resource.UserNameOrEmail, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.User, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label(Resource.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label(Resource.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default btn-outline-secondary" onclick="return prepareSubmit();" value="@Resource.Register" />
+        </div>
+    </div>
+}
+
+<p class="text-danger">@ViewBag.Message</p>

@@ -1,0 +1,245 @@
+﻿@using System.App.Web.TraineR.Models.Domain
+@using System.App.Model.Enums
+
+@{Layout = "";}
+
+@model Image
+
+<style>
+    textarea {
+        min-height: 80px;
+        max-width: 100%;
+        resize: both;
+        overflow: auto;
+        width: 100%;
+    }
+</style>
+
+<script type="text/javascript">
+
+    function removeAllElements(array, elem) {
+        var index = array.indexOf(elem);
+        while (index > -1) {
+            array.splice(index, 1);
+            index = array.indexOf(elem);
+        }
+    }
+
+    function prepareSubmit() {
+        nodes = $('#LabelCodeTreeView').jstree(true).get_selected();
+        removeAllElements(nodes, "L");
+        removeAllElements(nodes, "D010"); // D010 for other diagnosis
+        code = nodes.join(",");
+        $("#LabelCode").val(code);
+        $.ajax({
+            url: '@Url.Action("GetReadableStringFromLabelCode")',
+            data: { code:  code },
+            type: 'GET',
+            async: false, // wait until ajax returns
+            cache: false,
+            timeout: 10000,
+            dataType: 'json'
+        }).done(function (data) {
+            $("#Label").val(data);
+        });
+
+        return true;
+    }
+
+    $(document).ready(function () {
+        $('#image-edit-form').ajaxForm(function (str) {
+            var data = JSON.parse(str);
+            if (data.length > 0) {
+                if (data[0] == ('@Resource.SaveSuccess')) {
+                    $('#edit-message').html('<span style="color:green">' + data[0] + ' ' + data[2] + '</span>');
+                    $('#Id').val(data[1]);
+                }
+                else {
+                    $('#edit-message').html('<span style="color:red">' + UnEscape(data[0]) + '</span>');
+                }
+            }
+            else {
+                $('#edit-message').html('<span style="color:red">' + '@Resource.SaveFailed' + '</span>');
+            }
+        });
+
+
+        $.ajax({
+            url: '/Culture/QueryCurrentCulture',
+            type: 'GET',
+            dataType: 'json',
+            async: false // use sync mode
+        }).done(function (json) {
+            // 1 = zh-CN, 2 = en-US
+            console.log(json.culture);
+            if (json.culture && json.culture.toLowerCase().contains('english')) {
+                createTreeviewForRopLabelEn('#LabelCodeTreeView', '@Model.LabelCode');
+            }
+            else {
+                createTreeviewForRopLabel('#LabelCodeTreeView', '@Model.LabelCode');
+            }
+        });
+
+        $('#Name').val('@Model.Name');
+
+        $.unblockUI();
+        $(document).ajaxStop($.unblockUI); //double the insurance and register with jquery way
+    });
+</script>
+
+<div>
+    <fieldset style="border-style: none">
+        @using (Html.BeginForm("Edit", "Trainer", FormMethod.Post, new { id = "image-edit-form" }))
+        {
+            var fname = Path.GetFileName(Model.ImageFilePath);
+
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.Label)
+            @Html.HiddenFor(model => model.LabelCode)
+            @Html.HiddenFor(model => model.Description)
+            @*@Html.HiddenFor(model => model.ImageFileName)*@
+            @Html.HiddenFor(model => model.ImageFilePath)
+            @Html.HiddenFor(model => model.Link)
+            @Html.HiddenFor(model => model.Thumbnail)
+            @Html.HiddenFor(model => model.Type)
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-8">
+                    <div>
+                        <h5 class="alert alert-dismissable alert-warning">@fname</h5>
+                    </div>
+                    <a href="@Model.URL" target="_blank">
+                        <img src="@Model.URL" style="width:100%" />
+                    </a>
+
+                    <div>
+                        <br />
+                        <div class="editor-label">
+                            @Resource.Comment
+                        </div>
+                        <div class="editor-field">
+                            @Html.TextAreaFor(model => model.Comment)
+                            @Html.ValidationMessageFor(model => model.Comment)
+                        </div>
+
+                        <br />
+                        <div class="editor-label">
+                            Shooting orientation (for wide-angle fundus image)
+                            <br/>拍摄方位(九宫格划分)
+                        </div>
+                        <div class="editor-field">
+                            <select id="Position" name="Position" class="form-control">
+                                <option value="">未指定</option>
+                                <option value="1">1 - NW / 西北 / 左上</option>
+                                <option value="2">2 - N / 北 / 中上</option>
+                                <option value="3">3 - NE / 东北 / 右上</option>
+                                <option value="4">4 - W / 西 / 左中</option>
+                                <option value="5">5 - C / 中 </option>
+                                <option value="6">6 - E / 东 / 右中</option>
+                                <option value="7">7 - SW / 西南 / 左下</option>
+                                <option value="8">8 - S / 南 / 中下</option>
+                                <option value="9">9 - SE / 东南 / 右下</option>
+                            </select>
+                        </div>
+
+                        <script>
+                            $('#Position').val('@Model.Position');
+                        </script>
+                    </div>
+
+                    <div>
+                        <h5>Extended Tags</h5>
+                        <table class="layout_table table table-condensed">
+                            <tr>
+                                @{
+                                    var tagTiles = new Dictionary<string, string>();
+
+                                    for (int i = 1; i <= 9; i++)
+                                    {
+                                        tagTiles["Tag0" + i] = "Tag" + i;
+                                    }
+                                }
+                                
+                                <td>
+                                    <div class="editor-label">
+                                        @Html.CheckBox("Tag04", Model.Tag04.HasValue ? Model.Tag04.Value : false)
+                                        <span>用户上传 Uploaded by Users</span>
+                                    </div>
+                                    <div class="editor-label">
+                                        @Html.CheckBox("Tag08", Model.Tag08.HasValue ? Model.Tag08.Value : false)
+                                        <span>从业务系统导入 Imported from PCAS</span>
+                                    </div>
+                                    <div class="editor-label">
+                                        @Html.CheckBox("Tag09", Model.Tag09.HasValue ? Model.Tag09.Value : false)
+                                        <span>从老培训系统导入 Imported from Legacy System</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="editor-label">
+                                        @Html.CheckBox("Tag07", Model.Tag07.HasValue ? Model.Tag07.Value : false)
+                                        <span>已审核 Curated</span>
+                                    </div>
+                                    <div class="editor-label">
+                                        @Html.CheckBox("Tag06", Model.Tag06.HasValue ? Model.Tag06.Value : false)
+                                        <span>已发布 Published</span>
+                                    </div>
+                                    <div class="editor-label">
+                                        @Html.CheckBox("Tag05", Model.Tag05.HasValue ? Model.Tag05.Value : false)
+                                        <span>包含到AI训练集 Included in AI training set</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="hidden">
+                            <h5>@Resource.Metadata <i class="badge">* Don't change these values.</i></h5>
+                            <span>@Resource.Modality: </span>
+                            <select id="Name" name="Name" @*class="form-control"*@>
+                                <!--HTML5 has datalist which is editable select-->
+                                <option></option>
+                                @{
+                                    var db = new NewbornContainer();
+                                    var modalities = db.Dict_Modality.Select(x => x.Name).ToList();
+                                    foreach (var item in modalities)
+                                    {
+                                        <option>@item</option>
+                                    }
+                                }
+                            </select>
+
+                            <span>&nbsp;&nbsp;@Resource.Delete Flag: </span>
+                            @Html.EditorFor(model => model.Deleted)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <h4>@Resource.ImageLabel</h4>
+                    <div id="LabelCodeTreeView"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <br />
+                <input type="submit" onclick="return prepareSubmit();" value="@Resource.Save" class="btn btn-primary" />
+
+                <input type="button" value="@Resource.Delete" id="delete" onclick='$("#dialog-delete-confirm").dialog("open");' class="btn btn-danger" />
+            </div>
+            <hr />
+            <div class="row" id="edit-message">
+                @if (Model.TimeStamp.HasValue)
+                {
+                    <span>&nbsp;&nbsp;</span>
+                    <span style="color:Gray">@Resource.LastUpdateTime: @Model.TimeStamp.Value.ToString()</span>
+
+                    if (string.IsNullOrWhiteSpace(Model.Editor) == false)
+                    {
+                        <span>&nbsp;&nbsp;</span>
+                        <span style="color:Gray">@Resource.Editor: @Model.Editor</span>
+                    }
+                }
+            </div>
+        }
+    </fieldset>
+</div>
