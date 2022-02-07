@@ -982,6 +982,7 @@
     <Content Include="Upload\Main\Quiz\豹纹状眼底\f0065ad4f1f2dd376ca2e36c47ae4000_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\豹纹状眼底\fb9aecf714df4a094d71c8dbbd843334_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\豹纹状眼底\fd1faa78d48678acde4a044c98ca2aa7_D640_Q70.jpg" />
+    <Content Include="Upload\Main\szeh.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1015,14 +1016,9 @@
     <Content Include="Views\Trainer\UpdateTags.cshtml" />
     <Content Include="Views\Trainer\Train.cshtml" />
     <Content Include="Views\Shared\_LayoutTrainer.cshtml" />
-    <Content Include="Views\Image\Annotate.cshtml" />
     <Content Include="Views\Trainer\Import.cshtml" />
     <Content Include="Views\DictAnatomy\Index.cshtml" />
     <Content Include="Views\DictAnatomy\Seed.cshtml" />
-    <Content Include="Views\Image\SeedInference.cshtml" />
-    <Content Include="Views\Image\Purge.cshtml" />
-    <Content Include="Views\Image\Inference.cshtml" />
-    <Content Include="Views\Image\InferenceFeedback.cshtml" />
     <Content Include="Views\Shared\_CulturePartial.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Home\Backend.cshtml" />
@@ -1036,6 +1032,9 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Trainer\Watermark.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

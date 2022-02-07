@@ -388,12 +388,8 @@ namespace System.App.Web.TraineR.Controllers
             return View();
         }
 
-        public ActionResult Wiki()
-        {
-            return View();
-        }
-
-        public ActionResult Version()
+        [AllowAnonymous]
+        public ActionResult Watermark()
         {
             return View();
         }
