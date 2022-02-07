@@ -1,4 +1,5 @@
 The source code in this repository follows Eclipse Public License - v 2.0. 
+Third-party modules belong to their respective copyright owners and follow their own licences.
 There is also a demo database (TraineR.s3db) and image set (in folder /Upload), which are provided by SEH (Shenzhen Eye Hospital). You must obtain their permission to use these images.  
 
 
