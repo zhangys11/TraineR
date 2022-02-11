@@ -102,39 +102,7 @@
                         $(this).dialog("close");
                     }
                 }
-            });
-
-            $('#dialog-add-image').dialog({
-                autoOpen: false,
-                modal: true,
-                width: 580,
-                height: 400
-            });
-
-            $('#dialog-add-image').bind('dialogclose', function (event) {
-                $("#imageFiles").val("");
-                $("#imageDescription").val("");
-                $("#imageName").val("");
-                $("#imageLink").val("");
-
-                $("#imageID").val("@GlobalSetting.UNINITIALIZED_ENTITY_ID");
-            });
-
-            $("#form-add-image").submit(function () {
-                var filepaths = $("input[name='imageFiles']").val();
-                if (filepaths) { // if user selected any file, judge file format
-                    var arr = filepaths.split(',');
-                    for (var i = 0; i < arr.length; i++) {
-                        var filepath = arr[i].trim();
-                        var extStart = filepath.lastIndexOf(".");
-                        var ext = filepath.substring(extStart, filepath.length).toUpperCase();
-                        if (ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG" && ext != ".PDF") {
-                            alert('@String.Format(Resource.Message_FileTypeInvalid, "BMP,PNG,GIF,JPG,JPEG,PDF")');
-                            return false;
-                        }
-                    }
-                }
-            })
+            });            
         });
     </script>
 </head>
@@ -190,48 +158,3 @@
     <p>@Resource.Message_DeleteConfirm</p>
 </div>
 
-<div id="dialog-add-image" title="@Resource.Image">
-    @using (Html.BeginForm("UploadImage", "Case", FormMethod.Post, new { enctype = "multipart/form-data", id = "form-add-image" }))
-    {
-        <fieldset class="ui-helper-reset">
-            <input type="hidden" id="imageID" name="imageID" value="@GlobalSetting.UNINITIALIZED_ENTITY_ID" />
-            <div class="editor-label">
-                @Resource.ChooseFile (@Resource.SupportMultiselect)
-            </div>
-            <div>
-                <input type="file" name="imageFiles" id="imageFiles" multiple="multiple" style="width: 300px;" />
-            </div>
-            <br />
-            @Resource.Type
-            <div>
-                <select id="imageName" name="imageName">
-                    <!--HTML5 has datalist which is editable select-->
-                    <option></option>
-                    @{
-                        var db = new NewbornContainer();
-                        var modalities = db.Dict_Modality.Select(x => x.Name).ToList();
-                        foreach (var item in modalities)
-                        {
-                            <option>@item</option>
-                        }
-                    }
-                </select>
-            </div>
-            <br />
-            外部索引号（e.g.检查号）
-            <div>
-                <input type="text" id="imageLink" name="imageLink" />
-            </div>
-            <br />
-            @Resource.AdditionalInstruction
-            <div>
-                <textarea cols="30" rows="2" name="imageDescription" id="imageDescription"></textarea>
-            </div>
-            <div class="editor-field">
-                <input type="submit" value="@Resource.Save" />
-                <input type="button" value="@Resource.Cancel" onclick="$('#dialog-add-image').dialog('close');" />
-            </div>
-            <p id="dialog-add-image-progress" class="hidden">正在上传... </p>
-        </fieldset>
-    }
-</div>
