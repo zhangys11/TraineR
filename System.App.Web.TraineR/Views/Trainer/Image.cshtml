@@ -63,8 +63,16 @@
             }
         });
 
+        @if(Resource.lan == "cn")
+        {
+            <text>createTreeviewForRopLabel('#LabelCodeTreeView', '@Model.LabelCode');</text>
+        }
+        else
+        {
+            <text>createTreeviewForRopLabelEn('#LabelCodeTreeView', '@Model.LabelCode');</text>
+        }
 
-        $.ajax({
+        @*$.ajax({
             url: '/Culture/QueryCurrentCulture',
             type: 'GET',
             dataType: 'json',
@@ -78,7 +86,7 @@
             else {
                 createTreeviewForRopLabel('#LabelCodeTreeView', '@Model.LabelCode');
             }
-        });
+        });*@
 
         $('#Name').val('@Model.Name');
 

@@ -56,7 +56,10 @@
             "bServerSide": true,
             "sAjaxSource": url,
             "bProcessing": true,
-            "aLengthMenu": [[10, 15, 25, 50, 100, 200, -1], [10, 15, 25, 50, 100, 200, "All"]],
+            "aLengthMenu": [
+                [10, 15, 20, 25, 50, 100, 200, -1],
+                [10, 15, 20, 25, 50, 100, 200, "All"]
+            ],
             // "iDisplayLength": 15,
             // "bAutoWidth": false,
             "bSort": false, /* disable sorting */
@@ -71,7 +74,21 @@
                 return JSON.parse(data);
             },
             // "bDestroy": true,
-            "columns": columns
+            "columns": columns,
+            "oLanguage": {
+                "sSearch": "@Resource.Search",
+                "sLengthMenu": "@string.Format(Resource.sLengthMenu, "_MENU_")",
+                "sZeroRecords": "@Resource.NothingFound",
+                "sInfo": "@string.Format(Resource.sInfo, "_START_", "_END_", "_TOTAL_")",
+                "sInfoEmpty": "@string.Format(Resource.sInfo, "0", "0", "0")",
+                "sInfoFiltered": "@string.Format(Resource.sInfoFiltered, "_MAX_")",
+                "oPaginate": {
+                    "sFirst": "@Resource.First",
+                    "sLast": "@Resource.Last",
+                    "sNext": "@Resource.NextPage",
+                    "sPrevious": "@Resource.PreviousPage"
+                },
+            }
         });
 
         //
