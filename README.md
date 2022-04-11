@@ -19,3 +19,7 @@ It also aims to create a crowd-sourcing curating platform for fundus image-based
 
 1. Access the website from your web browser.
 2. You may also access the demo site at http://train.brahma.pub
+
+# Docker
+
+docker pull zhangyinsheng/trainer:tagname
