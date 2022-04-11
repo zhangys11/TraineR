@@ -22,4 +22,4 @@ It also aims to create a crowd-sourcing curating platform for fundus image-based
 
 # Docker
 
-docker pull zhangyinsheng/trainer:tagname
+docker pull zhangyinsheng/trainer:latest
