@@ -6,6 +6,13 @@
     ViewBag.Title = Resource.ImageReading_Title;
 }
 
+<style>
+    .form-control{
+        width: 100%;
+        max-width: 600px;
+    }
+</style>
+
 <div class="container">
     <br />
     <br />
@@ -28,10 +35,14 @@
                         <fieldset>
                             <div class="form-group">
                                 <input id="user" name="user" value="" 
-                                       placeholder="@Resource.EnterCellPhoneNumber" 
+                                       placeholder="@Resource.EnterCellPhoneNumberOrEmail " 
                                        class="form-control" />
                             </div>
 
+                            <p style="font-style:italic">
+                                *@Resource.Tooltip_EnterCellPhoneNumberOrEmail
+                            </p>
+                            <hr/>
                             <div>
                                 <img style="width:100%; max-width: 300px; min-height: 100px" src="@Url.Action("RandomCode","Account")"
                                      title="@Resource.ClickToRefresh"
@@ -41,7 +52,7 @@
                             <div class="form-group">
                                 <input type="text" name="code" id="code" , placeholder="@Resource.InputVerificationCode" class="form-control" />
                             </div>
-                            <input class="btn btn-lg btn-success btn-block" type="submit" value="@Resource.Start">
+                            <input class="btn btn-lg btn-success btn-block" style="width:100%; max-width: 600px" type="submit" value="@Resource.Start">
                         </fieldset>
                     }
                 </div>
