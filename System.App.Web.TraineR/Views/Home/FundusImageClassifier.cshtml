@@ -1,0 +1,344 @@
+﻿@{
+    ViewBag.Title = "Wide-angle Retinal Image Qualifier";
+}
+
+<script src="~/Scripts/tf.min.js"></script>
+<script src="~/Scripts/webcam.js"></script>
+
+<script type="text/javascript">
+    function log(s) {
+        var timestamp = new Date().toLocaleString()
+        document.getElementById('log').innerHTML = timestamp + " - " + s + '<br/>'
+            + document.getElementById('log').innerHTML;
+    }
+
+    function take_snapshot() {
+        // take snapshot and get image data
+        Webcam.snap(function (data_uri) {
+            // display results in page
+            document.getElementById('snapshot').innerHTML =
+                '<img id=\'photo_preview\' src="' + data_uri + '" />';
+            imgElement = document.getElementById("photo_preview");
+            imgElement.onload = () => {
+                imgElement.width = IMAGE_SIZE;
+                imgElement.height = IMAGE_SIZE;
+                predict(imgElement);
+            };
+        });
+    }
+
+    const F2_CLASSES = {
+        0: 'Fundus (FOV135 Wide Angle Retinal Image)',
+        1: 'NotFundus (Not a Qualified Fundus Image)'
+    };
+
+    const MOBILENET_MODEL_PATH =
+        '/Assets/DNNs/Mobilenet_F2/model.json';
+
+    const IMAGE_SIZE = 224;
+    const TOPK_PREDICTIONS = 1;
+
+    let mobilenet;
+    const loadmodel = async () => {
+        $.blockUI({ message: '<h4>' + 'Loading Model...' + '</h4>', fadeIn: 0 });
+
+        mobilenet = await tf.loadLayersModel(MOBILENET_MODEL_PATH);
+
+        // Make a prediction through the locally hosted image.
+        const imgElement = document.getElementById('rop_img');
+        if (imgElement.complete && imgElement.naturalHeight !== 0) {
+            predict(imgElement);
+            imgElement.style.display = '';
+        } else {
+            imgElement.onload = () => {
+                predict(imgElement);
+                imgElement.style.display = '';
+            }
+        }
+
+        log("<i class='fa fa-cube'></i> Model loaded.");
+        $.unblockUI();
+    };
+
+    /**
+     * Given an image element, makes a prediction through mobilenet returning the
+     * probabilities of the top K classes.
+     */
+    async function predict(imgElement) {
+        $.blockUI({ message: '<h4>' + 'Predicting...' + '</h4>', fadeIn: 0 });
+
+        // The first start time includes the time it takes to extract the image
+        // from the HTML and preprocess it, in additon to the predict() call.
+        const startTime1 = performance.now();
+        // The second start time excludes the extraction and preprocessing and
+        // includes only the predict() call.
+        let startTime2;
+        const logits = tf.tidy(() => {
+            // tf.browser.fromPixels() returns a Tensor from an image element.
+            const img = tf.browser.fromPixels(imgElement).toFloat();
+
+            // const offset = tf.scalar(127.5);
+            // const normalized = img.sub(offset).div(offset);
+            const normalized = tf.sub(img, tf.tensor([104, 117, 124]))
+
+            // Reshape to a single-element batch so we can pass it to predict.
+            const batched = img.reshape([1, IMAGE_SIZE, IMAGE_SIZE, 3]);
+
+            startTime2 = performance.now();
+            // Make a prediction through mobilenet.
+            return mobilenet.predict(batched);
+        });
+
+        // Convert logits to probabilities and class names.
+        const classes = await getTopKClasses(logits, TOPK_PREDICTIONS);
+        const totalTime1 = performance.now() - startTime1;
+        const totalTime2 = performance.now() - startTime2;
+        log(`<i class="fa fa-bolt"></i> Prediction done in ${Math.floor(totalTime1)} ms ` +
+            `(not including preprocessing: ${Math.floor(totalTime2)} ms)`);
+
+        // Show the classes in the DOM.
+        showResults(imgElement, classes);
+
+        $.unblockUI();
+    }
+
+    /**
+     * Computes the probabilities of the topK classes given logits by computing
+     * softmax to get probabilities and then sorting the probabilities.
+     * @@param logits Tensor representing the logits from MobileNet.
+     * @@param topK The number of top predictions to show.
+     */
+    async function getTopKClasses(logits, topK) {
+        const values = await logits.data();
+
+        const valuesAndIndices = [];
+        for (let i = 0; i < values.length; i++) {
+            valuesAndIndices.push({ value: values[i], index: i });
+        }
+        valuesAndIndices.sort((a, b) => {
+            return b.value - a.value;
+        });
+        const topkValues = new Float32Array(topK);
+        const topkIndices = new Int32Array(topK);
+        for (let i = 0; i < topK; i++) {
+            topkValues[i] = valuesAndIndices[i].value;
+            topkIndices[i] = valuesAndIndices[i].index;
+        }
+
+        const topClassesAndProbs = [];
+        for (let i = 0; i < topkIndices.length; i++) {
+            topClassesAndProbs.push({
+                className: F2_CLASSES[topkIndices[i]],
+                probability: topkValues[i]
+            })
+        }
+        return topClassesAndProbs;
+    }
+
+    predictionsElement = document.getElementById('predictions');
+    function showResults(imgElement, classes) {
+        imgElement.style = "width: 100%; height: auto";
+        //imgElement.width = '100%';
+        //imgElement.height = 'auto';
+        const predictionContainer = document.createElement('div');
+        predictionContainer.className = 'pred-container row';
+
+        const imgContainer = document.createElement('div');
+        imgContainer.className = 'col-md-6';
+        imgContainer.appendChild(imgElement);
+        predictionContainer.appendChild(imgContainer);
+
+        const probsContainer = document.createElement('table');
+        probsContainer.className = 'col-md-6 table';
+        probsContainer.innerHTML = '<tr><th>Top ' + TOPK_PREDICTIONS + ' classes</th><th>@Resource.Probability</th></tr>';
+        for (let i = 0; i < classes.length; i++) {
+            const row = document.createElement('tr');
+            // row.style = 'line-height: 1';
+
+            const classElement = document.createElement('td');
+            classElement.innerText = classes[i].className;
+            row.appendChild(classElement);
+
+            const probsElement = document.createElement('td');
+            probsElement.innerText = classes[i].probability.toFixed(3);
+            row.appendChild(probsElement);
+
+            probsContainer.appendChild(row);
+        }
+        predictionContainer.appendChild(probsContainer);
+
+        predictionsElement.insertBefore(
+            predictionContainer, predictionsElement.firstChild);
+        predictionsElement.insertBefore(
+            document.createElement('hr'), predictionsElement.firstChild);
+    }
+
+    $(document).ready(function () {
+        predictionsElement = document.getElementById('predictions');
+
+        log("<i class='fa fa-globe'></i> " + navigator.userAgent);
+
+        const filesElement = document.getElementById('imageFiles');
+        filesElement.addEventListener('change', evt => {
+            let files = evt.target.files;
+            // Display thumbnails & issue call to predict each image.
+            for (let i = 0, f; f = files[i]; i++) {
+                // Only process image files (skip non image files)
+                if (!f.type.match('image.*')) {
+                    continue;
+                }
+                let reader = new FileReader();
+                reader.onload = e => {
+                    // Fill the image & call predict.
+                    let img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.width = IMAGE_SIZE;
+                    img.height = IMAGE_SIZE;
+                    img.onload = () => predict(img);
+                };
+
+                // Read in the image file as a data URL.
+                reader.readAsDataURL(f);
+            }
+        });
+
+        $('#tab_cam').on('click', function (e) {
+
+            Webcam.set({
+                width: 320,
+                height: 240,
+                image_format: 'jpeg',
+                jpeg_quality: 80
+            });
+
+            Webcam.attach('#my_camera');
+            Webcam.on('load', function () {
+            //    log('Camera activated.');
+            });
+            Webcam.on('live', function () {
+                log('Camera is live.');
+            });
+
+            e.preventDefault();
+            $(this).tab('show');
+        })
+
+        loadmodel();
+
+        log('<i class="fa fa-bluetooth"> Camera connected.</i>');
+    })
+</script>
+
+<div class="row">
+    <div class="col-md-4">
+        <h5>Models</h5>
+        <h6>@ViewBag.Title</h6>
+        <div class="font-italic small">
+        This page provides a classifier for qualified fundus image, which is one of the models trained with the curated image repo. 
+            More models can be found <a href="https://github.com/zhangys11/docker-ai#C3">here</a>.
+        </div>
+        <br/>
+
+        <ul class="nav nav-tabs nav-pills mx-auto border-info" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" href="#tab0" role="tab" data-toggle="tab">Upload</a>
+            </li>
+            <li class="nav-item">
+                <a id="tab_cam" class="nav-link" href="#tab1" role="tab" data-toggle="tab">Camera</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane" id="tab1">
+                <div id="my_camera"></div>
+                <br />
+                <form>
+                    <input class="btn btn-secondary" type="button" value="Snapshot" onClick="take_snapshot()">
+                </form>
+                <br />
+                <div id="snapshot">
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane active" id="tab0">
+
+                <div id="file-container">
+                    <br />
+                    <input type="file" id="imageFiles" name="imageFiles[]" multiple
+                           style="display:none;" />
+                    <input type="text" id="imageFileCover" onclick="$('#imageFiles').click();"
+                           class="input-large"
+                           style="width: 100%; height: 30px; min-width: 100px;">
+                    <a class="btn" onclick="$('#imageFiles').click();">
+                        @Resource.ChooseFiles
+                    </a>
+                    <br /><hr />
+                </div>
+
+                <div class="font-italic small">
+                    <p>Model Specifications</p>                    
+                    <table class="table">
+
+                        <tr>
+                            <td>Backbone model</td>
+                            <td>mobilenet v2 pretrained on imagenet</td>
+                        </tr>
+                        <tr>
+                            <td>Deep learning framework</td>
+                            <td>keras. Backended by tensorflow-gpu 1.15.0</td>
+                        </tr>
+                        <tr>
+                        <tr>
+                            <td>Dataset</td>
+                            <td>C1 - Fundus: 25000 ROP + 25000 Non-ROP. C2 - Not Fundus: 50000 (randomly picked from imagenet)</td>
+                        </tr>
+                        <tr>
+                            <td>Training settings</td>
+                            <td>20% CV set. Unfreeze all layers. 8 epochs.</td>
+                        </tr>
+                        <tr>
+                            <td>Accuracy</td>
+                            <td>val_acc = <b>99.85%</b></td>
+                        </tr>
+                        <tr>
+                            <td>Model architecture</td>
+                            <td><a target="_blank" href="~/Assets/DNNs/Mobilenet_F2/model.json">model.json</a></td>
+                        </tr>
+                        @*<tr>
+                            <td>Model converter</td>
+                            <td>TensorFlow.js Converter 1.2.10</td>
+                        </tr>*@
+                        <tr>
+                            <td>Model size</td>
+                            <td>8.62MB (3 shards)</td>
+                        </tr>
+                        <tr>
+                            <td>Inference Engine</td>
+                            <td>TensorFlow.js 1.2.10</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <script type="text/javascript">
+                    $('#imageFile').change(function () {
+                        $('#imageFileCover').val($(this).val());
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div>
+            <div id="predictions" class="container"></div>   
+            <img id="rop_img" alt="* This is a demo image. You may upload another fundus image for classification."
+                 src="~/Assets/DNNs/Mobilenet_F2/fundus.png"
+                 style="display:none;" width=224 height=224/>    
+        </div>
+
+        <hr />
+        <div class="alert alert-light">
+            <h5>Log</h5>
+            <div id="log"></div>
+        </div>
+    </div>
+</div>
+

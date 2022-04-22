@@ -213,6 +213,15 @@
     <None Include=".dockerignore">
       <DependentUpon>Dockerfile</DependentUpon>
     </None>
+    <Content Include="Assets\Diagnosis SDE in CMS-R.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\DNNs\Mobilenet_F2\fundus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Labeling Tool in Label_R.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Lib\System.App.Model.dll" />
     <Content Include="Lib\System.App.Utility.dll" />
     <Content Include="Lib\System.App.Web.Common.dll" />
@@ -223,6 +232,21 @@
     <None Include="App_Data\TraineR.s3db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="Assets\DNNs\Mobilenet_F2\fundus_F2_custom_mobilenetV2_model_full.h5">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\DNNs\Mobilenet_F2\group1-shard1of3.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\DNNs\Mobilenet_F2\group1-shard2of3.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\DNNs\Mobilenet_F2\group1-shard3of3.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\DNNs\Mobilenet_F2\model.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Dockerfile" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Properties\PublishProfiles\Dont OVERWRITE s3db files in the server!.pubxml" />
@@ -267,6 +291,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\tf.min.js" />
     <Content Include="Scripts\utility.autocomplete.js" />
     <Content Include="Scripts\utility.chart.js" />
     <Content Include="Scripts\utility.edit.ontology.js" />
@@ -275,6 +300,7 @@
     <Content Include="Scripts\utility.leaflet.js" />
     <Content Include="Scripts\utility.tree.js" />
     <Content Include="Scripts\utility.webgl.js" />
+    <Content Include="Scripts\webcam.js" />
     <Content Include="Scripts\zoom.js" />
     <Content Include="Styles\images\fullscreen%402x.png" />
     <Content Include="Styles\images\fullscreen.png" />
@@ -1033,6 +1059,7 @@
     <Content Include="Views\Trainer\Watermark.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Home\FundusImageClassifier.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\" />
@@ -1086,7 +1113,7 @@
     <Error Condition="!Exists('..\packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.11.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.1.11.1\build\Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets'))" />
   </Target>
   <PropertyGroup>
-    <PreBuildEvent>xcopy /y /r  $(ProjectDir)\Lib  $(TargetDir)</PreBuildEvent>
+    <PreBuildEvent>xcopy /y /r /d  $(ProjectDir)\Lib  $(TargetDir)</PreBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
   <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.113.3\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />

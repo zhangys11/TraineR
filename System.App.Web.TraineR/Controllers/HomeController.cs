@@ -52,5 +52,10 @@ namespace System.App.Web.TraineR.Controllers
         {
             return View();
         }
+
+        public ActionResult FundusImageClassifier()
+        {
+            return View();
+        }
     }
 }
