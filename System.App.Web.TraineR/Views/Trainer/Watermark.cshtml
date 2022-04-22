@@ -1,0 +1,47 @@
+﻿@using System.App.Model.Enums
+@using System.App.Utility.Helpers
+@using Aliyun.OSS
+@using System.IO
+@using System.App.Web.TraineR.Models.Domain
+@using System.Drawing
+
+@{
+    int DIVIDE = 5;
+    ViewBag.Title = "Add watermark to images";
+
+    var files = Directory.EnumerateFiles(Server.MapPath("~/Upload/Main/Quiz"), "*.*", SearchOption.AllDirectories).ToList();
+    var watermarkImage = System.Drawing.Image.FromFile(Server.MapPath("~/Upload/Main/szeh_bw.png"));
+
+    foreach (var file in files)
+    {
+        <p>@file</p>
+
+        System.Drawing.Image image = null;
+        using (FileStream fs = new FileStream(file, FileMode.Open))
+        {
+            image = System.Drawing.Image.FromStream(fs);
+            fs.Close();
+        }
+
+        var imageGraphics = Graphics.FromImage(image);
+        var watermarkBrush = new TextureBrush(watermarkImage, System.Drawing.Drawing2D.WrapMode.Tile);
+
+        int x = (image.Width / DIVIDE - watermarkImage.Width / DIVIDE);
+        int y = (image.Height / DIVIDE - watermarkImage.Height / DIVIDE);
+
+        watermarkBrush.TranslateTransform(x, y);
+        imageGraphics.FillRectangle(watermarkBrush, 
+            new Rectangle(new Point(x, y), 
+            new Size(watermarkImage.Width + 1, watermarkImage.Height)));
+
+        //if (System.IO.File.Exists(file))
+        //{
+        //    System.IO.File.Delete(file);
+        //}
+
+        image.Save(file);
+        image.Dispose();
+    }
+
+    watermarkImage.Dispose();
+}
