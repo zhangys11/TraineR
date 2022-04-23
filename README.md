@@ -17,7 +17,6 @@ It also aims to create a crowd-sourcing curating platform for fundus image-based
 
 # Docker
 
-`docker pull zhangyinsheng/trainer:latest`  
-`docker run --name trainer -p 8000:80 zhangyinsheng/trainer:latest`  
-You can access http://localhost:8000
-
+1. `docker pull zhangyinsheng/trainer:latest`  
+2. `docker run --name trainer -p 8000:80 zhangyinsheng/trainer:latest`  
+3. You can now access http://localhost:8000
