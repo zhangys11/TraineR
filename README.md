@@ -1,7 +1,17 @@
 # TraineR
 
-An online training and quiz system for pediatric fundus image reading, maily concerning ROP (Retinopathy of Prematurity).  
-It also aims to create a crowd-sourcing curating platform for fundus image-based AI.
+An online training and quiz system for pediatric fundus image reading, maily concerning ROP (Retinopathy of Prematurity). It aims to help inexperienced medical staff to quickly master image labeling tasks for fundus image-based AI.     
+
+An online demo: http://trainer.zhangys.org.cn
+
+Frontend:   
+<img src="front.jpg">
+
+Backend:   
+<img src="back.jpg">
+
+
+You can also build your own test bank for other general-purposed image reading and labeling tasks.  
 
 # Build
 

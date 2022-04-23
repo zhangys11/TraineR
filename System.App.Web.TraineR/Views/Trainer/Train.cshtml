@@ -40,7 +40,7 @@
         var grps = db.FundusImageForQuizQuery.GroupBy(x => x.LabelCode, (k, v) => new { key = k, a = v.Select(y => y.Id), c = v.Count() }).ToList();
         foreach (var g in grps)
         {
-            <div class="col-md-2 col-lg-1 col-sm-3 col-xs-6 center-block text-center"
+            <div class="col-md-2 col-lg-2 col-sm-3 col-xs-6 center-block text-center"
                  style="border-style: dotted; border-width: thin"
                  align="center">
                 <h5 title="@g.key">
