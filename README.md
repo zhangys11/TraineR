@@ -15,11 +15,9 @@ It also aims to create a crowd-sourcing curating platform for fundus image-based
 1. In Visual Studio, publish the project to a local folder.
 2. Deploy the folder in IIS 7. Use a .Net 4 application pool.
 
-# Use
-
-1. Access the website from your web browser.
-2. You may also access the demo site at http://train.brahma.pub
-
 # Docker
 
-docker pull zhangyinsheng/trainer:latest
+`docker pull zhangyinsheng/trainer:latest`  
+`docker run --name trainer -p 8000:80 zhangyinsheng/trainer:latest`  
+You can access http://localhost:8000
+
