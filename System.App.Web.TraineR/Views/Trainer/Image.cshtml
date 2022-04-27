@@ -132,24 +132,49 @@
                         </div>
 
                         <br />
-                        <div class="editor-label">
-                            Shooting orientation (for wide-angle fundus image)
-                            <br/>拍摄方位(九宫格划分)
-                        </div>
-                        <div class="editor-field">
-                            <select id="Position" name="Position" class="form-control">
-                                <option value="">未指定</option>
-                                <option value="1">1 - NW / 西北 / 左上</option>
-                                <option value="2">2 - N / 北 / 中上</option>
-                                <option value="3">3 - NE / 东北 / 右上</option>
-                                <option value="4">4 - W / 西 / 左中</option>
-                                <option value="5">5 - C / 中 </option>
-                                <option value="6">6 - E / 东 / 右中</option>
-                                <option value="7">7 - SW / 西南 / 左下</option>
-                                <option value="8">8 - S / 南 / 中下</option>
-                                <option value="9">9 - SE / 东南 / 右下</option>
-                            </select>
-                        </div>
+
+                        @if (Resource.lan == "cn")
+                        {
+                            <div class="editor-label">
+                                拍摄方位(九宫格划分)
+                            </div>
+
+                            <div class="editor-field">
+                                <select id="Position" name="Position" class="form-control">
+                                    <option value="">未指定</option>
+                                    <option value="1">1 - NW / 西北 / 左上</option>
+                                    <option value="2">2 - N / 北 / 中上</option>
+                                    <option value="3">3 - NE / 东北 / 右上</option>
+                                    <option value="4">4 - W / 西 / 左中</option>
+                                    <option value="5">5 - C / 中 </option>
+                                    <option value="6">6 - E / 东 / 右中</option>
+                                    <option value="7">7 - SW / 西南 / 左下</option>
+                                    <option value="8">8 - S / 南 / 中下</option>
+                                    <option value="9">9 - SE / 东南 / 右下</option>
+                                </select>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="editor-label">
+                                Shooting orientation (for wide-angle fundus image)
+                            </div>
+
+                            <div class="editor-field">
+                                <select id="Position" name="Position" class="form-control">
+                                    <option value="">Unspecified</option>
+                                    <option value="1">1 - NW</option>
+                                    <option value="2">2 - N</option>
+                                    <option value="3">3 - NE</option>
+                                    <option value="4">4 - W</option>
+                                    <option value="5">5 - C</option>
+                                    <option value="6">6 - E</option>
+                                    <option value="7">7 - SW</option>
+                                    <option value="8">8 - S</option>
+                                    <option value="9">9 - SE</option>
+                                </select>
+                            </div>
+                        }
 
                         <script>
                             $('#Position').val('@Model.Position');
@@ -157,44 +182,64 @@
                     </div>
 
                     <div>
-                        <h5>Extended Tags</h5>
+                        <h5>Image State Tags</h5>
                         <table class="layout_table table table-condensed">
                             <tr>
                                 @{
                                     var tagTiles = new Dictionary<string, string>();
 
-                                    for (int i = 1; i <= 9; i++)
+                                    //for (int i = 1; i <= 9; i++)
+                                    //{
+                                    //    tagTiles["Tag0" + i] = "Tag" + i;
+                                    //}
+
+                                    if (Resource.lan == "en")
                                     {
-                                        tagTiles["Tag0" + i] = "Tag" + i;
+                                        tagTiles["Tag04"] = "Uploaded by Partner Hospitals";
+                                        tagTiles["Tag08"] = "Imported from EMRS/PACS";
+                                        tagTiles["Tag09"] = "Imported from Legacy System";
+                                        tagTiles["Tag07"] = "Curated";
+                                        tagTiles["Tag06"] = "Included in Quiz Bank";
+                                        tagTiles["Tag05"] = "Included in AI Training Repo";
                                     }
+                                    else
+                                    {
+                                        tagTiles["Tag04"] = "合作医院上传";
+                                        tagTiles["Tag08"] = "从业务系统自动导入";
+                                        tagTiles["Tag09"] = "从老培训系统导入";
+                                        tagTiles["Tag07"] = "已审核";
+                                        tagTiles["Tag06"] = "包含到培训题库";
+                                        tagTiles["Tag05"] = "包含到AI训练集";
+                                    }
+
                                 }
                                 
                                 <td>
                                     <div class="editor-label">
                                         @Html.CheckBox("Tag04", Model.Tag04.HasValue ? Model.Tag04.Value : false)
-                                        <span>用户上传 Uploaded by Users</span>
+                                        <span>@tagTiles["Tag04"]</span>
                                     </div>
                                     <div class="editor-label">
                                         @Html.CheckBox("Tag08", Model.Tag08.HasValue ? Model.Tag08.Value : false)
-                                        <span>从业务系统导入 Imported from PCAS</span>
+                                        <span>@tagTiles["Tag08"]</span>
                                     </div>
                                     <div class="editor-label">
                                         @Html.CheckBox("Tag09", Model.Tag09.HasValue ? Model.Tag09.Value : false)
-                                        <span>从老培训系统导入 Imported from Legacy System</span>
+                                        <span>@tagTiles["Tag09"]</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="editor-label">
                                         @Html.CheckBox("Tag07", Model.Tag07.HasValue ? Model.Tag07.Value : false)
-                                        <span>已审核 Curated</span>
+                                        <span>@tagTiles["Tag07"]</span>
                                     </div>
                                     <div class="editor-label">
                                         @Html.CheckBox("Tag06", Model.Tag06.HasValue ? Model.Tag06.Value : false)
-                                        <span>已发布 Published</span>
+                                        <span>@tagTiles["Tag06"]</span>
                                     </div>
                                     <div class="editor-label">
                                         @Html.CheckBox("Tag05", Model.Tag05.HasValue ? Model.Tag05.Value : false)
-                                        <span>包含到AI训练集 Included in AI training set</span>
+                                        <span>@tagTiles["Tag05"]</span>
                                     </div>
                                 </td>
                             </tr>

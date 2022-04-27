@@ -10,8 +10,9 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
-    <NameOfLastUsedPublishProfile>C:\Users\eleve\Documents\codex\cs\System.App.Web.TraineR\Properties\PublishProfiles\Dont OVERWRITE s3db files in the server!.pubxml</NameOfLastUsedPublishProfile>
-    <ActiveDebugTarget>ContainerToolsProjectDebugExtension</ActiveDebugTarget>
+    <NameOfLastUsedPublishProfile>C:\Users\eleve\Documents\codex\cs\TraineR\System.App.Web.TraineR\Properties\PublishProfiles\Dont OVERWRITE s3db files in the server!.pubxml</NameOfLastUsedPublishProfile>
+    <ActiveDebugTarget>
+    </ActiveDebugTarget>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

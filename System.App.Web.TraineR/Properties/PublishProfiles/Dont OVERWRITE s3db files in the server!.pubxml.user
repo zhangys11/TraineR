@@ -7,7 +7,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>C:\Users\eleve\Desktop\TraineR</_PublishTargetUrl>
-    <History>True|2022-04-11T02:12:27.3491057Z;False|2022-04-11T10:11:11.7813359+08:00;True|2022-02-08T00:23:21.1936494+08:00;True|2022-02-08T00:13:37.7297995+08:00;True|2022-01-29T13:07:22.3503970+08:00;</History>
+    <History>True|2022-04-23T04:04:18.7192965Z;True|2022-04-11T10:12:27.3491057+08:00;False|2022-04-11T10:11:11.7813359+08:00;True|2022-02-08T00:23:21.1936494+08:00;True|2022-02-08T00:13:37.7297995+08:00;True|2022-01-29T13:07:22.3503970+08:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="appSettings.config">
@@ -113,13 +113,31 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/16/2020 18:33:44</publishTime>
     </File>
     <File Include="assets/Diagnosis SDE in CMS-R.png">
-      <publishTime>04/16/2020 18:33:44</publishTime>
+      <publishTime>04/22/2022 19:59:07</publishTime>
+    </File>
+    <File Include="Assets/DNNs/Mobilenet_F2/fundus.png">
+      <publishTime>04/22/2022 20:42:52</publishTime>
+    </File>
+    <File Include="Assets/DNNs/Mobilenet_F2/fundus_F2_custom_mobilenetV2_model_full.h5">
+      <publishTime>04/22/2022 20:08:38</publishTime>
+    </File>
+    <File Include="Assets/DNNs/Mobilenet_F2/group1-shard1of3.bin">
+      <publishTime>04/22/2022 20:08:38</publishTime>
+    </File>
+    <File Include="Assets/DNNs/Mobilenet_F2/group1-shard2of3.bin">
+      <publishTime>04/22/2022 20:08:38</publishTime>
+    </File>
+    <File Include="Assets/DNNs/Mobilenet_F2/group1-shard3of3.bin">
+      <publishTime>04/22/2022 20:08:38</publishTime>
+    </File>
+    <File Include="Assets/DNNs/Mobilenet_F2/model.json">
+      <publishTime>04/22/2022 20:08:38</publishTime>
     </File>
     <File Include="assets/DoroSetup.exe">
       <publishTime>04/16/2020 18:33:44</publishTime>
     </File>
     <File Include="assets/Labeling Tool in Label_R.png">
-      <publishTime>04/16/2020 18:33:44</publishTime>
+      <publishTime>04/22/2022 19:59:07</publishTime>
     </File>
     <File Include="assets/OD.jpg">
       <publishTime>04/16/2020 18:33:44</publishTime>
@@ -182,13 +200,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/03/2020 21:30:43</publishTime>
     </File>
     <File Include="bin/Aliyun.OSS.dll">
-      <publishTime>01/10/2018 07:52:22</publishTime>
+      <publishTime>01/10/2018 01:52:22</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
-      <publishTime>09/11/2013 05:29:20</publishTime>
+      <publishTime>09/11/2013 00:29:20</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.pdb">
-      <publishTime>09/11/2013 05:29:20</publishTime>
+      <publishTime>09/11/2013 00:29:20</publishTime>
     </File>
     <File Include="bin/appSettings.config">
       <publishTime>03/06/2021 21:36:49</publishTime>
@@ -208,6 +226,30 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/App_Data/TraineR.s3db">
       <publishTime>02/12/2022 16:38:46</publishTime>
     </File>
+    <File Include="bin/Assets/Diagnosis SDE in CMS-R.png">
+      <publishTime>04/22/2022 19:59:07</publishTime>
+    </File>
+    <File Include="bin/Assets/DNNs/Mobilenet_F2/fundus.png">
+      <publishTime>04/22/2022 20:42:52</publishTime>
+    </File>
+    <File Include="bin/Assets/DNNs/Mobilenet_F2/fundus_F2_custom_mobilenetV2_model_full.h5">
+      <publishTime>04/22/2022 20:08:38</publishTime>
+    </File>
+    <File Include="bin/Assets/DNNs/Mobilenet_F2/group1-shard1of3.bin">
+      <publishTime>04/22/2022 20:08:38</publishTime>
+    </File>
+    <File Include="bin/Assets/DNNs/Mobilenet_F2/group1-shard2of3.bin">
+      <publishTime>04/22/2022 20:08:38</publishTime>
+    </File>
+    <File Include="bin/Assets/DNNs/Mobilenet_F2/group1-shard3of3.bin">
+      <publishTime>04/22/2022 20:08:38</publishTime>
+    </File>
+    <File Include="bin/Assets/DNNs/Mobilenet_F2/model.json">
+      <publishTime>04/22/2022 20:08:38</publishTime>
+    </File>
+    <File Include="bin/Assets/Labeling Tool in Label_R.png">
+      <publishTime>04/22/2022 19:59:07</publishTime>
+    </File>
     <File Include="bin/bin/da-DK/System.App.Model.resources.dll">
       <publishTime>02/25/2022 20:20:16</publishTime>
     </File>
@@ -221,13 +263,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2016 03:59:46</publishTime>
     </File>
     <File Include="bin/da-DK/System.App.Model.resources.dll">
-      <publishTime>02/05/2022 15:07:18</publishTime>
+      <publishTime>04/22/2022 15:09:58</publishTime>
     </File>
     <File Include="bin/de-DE/System.App.Model.resources.dll">
       <publishTime>01/29/2022 13:06:59</publishTime>
     </File>
     <File Include="bin/en-US/System.App.Model.resources.dll">
-      <publishTime>02/05/2022 15:07:18</publishTime>
+      <publishTime>04/22/2022 15:09:59</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>11/16/2019 03:00:22</publishTime>
@@ -239,10 +281,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/14/2018 04:45:20</publishTime>
     </File>
     <File Include="bin/Gma.QrCodeNet.Encoding.dll">
-      <publishTime>03/18/2013 02:26:30</publishTime>
+      <publishTime>03/17/2013 21:26:30</publishTime>
     </File>
     <File Include="bin/Gma.QrCodeNet.Encoding.pdb">
-      <publishTime>03/18/2013 02:26:30</publishTime>
+      <publishTime>03/17/2013 21:26:30</publishTime>
     </File>
     <File Include="bin/Helpers/UnitsConversion.xml">
       <publishTime>02/13/2020 11:26:55</publishTime>
@@ -257,7 +299,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/02/2011 06:26:30</publishTime>
     </File>
     <File Include="bin/ja-JP/System.App.Model.resources.dll">
-      <publishTime>02/05/2022 15:07:18</publishTime>
+      <publishTime>04/22/2022 15:09:59</publishTime>
     </File>
     <File Include="bin/ja/System.Web.Helpers.resources.dll">
       <publishTime>05/01/2018 15:25:50</publishTime>
@@ -311,10 +353,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/31/2018 01:44:28</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
-      <publishTime>07/26/2012 00:48:56</publishTime>
+      <publishTime>07/25/2012 11:48:56</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>03/25/2018 06:44:14</publishTime>
+      <publishTime>03/24/2018 17:44:14</publishTime>
     </File>
     <File Include="bin/Npgsql.dll">
       <publishTime>07/19/2020 10:21:28</publishTime>
@@ -575,7 +617,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/23/2021 15:12:02</publishTime>
     </File>
     <File Include="bin/System.App.Model.dll">
-      <publishTime>02/25/2022 11:24:04</publishTime>
+      <publishTime>04/22/2022 15:09:58</publishTime>
     </File>
     <File Include="bin/System.App.Model.dll.config">
       <publishTime>01/24/2022 20:51:06</publishTime>
@@ -584,7 +626,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/29/2022 13:06:58</publishTime>
     </File>
     <File Include="bin/System.App.Utility.dll">
-      <publishTime>02/25/2022 11:24:02</publishTime>
+      <publishTime>04/22/2022 15:09:57</publishTime>
     </File>
     <File Include="bin/System.App.Utility.dll.config">
       <publishTime>01/24/2022 20:51:01</publishTime>
@@ -593,7 +635,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/29/2022 13:06:57</publishTime>
     </File>
     <File Include="bin/System.App.Web.Common.dll">
-      <publishTime>02/25/2022 11:24:07</publishTime>
+      <publishTime>04/22/2022 15:10:00</publishTime>
     </File>
     <File Include="bin/System.App.Web.Common.dll.config">
       <publishTime>01/24/2022 20:51:05</publishTime>
@@ -608,10 +650,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/05/2022 20:35:21</publishTime>
     </File>
     <File Include="bin/System.App.Web.TraineR.dll">
-      <publishTime>04/11/2022 10:10:59</publishTime>
+      <publishTime>04/23/2022 12:58:11</publishTime>
     </File>
     <File Include="bin/System.App.Web.TraineR.pdb">
-      <publishTime>04/11/2022 10:10:59</publishTime>
+      <publishTime>04/23/2022 12:58:11</publishTime>
     </File>
     <File Include="bin/System.Buffers.dll">
       <publishTime>07/19/2017 10:01:28</publishTime>
@@ -641,25 +683,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2018 13:29:52</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
-      <publishTime>11/29/2018 03:04:24</publishTime>
+      <publishTime>11/28/2018 21:04:24</publishTime>
     </File>
     <File Include="bin/System.Web.Mvc.dll">
-      <publishTime>11/28/2018 12:59:46</publishTime>
+      <publishTime>11/28/2018 20:59:46</publishTime>
     </File>
     <File Include="bin/System.Web.Optimization.dll">
-      <publishTime>02/12/2014 05:26:04</publishTime>
+      <publishTime>02/11/2014 23:26:04</publishTime>
     </File>
     <File Include="bin/System.Web.Razor.dll">
-      <publishTime>11/29/2018 03:00:12</publishTime>
+      <publishTime>11/28/2018 21:00:12</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.Deployment.dll">
-      <publishTime>11/29/2018 03:04:24</publishTime>
+      <publishTime>11/28/2018 21:04:24</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.dll">
-      <publishTime>11/29/2018 03:04:24</publishTime>
+      <publishTime>11/28/2018 21:04:24</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.Razor.dll">
-      <publishTime>11/29/2018 03:04:24</publishTime>
+      <publishTime>11/28/2018 21:04:24</publishTime>
     </File>
     <File Include="bin/Terminology/Drug.txt">
       <publishTime>02/13/2020 11:26:47</publishTime>
@@ -4535,7 +4577,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/06/2016 02:11:52</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
-      <publishTime>01/24/2014 03:57:34</publishTime>
+      <publishTime>01/23/2014 21:57:34</publishTime>
     </File>
     <File Include="bin/x64/leptonica-1.80.0.dll">
       <publishTime>11/15/2020 11:52:58</publishTime>
@@ -4613,13 +4655,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/16/2020 18:32:29</publishTime>
     </File>
     <File Include="Lib/System.App.Model.dll">
-      <publishTime>02/25/2022 11:24:04</publishTime>
+      <publishTime>04/22/2022 15:09:58</publishTime>
     </File>
     <File Include="Lib/System.App.Utility.dll">
-      <publishTime>02/25/2022 11:24:02</publishTime>
+      <publishTime>04/22/2022 15:09:57</publishTime>
     </File>
     <File Include="Lib/System.App.Web.Common.dll">
-      <publishTime>02/25/2022 11:24:07</publishTime>
+      <publishTime>04/22/2022 15:10:00</publishTime>
     </File>
     <File Include="Models/Domain/Data/Headers.txt">
       <publishTime>04/16/2020 18:32:29</publishTime>
@@ -4771,6 +4813,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/respond.min.js">
       <publishTime>04/16/2020 18:33:23</publishTime>
     </File>
+    <File Include="Scripts/tf.min.js">
+      <publishTime>04/22/2022 20:10:56</publishTime>
+    </File>
     <File Include="Scripts/utility.autocomplete.js">
       <publishTime>02/13/2020 11:29:17</publishTime>
     </File>
@@ -4794,6 +4839,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Scripts/utility.webgl.js">
       <publishTime>02/13/2020 11:29:17</publishTime>
+    </File>
+    <File Include="Scripts/webcam.js">
+      <publishTime>04/22/2022 20:10:56</publishTime>
     </File>
     <File Include="Scripts/zoom.js">
       <publishTime>04/16/2020 18:33:23</publishTime>
@@ -10316,10 +10364,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/04/2022 14:17:43</publishTime>
     </File>
     <File Include="Views/Home/Backend.cshtml">
-      <publishTime>02/04/2022 14:41:25</publishTime>
+      <publishTime>04/22/2022 19:54:14</publishTime>
     </File>
     <File Include="Views/Home/DeleteAllData.cshtml">
       <publishTime>04/16/2020 18:33:24</publishTime>
+    </File>
+    <File Include="Views/Home/FundusImageClassifier.cshtml">
+      <publishTime>04/22/2022 20:54:32</publishTime>
     </File>
     <File Include="Views/Home/Sync.cshtml">
       <publishTime>03/06/2021 21:36:48</publishTime>
@@ -10328,7 +10379,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/06/2021 21:36:48</publishTime>
     </File>
     <File Include="Views/Home/Terminology.cshtml">
-      <publishTime>02/04/2022 14:32:31</publishTime>
+      <publishTime>04/22/2022 20:01:58</publishTime>
     </File>
     <File Include="Views/Home/Test.cshtml">
       <publishTime>08/28/2021 12:30:40</publishTime>
@@ -10394,7 +10445,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/05/2022 15:32:25</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>02/10/2022 22:00:58</publishTime>
+      <publishTime>04/22/2022 20:48:44</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutTrainer.cshtml">
       <publishTime>02/10/2022 22:01:26</publishTime>
@@ -10424,7 +10475,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/05/2022 21:47:06</publishTime>
     </File>
     <File Include="Views/Trainer/QuizEntry.cshtml">
-      <publishTime>11/18/2020 11:25:16</publishTime>
+      <publishTime>04/22/2022 15:52:30</publishTime>
     </File>
     <File Include="Views/Trainer/Seed.cshtml">
       <publishTime>02/08/2022 00:09:21</publishTime>
@@ -10433,7 +10484,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/04/2022 11:55:39</publishTime>
     </File>
     <File Include="Views/Trainer/Train.cshtml">
-      <publishTime>02/12/2022 12:14:21</publishTime>
+      <publishTime>04/23/2022 12:56:55</publishTime>
     </File>
     <File Include="Views/Trainer/UpdateImageTypes.cshtml">
       <publishTime>02/04/2022 11:55:39</publishTime>
@@ -10466,7 +10517,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/25/2020 11:49:43</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/11/2022 10:12:23</publishTime>
+      <publishTime>04/23/2022 12:04:13</publishTime>
     </File>
     <File Include="WebServices/SyncService.svc">
       <publishTime>04/16/2020 18:33:25</publishTime>
