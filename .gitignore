@@ -14,3 +14,5 @@ System.App.Web.TraineR/Properties/PublishProfiles/Dont OVERWRITE s3db files in t
 System.App.Web.TraineR/System.App.Web.TraineR.csproj.user
 System.App.Web.TraineR/Properties/PublishProfiles/Dont OVERWRITE s3db files in the server\!.pubxml.user
 .vs/System.App.Web.TraineR/v16/.suo
+.vs/System.App.Web.TraineR/v17/.suo
+.vs/System.App.Web.TraineR/v17/fileList.bin

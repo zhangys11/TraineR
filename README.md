@@ -2,16 +2,13 @@
 
 An online training and quiz system for pediatric fundus image reading, maily concerning ROP (Retinopathy of Prematurity). It aims to help inexperienced medical staff to quickly master image labeling tasks for fundus image-based AI.     
 
-An online demo: http://trainer.zhangys.org.cn
+An online demo (authentication and integration with EMRS have been removed for guest convenience): http://trainer.zhangys.org.cn
 
 Frontend:   
 <img src="front.jpg">
 
 Backend:   
 <img src="back.jpg">
-
-
-You can also build your own test bank for other general-purposed image reading and labeling tasks.  
 
 # Build
 
@@ -23,7 +20,9 @@ You can also build your own test bank for other general-purposed image reading a
 # Deploy
 
 1. In Visual Studio, publish the project to a local folder.
-2. Deploy the folder in IIS 7. Use a .Net 4 application pool.
+2. Deploy the folder in IIS 7. Use a .Net 4 application pool.  
+3. Under folder /System.App.Web.TraineR/App_Data, we provide two s3db files. TraineR_cn.s3db and TraineR_en.s3db are the Chinese/English version quiz banks. Rename either one to TraineR.s3db to use.
+4. Users can also edit the TraineR.s3db file to build their own test banks for other general-purposed image reading and labeling tasks.   
 
 # Docker
 

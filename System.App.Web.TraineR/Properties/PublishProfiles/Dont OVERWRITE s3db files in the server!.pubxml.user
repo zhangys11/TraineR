@@ -7,7 +7,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>C:\Users\eleve\Desktop\TraineR</_PublishTargetUrl>
-    <History>True|2022-04-23T04:04:18.7192965Z;True|2022-04-11T10:12:27.3491057+08:00;False|2022-04-11T10:11:11.7813359+08:00;True|2022-02-08T00:23:21.1936494+08:00;True|2022-02-08T00:13:37.7297995+08:00;True|2022-01-29T13:07:22.3503970+08:00;</History>
+    <History>True|2022-05-02T06:21:42.3115515Z;False|2022-05-02T14:18:23.4202768+08:00;True|2022-04-23T12:04:18.7192965+08:00;True|2022-04-11T10:12:27.3491057+08:00;False|2022-04-11T10:11:11.7813359+08:00;True|2022-02-08T00:23:21.1936494+08:00;True|2022-02-08T00:13:37.7297995+08:00;True|2022-01-29T13:07:22.3503970+08:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="appSettings.config">
@@ -33,6 +33,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="App_Data/TraineR.s3db">
       <publishTime>02/06/2022 21:44:12</publishTime>
+    </File>
+    <File Include="App_Data/TraineR_cn.s3db">
+      <publishTime>04/27/2022 19:13:21</publishTime>
+    </File>
+    <File Include="App_Data/TraineR_en.s3db">
+      <publishTime>04/29/2022 12:12:47</publishTime>
     </File>
     <File Include="App_Data/Update_20161229.sql">
       <publishTime>04/16/2020 18:32:28</publishTime>
@@ -224,7 +230,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/21/2020 20:00:01</publishTime>
     </File>
     <File Include="bin/App_Data/TraineR.s3db">
-      <publishTime>02/12/2022 16:38:46</publishTime>
+      <publishTime>04/29/2022 12:12:47</publishTime>
+    </File>
+    <File Include="bin/App_Data/TraineR_cn.s3db">
+      <publishTime>04/27/2022 19:13:21</publishTime>
+    </File>
+    <File Include="bin/App_Data/TraineR_en.s3db">
+      <publishTime>04/29/2022 12:12:47</publishTime>
     </File>
     <File Include="bin/Assets/Diagnosis SDE in CMS-R.png">
       <publishTime>04/22/2022 19:59:07</publishTime>
@@ -650,10 +662,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/05/2022 20:35:21</publishTime>
     </File>
     <File Include="bin/System.App.Web.TraineR.dll">
-      <publishTime>04/23/2022 12:58:11</publishTime>
+      <publishTime>05/02/2022 14:21:39</publishTime>
     </File>
     <File Include="bin/System.App.Web.TraineR.pdb">
-      <publishTime>04/23/2022 12:58:11</publishTime>
+      <publishTime>05/02/2022 14:21:39</publishTime>
     </File>
     <File Include="bin/System.Buffers.dll">
       <publishTime>07/19/2017 10:01:28</publishTime>
@@ -10460,7 +10472,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/04/2022 11:55:39</publishTime>
     </File>
     <File Include="Views/Trainer/Image.cshtml">
-      <publishTime>02/25/2022 20:17:49</publishTime>
+      <publishTime>04/27/2022 20:07:47</publishTime>
     </File>
     <File Include="Views/Trainer/ImageA.cshtml">
       <publishTime>03/06/2021 21:36:46</publishTime>
@@ -10517,7 +10529,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/25/2020 11:49:43</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/23/2022 12:04:13</publishTime>
+      <publishTime>05/02/2022 14:21:39</publishTime>
     </File>
     <File Include="WebServices/SyncService.svc">
       <publishTime>04/16/2020 18:33:25</publishTime>
