@@ -1,5 +1,6 @@
 System.App.Web.TraineR/bin
 System.App.Web.TraineR/obj
+System.App.Web.TraineR/logs
 System.App.Web.TraineR/System.App.Web.TraineR.csproj.user
 System.App.Web.TraineR/Properties/PublishProfiles/Dont OVERWRITE s3db files in the server\!.pubxml.user
 System.App.Web.TraineR/Logs/2022-04-23.log
