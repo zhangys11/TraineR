@@ -2,7 +2,8 @@
 
 An online training and quiz system for pediatric fundus image reading, maily concerning ROP (Retinopathy of Prematurity). It aims to help inexperienced medical staff to quickly master image labeling tasks for fundus image-based AI.     
 
-An online demo (authentication and integration with EMRS have been removed for guest convenience): http://trainer.zhangys.org.cn
+An online demo (authentication and integration with EMRS have been removed for guest convenience): 
+http://trainer.zhangys.org.cn
 
 Frontend:   
 <img src="front.jpg">
