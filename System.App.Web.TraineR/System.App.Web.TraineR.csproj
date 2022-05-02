@@ -1023,7 +1023,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1045,7 +1044,6 @@
     <Content Include="Views\Trainer\SeedQuiz.cshtml" />
     <Content Include="Views\Trainer\UpdateTags.cshtml" />
     <Content Include="Views\Trainer\Train.cshtml" />
-    <Content Include="Views\Shared\_LayoutTrainer.cshtml" />
     <Content Include="Views\Trainer\Import.cshtml" />
     <Content Include="Views\DictAnatomy\Index.cshtml" />
     <Content Include="Views\DictAnatomy\Seed.cshtml" />
@@ -1066,6 +1064,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Home\FundusImageClassifier.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\" />
