@@ -6,13 +6,19 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
+using System.App.Model.Resources;
 
 namespace System.App.Web.TraineR.Models.Domain
 {
     public partial class NewbornContainer
     {
-        public NewbornContainer()
-    : base("name=NewbornContainer")
+        /// <summary>
+        /// Dyanmically use specific language version database.
+        /// </summary>
+        /// <remarks>
+        /// Thread.CurrentThread.CurrentUICulture does not work. We use Resource.lan
+        /// </remarks>
+        public NewbornContainer():base("name=quizbank." + Resource.lan.ToLower())
         {
         }
 

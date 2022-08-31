@@ -4,56 +4,73 @@
 @using System.App.Model.Enums
 @using System.App.Web.TraineR.Services
 
-@{ 
+<style>
+    .cell > div {
+        border-style: dotted;
+        border-width: thin;
+        margin-top: 10px;
+        margin-bottom:10px;
+        padding: 10px;
+        border-radius: 10px;
+        min-height: 150px;
+    }
+</style>
+
+@{
     var db = new NewbornContainer();
     var token = XorEncryptor.Encrypt(DateTime.Now.ToString("yyyyMMdd"));
 }
 
-<br/>
+<br />
 
-<h4>@Resource.Quiz</h4>
+<div class="container">
 
-<div class="row">
-    <div class="col-md-3 col-lg-2 col-sm-6 col-xs-12 center-block text-center"
-         style="border-style: dotted; border-width: thin"
-         align="center">
-        <h5>
-            <b>
-                TraineR - A crowd-sourced training and curating platform for pediatric fundus image labeling tasks
-            </b>
-        </h5>
-        <p>
-            Click the "Quiz" button to take a quiz.           
-        </p>
-        <p>
-            @Html.ActionLink(Resource.Quiz, "QuizInner", new { token = token }, new { @class = "btn btn-danger" })
-        </p>
-    </div>
-</div>
+    <h4>@Resource.Quiz</h4>
 
-<br/>
-
-
-<h4>@Resource.Course</h4>
-<div class="row">
-    @{
-        var grps = db.FundusImageForQuizQuery.GroupBy(x => x.LabelCode, (k, v) => new { key = k, a = v.Select(y => y.Id), c = v.Count() }).ToList();
-        foreach (var g in grps)
-        {
-            <div class="col-md-2 col-lg-2 col-sm-3 col-xs-6 center-block text-center"
-                 style="border-style: dotted; border-width: thin"
-                 align="center">
-                <h5 title="@g.key">
-                    @TerminologyService.GetReadableStringFromDiagnosisCode(g.key)
-                    <span class="badge">@Resource.ImageCount：@g.c</span>
+    <div class="row">
+        <div class="col-md-6 col-lg-4 col-sm-12 col-xs-12 center-block text-center cell"
+             align="center">
+            <div>
+                <h5>
+                    <b>
+                        @Resource.Title_TraineR
+                    </b>
                 </h5>
-                <h5>@g.key</h5>
-
                 <p>
-                    @Html.ActionLink(Resource.TakeCourse, "QuizInner", new { labelcode = g.key, token = token }, new { @class = "btn btn-success" })
+                    @Resource.Message_TakeQuiz
                 </p>
-            </div>
-        }
-    }
-</div>
+                <p>
+                    @Html.ActionLink(Resource.Quiz, "QuizInner", new { token = token }, new { @class = "btn btn-danger" })
+                </p>
+            </div>            
+        </div>
+    </div>
 
+    <br />
+
+
+    <h4>@Resource.Course</h4>
+    <div class="row">
+        @{
+            var grps = db.FundusImageForQuizQuery.GroupBy(x => x.LabelCode, (k, v) => new { key = k, a = v.Select(y => y.Id), c = v.Count() }).ToList();
+            foreach (var g in grps)
+            {
+                <div class="col-md-6 col-lg-4 col-sm-12 col-xs-12 center-block text-center cell"
+                     align="center">
+                    <div>
+                        <h5 title="@g.key">
+                            @TerminologyService.GetReadableStringFromDiagnosisCode(g.key)
+                            <span class="badge">@Resource.ImageCount：@g.c</span>
+                        </h5>
+                        <h5>@g.key</h5>
+
+                        <p>
+                            @Html.ActionLink(Resource.TakeCourse, "QuizInner", new { labelcode = g.key, token = token }, new { @class = "btn btn-success" })
+                        </p>
+                    </div>                    
+                </div>
+            }
+        }
+    </div>
+
+</div>

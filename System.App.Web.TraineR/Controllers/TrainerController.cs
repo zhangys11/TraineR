@@ -28,6 +28,9 @@ namespace System.App.Web.TraineR.Controllers
             //this.logger = new LogService(this.domainDBContext);
         }
 
+
+#if REQUIRE_USER_LOGIN // whether user need to enter their mobile or email. for demo, we turn it off.
+
         [AllowAnonymous]
         public ActionResult Quiz(string msg="")
         {
@@ -78,6 +81,18 @@ namespace System.App.Web.TraineR.Controllers
 
             return View("Train");
         }
+
+#else
+
+        [AllowAnonymous]
+        public ActionResult Quiz(string msg = "")
+        {
+            Session["VerificationCode"] = RandomImage.GenerateRandomCode();
+            ViewBag.Message = msg;
+            return View("Train");
+        }
+
+#endif
 
         [AllowAnonymous]
         public ActionResult QuizInner(string token, string labelcode="", int n = 10)
@@ -158,7 +173,7 @@ namespace System.App.Web.TraineR.Controllers
         }
 
 
-        #region Backend Maintenance
+#region Backend Maintenance
 
         public ActionResult Index(bool showAll = true)
         {
@@ -333,7 +348,7 @@ namespace System.App.Web.TraineR.Controllers
             return View();
         }
 
-        #endregion
+#endregion
 
         public JsonResult GetReadableStringFromLabelCode(string code)
         {

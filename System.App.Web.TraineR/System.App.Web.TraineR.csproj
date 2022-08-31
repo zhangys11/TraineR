@@ -219,9 +219,6 @@
     <Content Include="Assets\DNNs\Mobilenet_F2\fundus.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Labeling Tool in Label_R.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Lib\System.App.Model.dll" />
     <Content Include="Lib\System.App.Utility.dll" />
     <Content Include="Lib\System.App.Web.Common.dll" />
@@ -229,9 +226,6 @@
     <Content Include="Scripts\controls.js" />
     <Content Include="Scripts\dataTables.bootstrap.js" />
     <Content Include="Scripts\dataTables.jqueryui.js" />
-    <None Include="App_Data\TraineR.s3db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Content Include="Assets\DNNs\Mobilenet_F2\fundus_F2_custom_mobilenetV2_model_full.h5">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -247,16 +241,14 @@
     <Content Include="Assets\DNNs\Mobilenet_F2\model.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="App_Data\TraineR_cn.s3db">
+    <Content Include="App_Data\TraineR.cn.s3db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="App_Data\TraineR_en.s3db">
+    <Content Include="App_Data\TraineR.en.s3db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Dockerfile" />
-    <None Include="Properties\PublishProfiles\1.pubxml" />
     <None Include="Properties\PublishProfiles\Dont OVERWRITE s3db files in the server!.pubxml" />
-    <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
