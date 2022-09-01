@@ -219,6 +219,8 @@
     <Content Include="Assets\DNNs\Mobilenet_F2\fundus.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\quiz.png" />
+    <Content Include="Assets\retina.png" />
     <Content Include="Lib\System.App.Model.dll" />
     <Content Include="Lib\System.App.Utility.dll" />
     <Content Include="Lib\System.App.Web.Common.dll" />

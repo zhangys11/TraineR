@@ -125,14 +125,19 @@
                         @Html.ActionLink("CMS-R", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                     }*@
                 <a href="#" onclick="alert('Yinsheng Zhang (Ph.D.) oo@zju.edu.cn');"
-                   class="navbar-brand">TraineR</a>
+                   class="navbar-brand">
+                    <div style="float: left">
+                        <img src="@Url.Content("/Assets/retina.png")" width="80%" />
+                    </div>
+                    TraineR
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink(Resource.ImageReading_Title, "Quiz", "Trainer")</li>
                     <li>@Html.ActionLink(Resource.QuizDBM, "Index", "Trainer")</li>
                     <li>@Html.ActionLink(Resource.DictionaryMaintenance, "Backend", "Home")</li>
-                    <li>@Html.ActionLink(Resource.Models, "FundusImageClassifier", "Home")</li>
+                    @*<li>@Html.ActionLink(Resource.Models, "FundusImageClassifier", "Home")</li>*@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">

@@ -31,6 +31,9 @@
         <div class="col-md-6 col-lg-4 col-sm-12 col-xs-12 center-block text-center cell"
              align="center">
             <div>
+                <div style="float: left">
+                    <img width="130%" src="@Url.Content("/Assets/quiz.png")" />
+                </div>
                 <h5>
                     <b>
                         @Resource.Title_TraineR
@@ -58,6 +61,9 @@
                 <div class="col-md-6 col-lg-4 col-sm-12 col-xs-12 center-block text-center cell"
                      align="center">
                     <div>
+                        <div style="float: left">
+                            <img width="130%" src="@Url.Content("/Assets/quiz.png")" />
+                        </div>
                         <h5 title="@g.key">
                             @TerminologyService.GetReadableStringFromDiagnosisCode(g.key)
                             <span class="badge">@Resource.ImageCount：@g.c</span>
@@ -67,7 +73,7 @@
                         <p>
                             @Html.ActionLink(Resource.TakeCourse, "QuizInner", new { labelcode = g.key, token = token }, new { @class = "btn btn-success" })
                         </p>
-                    </div>                    
+                    </div>
                 </div>
             }
         }
