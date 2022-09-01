@@ -17,3 +17,4 @@ System.App.Web.TraineR/Properties/PublishProfiles/Dont OVERWRITE s3db files in t
 .vs/System.App.Web.TraineR/v16/.suo
 .vs/System.App.Web.TraineR/v17/.suo
 .vs/System.App.Web.TraineR/v17/fileList.bin
+.svn/
