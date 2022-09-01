@@ -12,7 +12,11 @@
         margin-bottom:10px;
         padding: 10px;
         border-radius: 10px;
-        min-height: 150px;
+        min-height: 145px;
+    }
+
+    .cell img {
+        margin:15px;
     }
 </style>
 
@@ -32,7 +36,7 @@
              align="center">
             <div>
                 <div style="float: left">
-                    <img width="130%" src="@Url.Content("/Assets/quiz.png")" />
+                    <img width="100%" src="@Url.Content("/Assets/quiz.png")" />
                 </div>
                 <h5>
                     <b>
@@ -62,7 +66,7 @@
                      align="center">
                     <div>
                         <div style="float: left">
-                            <img width="130%" src="@Url.Content("/Assets/quiz.png")" />
+                            <img width="100%" src="@Url.Content("/Assets/quiz.png")" />
                         </div>
                         <h5 title="@g.key">
                             @TerminologyService.GetReadableStringFromDiagnosisCode(g.key)
