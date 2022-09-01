@@ -4,7 +4,8 @@ An online training and quiz system for pediatric fundus image reading, maily con
 It aims to help inexperienced medical staff to quickly master image labeling tasks for fundus image-based AI.     
 
 An online demo (authentication and integration with EMRS have been removed for guest convenience): 
-http://trainer.zhangys.org.cn
+http://trainer.zhangys.org.cn   
+You should not edit and save any content directly on the demo site. Instead, deploy your own site to persist data. 
 
 Frontend:   
 <img src="front.jpg">
@@ -27,15 +28,16 @@ Backend:
 4. At runtime, the system can dynamically switch between different language databases with users' GUI operation.
 5. Users can also edit the TraineR.xx.s3db file to build their own test banks for other language and general-purposed image reading and labeling tasks.   
 6. In Web.config, specify your own database connection string, as follows,  
-<pre>
+
+```
 <connectionStrings>
 	<!-- Each account uses its own database, but all DictXXX tables and Account table are shared (use default db). -->
 	<add name="quizbank.en" connectionString="data source=|DataDirectory|\TraineR.en.s3db;Version=3;" providerName="System.Data.SQLite" />
 	<add name="quizbank.cn" connectionString="data source=|DataDirectory|\TraineR.cn.s3db;Version=3;" providerName="System.Data.SQLite" />
 	<add name="quizbank.jp" connectionString="data source=|DataDirectory|\TraineR.jp.s3db;Version=3;" providerName="System.Data.SQLite" />
 	<add name="quizbank.dk" connectionString="data source=|DataDirectory|\TraineR.dk.s3db;Version=3;" providerName="System.Data.SQLite" />
-	</connectionStrings>
-</pre>
+</connectionStrings>
+```
 
 # Docker (out of maintenance)
 
