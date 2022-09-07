@@ -16,8 +16,7 @@ namespace System.App.Web.TraineR.Services
             }
 
             var items = codes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-
-            var d001s = items.Where(x => x.StartsWith("D001")).ToList(); // 视网膜发育不全
+            var d001s = items.Where(x => x.StartsWith("D001")).ToList();
             var d001 = d001s.FirstOrDefault();
             if (d001s.Count()>1)
             {
