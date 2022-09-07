@@ -16,7 +16,7 @@
 {
     <div class="alert alert-warning">
         <i class="fa fa-info-circle"></i>
-        You are in the demo mode. <a href="/Account/Login">Login</a> with an authorized account to enable all functions.
+        @Resource.Message_InDemoMode <a href="/Account/Login">@Resource.Message_AuthorizedLoginToAccessAll</a>
     </div>
 
     <script>
@@ -43,7 +43,7 @@
             </p>
             <div class="btn-group">
                 @Html.ActionLink(Resource.Diagnosis, "Index", "DictDiagnosis", null, new { @class = "btn btn-default" })
-                @Html.ActionLink(Resource.ExaminationMethod, "Index", "DictExaminationMethod", null, new { @class = "btn btn-default" })
+                @*@Html.ActionLink(Resource.ExaminationMethod, "Index", "DictExaminationMethod", null, new { @class = "btn btn-default" })*@
                 @Html.ActionLink(Resource.Modality, "Index", "DictModality", null, new { @class = "btn btn-default" })
             </div>
             <br /><br />

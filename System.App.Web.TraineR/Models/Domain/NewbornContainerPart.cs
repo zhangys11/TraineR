@@ -18,14 +18,14 @@ namespace System.App.Web.TraineR.Models.Domain
         /// <remarks>
         /// Thread.CurrentThread.CurrentUICulture does not work. We use Resource.lan
         /// </remarks>
-        public NewbornContainer():base("name=quizbank." + Resource.lan.ToLower())
+        public NewbornContainer(string lan):base("name=quizbank." + lan)
         {
+            Debug.WriteLine(lan);
         }
 
-        public NewbornContainer(string connectionName)
-    : base(connectionName)
+        public NewbornContainer() : base("name=quizbank.en")
         {
-            Debug.WriteLine(connectionName);
+            // Debug.WriteLine(Resource.lan.ToLower());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

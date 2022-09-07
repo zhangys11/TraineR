@@ -352,7 +352,7 @@ namespace System.App.Web.TraineR.Controllers
 
         public JsonResult GetReadableStringFromLabelCode(string code)
         {
-            return Json(TerminologyService.GetReadableStringFromDiagnosisCode(code), JsonRequestBehavior.AllowGet);
+            return Json(TerminologyService.GetReadableStringFromDiagnosisCode(code, Resource.lan), JsonRequestBehavior.AllowGet);
         }
 
 

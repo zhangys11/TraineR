@@ -7,6 +7,7 @@ using System.App.Utility.Helpers;
 using System.App.Web.TraineR.Models.Domain;
 using System.Web;
 using System.Threading;
+using System.App.Model.Resources;
 
 namespace System.App.Web.TraineR.Controllers
 {
@@ -22,14 +23,61 @@ namespace System.App.Web.TraineR.Controllers
 #else
     [Authorize]
 #endif
-    public class BaseController : System.App.Web.Common.Controllers.BaseController
+    public class BaseController: Controller // : System.App.Web.Common.Controllers.BaseController
     {
         protected NewbornContainer domainDBContext = null;
-        
+
+        /// <remarks>
+        /// In controller's construtor, we cannot get cookie because Request is null. 
+        /// So we do it in BeginExecuteCore override. 
+        /// </remarks>
         public BaseController()
         {
-            ReInitDBContext();
+            // HttpCookie cultureCookie = Request.Cookies["_culture"];
+            // this.domainDBContext = new NewbornContainer(Resource.lan or cultureCookie.Value); // don't work  
         }
+
+        #region i18n
+
+
+        /// <remarks>http://afana.me/post/aspnet-mvc-internationalization.aspx</remarks>
+        protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
+        {
+            string cultureName = null;
+
+            // Attempt to read the culture cookie from Request
+            HttpCookie cultureCookie = Request.Cookies["_culture"];
+            if (cultureCookie != null)
+                cultureName = cultureCookie.Value;
+            else
+                cultureName = Request.UserLanguages != null && Request.UserLanguages.Length > 0 ?
+                        Request.UserLanguages[0] :  // obtain it from HTTP header AcceptLanguages
+                        null;
+            // Validate culture name
+            cultureName = CultureHelper.GetImplementedCulture(cultureName); // This is safe
+
+            // Modify current thread's cultures            
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(cultureName);
+            Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+
+            //
+            // We add this section to support mulit-lan db.
+            // For ordinary mulit-lan resx, just use the BaseController in System.App.Web.Common. 
+            string lan = "en";
+            foreach (var lancode in new string[] { "cn","jp","en" })
+            {
+                if (cultureName.ToLower().Contains(lancode)){
+                    lan = lancode;
+                    break;
+                }
+            }
+            this.domainDBContext = new NewbornContainer(lan);
+
+
+            return base.BeginExecuteCore(callback, state);
+        }
+
+        #endregion
 
         /// <summary>
         /// Dispose the used resource.
@@ -59,11 +107,6 @@ namespace System.App.Web.TraineR.Controllers
         {
             // Finalizer calls Dispose(false)
             Dispose(false);
-        }
-
-        protected void ReInitDBContext()
-        {
-            this.domainDBContext = new NewbornContainer();
         }
     }
 }

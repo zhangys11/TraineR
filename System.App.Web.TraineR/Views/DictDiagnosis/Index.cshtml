@@ -6,10 +6,10 @@
 
 @if (GlobalSetting.DemoMode == true || User.Identity.Name == GlobalSetting.WEBPORTAL_USER_DEMO)
 {
-    <div class="alert alert-warning">
-        <i class="fa fa-info-circle"></i>
-        You are in the demo mode. <a href="/Account/Login">Login</a> with an authorized account to edit the items.
-    </div>
+<div class="alert alert-warning">
+    <i class="fa fa-info-circle"></i>
+    @Resource.Message_InDemoMode <a href="/Account/Login">@Resource.Message_AuthorizedLoginToEdit</a>
+</div>
     <table id="dataTable_ro" class="table">
         <thead>
             <tr>
@@ -33,6 +33,7 @@
         $('#dataTable_ro').dataTable({
             "bSort": false,
             "bPaginate": true,
+            "oLanguage": getLanguage('@Resource.lan'),
         });
     </script>
 
@@ -49,11 +50,9 @@
     $.blockUI({ message: '<h4>' + '@Resource.Loading' + '</h4>', fadeIn: 0 });
 
     $(function () {
-        var lan = getLanguage();
-        lan["sSearch"] = '@Resource.Search';
 
         $('#editableDataTable').dataTable({
-            "oLanguage": lan,
+            "oLanguage": getLanguage('@Resource.lan'),
             "bSort": false,
             "bPaginate": true,
         }).makeEditable({

@@ -22,7 +22,7 @@
 {
     <div class="container row">        
         <h4>
-            @TerminologyService.GetReadableStringFromDiagnosisCode(labelcode)
+            @TerminologyService.GetReadableStringFromDiagnosisCode(labelcode, Resource.lan)
             <i class="badge">@labelcode</i>
         </h4>
     </div>
@@ -102,7 +102,7 @@ else
 
                         foreach (var t in terms)
                         {
-                            <option value="@t">@cap @TerminologyService.GetReadableStringFromDiagnosisCode(t)</option>
+                            <option value="@t">@cap @TerminologyService.GetReadableStringFromDiagnosisCode(t, Resource.lan)</option>
                             cap = (char)((int)cap + 1);
                         }
                     }

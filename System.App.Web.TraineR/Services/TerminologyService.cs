@@ -8,7 +8,7 @@ namespace System.App.Web.TraineR.Services
 {
     public static class TerminologyService
     {
-        public static string GetReadableStringFromDiagnosisCode(string codes)
+        public static string GetReadableStringFromDiagnosisCode(string codes, string lan)
         {
             if(string.IsNullOrWhiteSpace(codes))
             {
@@ -46,8 +46,8 @@ namespace System.App.Web.TraineR.Services
             items.RemoveAll(x => string.IsNullOrWhiteSpace(x));
             items.Sort(new DiagnosisCodeComparer());
 
-            // always use default db
-            using (var db = new NewbornContainer())
+            // always use the default db
+            using (var db = new NewbornContainer(lan))
             {
                 foreach (var item in items)
                 {

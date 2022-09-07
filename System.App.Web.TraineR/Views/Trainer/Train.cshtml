@@ -69,7 +69,7 @@
                             <img width="100%" src="@Url.Content("/Assets/quiz.png")" />
                         </div>
                         <h5 title="@g.key">
-                            @TerminologyService.GetReadableStringFromDiagnosisCode(g.key)
+                            @TerminologyService.GetReadableStringFromDiagnosisCode(g.key, Resource.lan)
                             <span class="badge">@Resource.ImageCount：@g.c</span>
                         </h5>
                         <h5>@g.key</h5>

@@ -95,6 +95,21 @@ var dk = {
 };
 
 // DataTable is created only once, and cannot dynamically set language without recreating it.
+function getLanguage(lanstr) {
+    var lang = lanstr.toLowerCase();
+    if (lang == 'cn')
+        lan = cn;
+    else if (lang == 'en')
+        lan = en;
+    else if (lang == 'jp')
+        lan = jp;
+    else
+        lan = en;
+
+    return lan;
+}
+
+/*
 function getLanguage() {
     var lan = cn; // en;
 
@@ -116,11 +131,13 @@ function getLanguage() {
 
     return lan;
 }
+*/
 
-function createDataTable(id, url, columns, persistState) {
+
+function createDataTable(id, url, columns, persistState, lanstr) {
     var options = {
         // "sPaginationType": "simple", // "full_numbers",
-        "oLanguage": getLanguage(),
+        "oLanguage": getLanguage(lanstr),
         // "bJQueryUI": true, /* use JQueryUI style */
         "bServerSide": true,
         "sAjaxSource": url,

@@ -183,11 +183,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\DictAnatomyController.cs" />
     <Compile Include="Controllers\DictModalityController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DictDiagnosisController.cs" />
-    <Compile Include="Controllers\DictExaminationMethodController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="Global.asax.cs">
@@ -195,12 +193,8 @@
     </Compile>
     <Compile Include="Models\Domain\Account.cs" />
     <Compile Include="Models\Domain\Concept.cs" />
-    <Compile Include="Models\Domain\Dict_ChildbirthMethod.cs" />
-    <Compile Include="Models\Domain\Dict_Anatomy.cs" />
     <Compile Include="Models\Domain\Dict_Diagnosis.cs" />
     <Compile Include="Models\Domain\Dict_Modality.cs" />
-    <Compile Include="Models\Domain\Dict_ExaminationMethod.cs" />
-    <Compile Include="Models\Domain\Dict_Feeding.cs" />
     <Compile Include="Models\Domain\ImagePart.cs" />
     <Compile Include="Models\Domain\Image.cs" />
     <Compile Include="Models\Domain\NewbornContainer.cs" />
@@ -1022,8 +1016,6 @@
     </Content>
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\DictDiagnosis\Index.cshtml" />
-    <Content Include="Views\DictExaminationMethod\Index.cshtml" />
-    <Content Include="Views\DictExaminationMethod\Seed.cshtml" />
     <Content Include="Views\DictDiagnosis\Seed.cshtml" />
     <Content Include="Views\Trainer\Edit.cshtml" />
     <Content Include="Views\Trainer\List.cshtml" />
@@ -1039,8 +1031,6 @@
     <Content Include="Views\Trainer\UpdateTags.cshtml" />
     <Content Include="Views\Trainer\Train.cshtml" />
     <Content Include="Views\Trainer\Import.cshtml" />
-    <Content Include="Views\DictAnatomy\Index.cshtml" />
-    <Content Include="Views\DictAnatomy\Seed.cshtml" />
     <Content Include="Views\Shared\_CulturePartial.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Home\Backend.cshtml" />
