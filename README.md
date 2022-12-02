@@ -14,10 +14,10 @@ http://trainer.zhangys.org.cn
 You should not edit and save any content directly on the demo site. Instead, deploy your own site to persist data. 
 
 Frontend:   
-<img src="front.jpg">
+<img src="front.jpg" />
 
 Backend:   
-<img src="back.jpg">
+<img src="back.jpg" />
 
 # Build
 
