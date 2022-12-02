@@ -3,10 +3,10 @@
 An online training and quiz system for pediatric fundus image reading, maily concerning ROP (Retinopathy of Prematurity). 
 It aims to help inexperienced medical staff to quickly master image labeling tasks for fundus image-based AI.     
 
-If you use this system, please cite:
-'''
-[1] TraineR: A crowd training platform for deep learning image labeling tasks. Software Impacts. 2022, doi: 10.1016/j.simpa.2022.100450. https://www.sciencedirect.com/science/article/pii/S2665963822001348
-'''
+If you use this system, please cite:  
+
+```TraineR: A crowd training platform for deep learning image labeling tasks. Software Impacts. 2022, doi: 10.1016/j.simpa.2022.100450. https://www.sciencedirect.com/science/article/pii/S2665963822001348```
+
 
 
 An online demo (authentication and integration with EMRS have been removed for guest convenience): 
