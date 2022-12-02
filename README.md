@@ -5,7 +5,7 @@ It aims to help inexperienced medical staff to quickly master image labeling tas
 
 If you use this system, please cite:
 ```
-[1] TraineR: A crowd training platform for deep learning image labeling tasks. Software Impacts. 2022, doi: 10.1016/j.simpa.2022.100450.
+[1] TraineR: A crowd training platform for deep learning image labeling tasks. Software Impacts. 2022, doi: 10.1016/j.simpa.2022.100450. https://www.sciencedirect.com/science/article/pii/S2665963822001348
 ```
 
 
