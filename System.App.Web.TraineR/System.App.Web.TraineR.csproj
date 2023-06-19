@@ -62,10 +62,11 @@
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>Lib\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Gma.QrCodeNet.Encoding, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
@@ -96,14 +97,17 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data.SQLite">
-      <HintPath>..\..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.116.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.116.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\System.Data.SQLite.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SQLite.EF6">
-      <HintPath>..\..\packages\System.Data.SQLite.EF6.1.0.116.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.116.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\System.Data.SQLite.EF6.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.SQLite.Linq">
-      <HintPath>..\..\packages\System.Data.SQLite.Linq.1.0.116.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.116.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime" />
@@ -125,6 +129,10 @@
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
@@ -150,9 +158,6 @@
     <Reference Include="System.Net.Http">
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
-    </Reference>
-    <Reference Include="System.Web.Optimization">
-      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -188,62 +193,35 @@
     <None Include=".dockerignore">
       <DependentUpon>Dockerfile</DependentUpon>
     </None>
-    <Content Include="Assets\Diagnosis SDE in CMS-R.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\DNNs\Mobilenet_F2\fundus.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Assets\Diagnosis SDE in CMS-R.png" />
+    <Content Include="Assets\DNNs\Mobilenet_F2\fundus.png" />
     <Content Include="Assets\quiz.png" />
     <Content Include="Assets\retina.png" />
-    <Content Include="Content\themes\default-dark\32px.png" />
-    <Content Include="Content\themes\default-dark\40px.png" />
-    <Content Include="Content\themes\default-dark\style.css" />
-    <Content Include="Content\themes\default-dark\style.min.css" />
-    <Content Include="Content\themes\default-dark\throbber.gif" />
-    <Content Include="Content\themes\default\32px.png" />
-    <Content Include="Content\themes\default\40px.png" />
-    <Content Include="Content\themes\default\style.css" />
-    <Content Include="Content\themes\default\style.min.css" />
-    <Content Include="Content\themes\default\throbber.gif" />
+    <Content Include="Lib\EntityFramework.dll" />
+    <Content Include="Lib\EntityFramework.SqlServer.dll" />
     <Content Include="Lib\System.App.Model.dll" />
     <Content Include="Lib\System.App.Utility.dll" />
     <Content Include="Lib\System.App.Web.Common.dll" />
+    <Content Include="Lib\System.Data.SQLite.dll" />
+    <Content Include="Lib\System.Data.SQLite.EF6.dll" />
+    <Content Include="Lib\System.Data.SQLite.Linq.dll" />
+    <Content Include="Lib\System.Web.Optimization.dll" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\controls.js" />
     <Content Include="Scripts\dataTables.bootstrap.js" />
     <Content Include="Scripts\dataTables.jqueryui.js" />
-    <Content Include="Assets\DNNs\Mobilenet_F2\fundus_F2_custom_mobilenetV2_model_full.h5">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\DNNs\Mobilenet_F2\group1-shard1of3.bin">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\DNNs\Mobilenet_F2\group1-shard2of3.bin">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\DNNs\Mobilenet_F2\group1-shard3of3.bin">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\DNNs\Mobilenet_F2\model.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="App_Data\TraineR.cn.s3db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="App_Data\TraineR.en.s3db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\themes\default\Thumbs.db" />
-    <Content Include="Content\themes\default-dark\Thumbs.db" />
+    <Content Include="Assets\DNNs\Mobilenet_F2\fundus_F2_custom_mobilenetV2_model_full.h5" />
+    <Content Include="Assets\DNNs\Mobilenet_F2\group1-shard1of3.bin" />
+    <Content Include="Assets\DNNs\Mobilenet_F2\group1-shard2of3.bin" />
+    <Content Include="Assets\DNNs\Mobilenet_F2\group1-shard3of3.bin" />
+    <Content Include="Assets\DNNs\Mobilenet_F2\model.json" />
+    <Content Include="App_Data\TraineR.cn.s3db" />
+    <Content Include="App_Data\TraineR.en.s3db" />
     <None Include="Dockerfile" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Dont OVERWRITE s3db files in the server!.pubxml" />
-    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Scripts\devtools_detect.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
-    <Content Include="Scripts\jquery-3.2.1.min.js" />
-    <Content Include="Scripts\jquery-3.2.1.slim.js" />
-    <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
     <Content Include="Scripts\jquery-dateFormat.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-datepicker-zh-CN.js" />
@@ -263,12 +241,7 @@
     <Content Include="Scripts\jquery.multiselect.zh-cn.js" />
     <Content Include="Scripts\jquery.multiselect.zh-tw.js" />
     <Content Include="Scripts\jquery.PrintArea.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jstree.js" />
-    <Content Include="Scripts\jstree.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\objectDiff.js" />
     <Content Include="Scripts\Path.Drag.js" />
@@ -291,59 +264,25 @@
     <Content Include="Styles\images\marker-icon.png" />
     <Content Include="Styles\images\marker-shadow.png" />
     <Content Include="Styles\leaflet.css" />
-    <Content Include="Styles\jstree\themes\default-dark\32px.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\jstree\themes\default-dark\40px.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\jstree\themes\default-dark\style.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\jstree\themes\default-dark\throbber.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\jstree\themes\default\32px.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\jstree\themes\default\40px.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\jstree\themes\default\style.css">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\jstree\themes\default\throbber.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Styles\jstree\themes\default-dark\32px.png" />
+    <Content Include="Styles\jstree\themes\default-dark\40px.png" />
+    <Content Include="Styles\jstree\themes\default-dark\style.css" />
+    <Content Include="Styles\jstree\themes\default-dark\throbber.gif" />
+    <Content Include="Styles\jstree\themes\default\32px.png" />
+    <Content Include="Styles\jstree\themes\default\40px.png" />
+    <Content Include="Styles\jstree\themes\default\style.css" />
+    <Content Include="Styles\jstree\themes\default\throbber.gif" />
     <Content Include="Styles\images\clinician.jpg" />
-    <Content Include="Styles\dataTables.bootstrap.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\dataTables.bootstrap4.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\dataTables.jqueryui.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\jquery-ui-1.12.1.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\jquery.editable-select.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Styles\dataTables.bootstrap.css" />
+    <Content Include="Styles\dataTables.bootstrap4.css" />
+    <Content Include="Styles\dataTables.jqueryui.css" />
+    <Content Include="Styles\jquery-ui-1.12.1.css" />
+    <Content Include="Styles\jquery.editable-select.css" />
     <Content Include="Styles\leaflet.fullscreen.css" />
-    <Content Include="Styles\magnific-popup.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\bootstrap-theme.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\bootstrap.cerulean.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\bootstrap.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Styles\magnific-popup.css" />
+    <Content Include="Styles\bootstrap-theme.css" />
+    <Content Include="Styles\bootstrap.cerulean.css" />
+    <Content Include="Styles\bootstrap.css" />
     <Content Include="Styles\images\bg.jpg" />
     <Content Include="Styles\images\ui-bg_flat_0_999999_40x100.png" />
     <Content Include="Styles\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -367,27 +306,13 @@
     <Content Include="Styles\images\ui-icons_f0ad4e_256x240.png" />
     <Content Include="Styles\images\ui-icons_f6cf3b_256x240.png" />
     <Content Include="Styles\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="Styles\jquery-ui.custom.transparent.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\jquery-ui.custom.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\jquery-ui.theme.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\jquery.multiselect.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\jquery.ui.1.10.3.ie.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\PrintArea.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Styles\Site.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Styles\jquery-ui.custom.transparent.css" />
+    <Content Include="Styles\jquery-ui.custom.css" />
+    <Content Include="Styles\jquery-ui.theme.css" />
+    <Content Include="Styles\jquery.multiselect.css" />
+    <Content Include="Styles\jquery.ui.1.10.3.ie.css" />
+    <Content Include="Styles\PrintArea.css" />
+    <Content Include="Styles\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="appSettings.config">
@@ -402,11 +327,6 @@
       <DependentUpon>appSettings.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.2.1.min.map" />
-    <None Include="Scripts\_references.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <Content Include="Upload\Main\Quiz\1期\0c0509c800c909ef0888c0c67170f1f9_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\1期\0fc9c62fadf3bc8c5ed984df6547273f_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\1期\14317d37b32fa2a46b0e866be358a34d_D640_Q70.jpg" />
@@ -995,9 +915,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\DictDiagnosis\Index.cshtml" />
     <Content Include="Views\DictDiagnosis\Seed.cshtml" />
@@ -1028,9 +946,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Trainer\Watermark.cshtml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Views\Trainer\Watermark.cshtml" />
     <Content Include="Views\Home\FundusImageClassifier.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
