@@ -19,7 +19,7 @@ namespace System.App.Web.ROP
 
             AccountController.AccountManager = new MyMembershipProvider();
 
-            log4net.Config.XmlConfigurator.Configure();
+            // log4net.Config.XmlConfigurator.Configure();
 
             // 
             // create the upload folder if not exist
