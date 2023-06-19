@@ -4,6 +4,12 @@
 @using System.App.Model.Enums
 @using System.App.Web.TraineR.Services
 
+<script>
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover();
+});
+</script>
+
 <style>
     .cell > div {
         border-style: dotted;
@@ -21,7 +27,7 @@
 </style>
 
 @{
-    var db = new NewbornContainer();
+    var db = new NewbornContainer(Resource.lan);
     var token = XorEncryptor.Encrypt(DateTime.Now.ToString("yyyyMMdd"));
 }
 
@@ -47,7 +53,7 @@
                     @Resource.Message_TakeQuiz
                 </p>
                 <p>
-                    @Html.ActionLink(Resource.Quiz, "QuizInner", new { token = token }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink(Resource.SelfTest, "QuizInner", new { token = token }, new { @class = "btn btn-danger" })
                 </p>
             </div>            
         </div>
@@ -66,6 +72,16 @@
                 {
                     continue;
                 }
+
+                var desc = "";
+                var entry = db.DiagnosisStandardTermQuery.FirstOrDefault(x => x.Code == g.key);
+                if (entry != null)
+                {
+                    desc = entry.Description;
+                }
+
+                var readable_name = TerminologyService.GetReadableStringFromDiagnosisCode(g.key, Resource.lan);
+
                 <div class="col-md-6 col-lg-4 col-sm-12 col-xs-12 center-block text-center cell"
                      align="center">
                     <div>
@@ -73,12 +89,13 @@
                             <img width="100%" src="@Url.Content("/Assets/quiz.png")" />
                         </div>
                         <h5 title="@g.key">
-                            @TerminologyService.GetReadableStringFromDiagnosisCode(g.key, Resource.lan)
+                            @readable_name
                             <span class="badge">@Resource.ImageCount：@g.c</span>
                         </h5>
                         <h5>@g.key</h5>
 
                         <p>
+                            <a href="#" data-toggle="popover" title="@readable_name" data-content="@desc" class="btn btn-success">@Resource.DiseaseIntro</a>
                             @Html.ActionLink(Resource.TakeCourse, "QuizInner", new { labelcode = g.key, token = token }, new { @class = "btn btn-success" })
                         </p>
                     </div>

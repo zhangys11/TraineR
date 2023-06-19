@@ -9,7 +9,7 @@
     int DIVIDE = 5;
     ViewBag.Title = "Add watermark to images";
 
-    var files = Directory.EnumerateFiles(Server.MapPath("~/Upload/Main/Quiz"), "*.*", SearchOption.AllDirectories).ToList();
+    var files = Directory.EnumerateFiles(Server.MapPath("~/Upload/Tmp"), "*.*", SearchOption.AllDirectories).ToList();
     var watermarkImage = System.Drawing.Image.FromFile(Server.MapPath("~/Upload/Main/szeh_bw.png"));
 
     foreach (var file in files)

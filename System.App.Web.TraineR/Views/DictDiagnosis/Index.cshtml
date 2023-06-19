@@ -14,6 +14,7 @@
         <thead>
             <tr>
                 <th>@Resource.Name</th>
+                <th>@Resource.Description</th>
                 <th>@Resource.Code</th>
                 <th>@Resource.CodingSystem</th>
             </tr>
@@ -23,6 +24,7 @@
             {
                 <tr id='@item.Id'>
                     <td>@item.Name</td>
+                    <td>@item.Description</td>
                     <td>@item.Code</td>
                     <td>@item.CodingSystem</td>
                 </tr>
@@ -87,6 +89,7 @@
     <thead>
         <tr>
             <th>@Resource.Name</th>
+            <th>@Resource.Description</th>
             <th>@Resource.Code</th>
             <th>@Resource.CodingSystem</th>
         </tr>
@@ -96,6 +99,7 @@
         {
             <tr id='@item.Id'>
                 <td>@item.Name</td>
+                <td>@item.Description</td>
                 <td>@item.Code</td>
                 <td>@item.CodingSystem</td>
             </tr>
@@ -110,12 +114,15 @@
     <input type="text" name="Name" id="Name" @*class="required"*@ rel="0" />
     <br />
     <br />
+    <label for="Description">@Resource.Description</label>
+    <input type="text" name="Description" id="Description" rel="1" />
+    <br />
     <label for="Code">@Resource.Code</label>
-    <input type="text" name="Code" id="Code" rel="1" />
+    <input type="text" name="Code" id="Code" rel="2" />
     <br />
     <br />
     <label for="CodingSystem">@Resource.CodingSystem</label>
-    <input type="text" name="CodingSystem" id="CodingSystem" rel="2" />
+    <input type="text" name="CodingSystem" id="CodingSystem" rel="3" />
     <br />
     <button id="btnAddNewRowOk" value="Ok" class="btn btn-default">@Resource.OK</button>
     <button id="btnAddNewRowCancel" value="cancel" class="btn btn-default">@Resource.Cancel</button>

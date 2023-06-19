@@ -5,3 +5,5 @@ System.App.Web.TraineR/System.App.Web.TraineR.csproj.user
 System.App.Web.TraineR/Properties/PublishProfiles/
 .vs/
 .svn/
+packages/
+System.App.Web.TraineR/Upload/Main/Quiz_original/
