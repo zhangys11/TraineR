@@ -25,7 +25,6 @@ namespace System.App.Web.ROP
                         "~/Scripts/jstree.js",
                         "~/Scripts/utility.tree.js",
                         "~/Scripts/jquery.PrintArea.js",
-                        "~/Scripts/jquery.validate*",
                         "~/Scripts/controls.js", // the combobox control
                         "~/Scripts/utility.js", // extended utilities
                         "~/Scripts/utility.autocomplete.js",
@@ -37,16 +36,8 @@ namespace System.App.Web.ROP
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/popper.js",
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/leaflet").Include(
-                      "~/Scripts/leaflet-1.0.3.js",
-                      "~/Scripts/leaflet.editable.js",
-                      "~/Scripts/Path.Drag.js",
-                      "~/Scripts/Leaflet.fullscreen.js", 
-                      "~/Scripts/utility.leaflet.js"));
+                      //"~/Scripts/popper.js",
+                      "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
                       "~/Styles/bootstrap.css",  // "~/Styles/bootstrap.cerulean.css",

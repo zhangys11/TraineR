@@ -196,12 +196,6 @@
     </Content>
     <Content Include="Assets\quiz.png" />
     <Content Include="Assets\retina.png" />
-    <Content Include="Content\images\layers-2x.png" />
-    <Content Include="Content\images\layers.png" />
-    <Content Include="Content\images\marker-icon-2x.png" />
-    <Content Include="Content\images\marker-icon.png" />
-    <Content Include="Content\images\marker-shadow.png" />
-    <Content Include="Content\leaflet.css" />
     <Content Include="Content\themes\default-dark\32px.png" />
     <Content Include="Content\themes\default-dark\40px.png" />
     <Content Include="Content\themes\default-dark\style.css" />
@@ -215,6 +209,7 @@
     <Content Include="Lib\System.App.Model.dll" />
     <Content Include="Lib\System.App.Utility.dll" />
     <Content Include="Lib\System.App.Web.Common.dll" />
+    <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\controls.js" />
     <Content Include="Scripts\dataTables.bootstrap.js" />
     <Content Include="Scripts\dataTables.jqueryui.js" />
@@ -272,14 +267,8 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jstree.js" />
     <Content Include="Scripts\jstree.min.js" />
-    <Content Include="Scripts\leaflet-0.7.3.js" />
-    <Content Include="Scripts\leaflet-0.7.3.min.js" />
-    <Content Include="Scripts\leaflet-1.0.3.js" />
-    <Content Include="Scripts\leaflet.editable.js" />
-    <Content Include="Scripts\Leaflet.fullscreen.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\objectDiff.js" />
     <Content Include="Scripts\Path.Drag.js" />
