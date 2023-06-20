@@ -77,6 +77,10 @@ namespace System.App.Web.TraineR.Controllers
                     return Resource.SaveFailed + Environment.NewLine + string.Format(ConstFunctionResult.InvalidParameter, "value");
                 obj.Name = value;
             }
+            else if (columnName == Resource.Description)
+            {
+                obj.Description = value;
+            }
             else if (columnName == Resource.Code)
             {
                 obj.Code = value;
@@ -97,7 +101,7 @@ namespace System.App.Web.TraineR.Controllers
             return value; //Resource.SaveSuccess;
         }
 
-        public int AddData(string name, string code, string codingSystem)
+        public int AddData(string name, string description, string code, string codingSystem)
         {
             //// judge whether any parameter is null
             //if (string.IsNullOrWhiteSpace(name))
@@ -108,6 +112,7 @@ namespace System.App.Web.TraineR.Controllers
 
             name = name.Trim();
             code = code.Trim();
+            description = description.Trim();
             codingSystem = codingSystem.Trim();
 
             //if (string.IsNullOrEmpty(name))
@@ -117,6 +122,7 @@ namespace System.App.Web.TraineR.Controllers
             {
                 Name = name,
                 Code = code,
+                Description = description,
                 CodingSystem = codingSystem,
             };
 

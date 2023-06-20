@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.App.Model.Resources;
+using System.App.Utility.Helpers;
+using System.IO;
 
 namespace System.App.Web.TraineR.Models.Domain
 {
@@ -18,15 +20,9 @@ namespace System.App.Web.TraineR.Models.Domain
         /// <remarks>
         /// Thread.CurrentThread.CurrentUICulture does not work. We use Resource.lan
         /// </remarks>
-        public NewbornContainer(string lan):base("name=quizbank." + lan)
-        {
-            Debug.WriteLine(lan);
-        }
+        public NewbornContainer(string lan):base("name=quizbank." + lan) { }
 
-        public NewbornContainer() : base("name=quizbank.en")
-        {
-            // Debug.WriteLine(Resource.lan.ToLower());
-        }
+        public NewbornContainer() : base("name=quizbank.en") { }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -80,6 +76,67 @@ namespace System.App.Web.TraineR.Models.Domain
             {
                 return this.Dict_Diagnosis.Where(x => x.CodingSystem != "ROP_MST");
             }
+        }
+
+        /// <summary>
+        /// Import images from a directory to database
+        /// </summary>
+        /// <param name="dir_path">physical directory with images</param>
+        /// <param name="serve_dir_path">relative URL the server will serve the imags</param>
+        /// <returns>A list of successfully import images. Duplicate or already-existing images are omitted.</returns>
+        public List<Image> ImportImages(string dir_path, string serve_dir_path)
+        {
+            var imgList = new List<Image>();
+            var prefix = GlobalSetting.ThumbnailPrefix;
+
+            foreach (var fn in new DirectoryInfo(dir_path).EnumerateFiles())
+            {
+                var label = System.IO.Path.GetDirectoryName(dir_path);
+                var dict_item = DiagnosisStandardTermQuery.FirstOrDefault(x=>x.Name == label);
+                var code = "";
+                var comment = "";
+                if (dict_item != null)
+                {
+                    code = dict_item.Code;
+                    comment = dict_item.Description;
+                }
+
+                var g = new Image();
+                var g60 = Base64Convertor.GetDataURLForImageThumbnail(fn.FullName, 60, 45, true, false, 10);
+
+                g.LabelCode = code;
+                g.Label = label;
+                g.Tag06 = true; // 包含到培训系统题库v
+
+                var md5 = DigestGenerator.GetMD5(fn.FullName);
+                File.Move(fn.FullName, dir_path + md5 + Path.GetExtension(fn.Name)); // rename file by MD5
+
+                g.Description = fn.FullName; // source path
+                g.ImageFilePath = serve_dir_path + "/" + label + "/" + md5 + Path.GetExtension(fn.Name);
+                g.Name = md5;
+                g.Type = "fundus";
+                g.Comment = comment;
+
+                //
+                // Base64 is redundant. Remove common prefix to save storage space
+                if (g60.StartsWith(prefix))
+                {
+                    g.Thumbnail = g60.Replace(prefix, "");
+                }
+                else
+                {
+                    g.Thumbnail = g60;
+                }
+
+                if (this.Image.FirstOrDefault(x => x.Name == g.Name) == null)
+                {
+                    this.Image.Add(g);
+                    imgList.Add(g);
+                    this.SaveChanges();
+                }                
+            }
+
+            return imgList;
         }
 
         public void DeleteImage(int id)
