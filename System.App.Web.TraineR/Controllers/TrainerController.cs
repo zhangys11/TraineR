@@ -15,6 +15,10 @@ using System.App.Model.Resources;
 using System.App.Model;
 using Image = System.App.Web.TraineR.Models.Domain.Image;
 using System.App.Utility.CAPTCHA;
+using System.Web;
+using System.Collections;
+using System.Reflection.Emit;
+using System.Xml.Linq;
 
 namespace System.App.Web.TraineR.Controllers
 {
@@ -188,7 +192,7 @@ namespace System.App.Web.TraineR.Controllers
         }
 
 
-        [ChildActionOnly]
+        //[ChildActionOnly]
         public PartialViewResult List(bool showAll = true)
         {
             ViewBag.ShowAll = showAll;
@@ -371,6 +375,7 @@ namespace System.App.Web.TraineR.Controllers
             return View();
         }
 
+
         /// <summary>
         /// 根据DL分类器设置正确的图片类型。Fundus或NonFundus
         /// </summary>
@@ -401,6 +406,74 @@ namespace System.App.Web.TraineR.Controllers
         public ActionResult Backend()
         {
             return View();
+        }
+
+        // This action handles the form POST and the upload
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFileBase imageFile)
+        {
+            var path = string.Empty;
+
+            // Verify that the user selected a file
+            if (imageFile != null && imageFile.ContentLength > 0)
+            {
+                var prefix = GlobalSetting.ThumbnailPrefix;
+
+                var md5 = ImageHelper.GetMD5(imageFile.InputStream);
+                path = Path.Combine(Server.MapPath("~/Upload/Main/Quiz"), md5 + Path.GetExtension(imageFile.FileName));
+                imageFile.SaveAs(path);
+
+                var g = new Image();
+                var g60 = Base64Convertor.GetDataURLForImageThumbnail(path, 60, 45, true, false, 10);
+
+                g.Tag06 = true; // 包含到培训系统题库v
+                g.Description = path; // source path
+                g.ImageFilePath = "/Upload/Main/Quiz/" + md5 + Path.GetExtension(imageFile.FileName);
+                g.ImageFilePath = g.ImageFilePath.Replace("\\/", "/").Replace("//", "/").Replace("\\", "/");
+                g.Name = md5;
+                g.Type = "fundus";
+                g.TimeStamp = DateTime.Now;
+
+                //
+                // Base64 is redundant. Remove common prefix to save storage space
+                if (g60.StartsWith(prefix))
+                {
+                    g.Thumbnail = g60.Replace(prefix, "");
+                }
+                else
+                {
+                    g.Thumbnail = g60;
+                }
+
+                using (var db = new NewbornContainer(Resource.lan))
+                {
+                    var existing = db.Image.FirstOrDefault(x => x.Name == g.Name);
+                    if (existing == null)
+                    {
+                        db.Image.Add(g);
+                        db.SaveChanges();
+
+                        return Json(new
+                        {
+                            Message = Resource.Success, 
+                            Id = g.Id,
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new
+                        {
+                            Message = Resource.DuplicateItems,
+                            Id = existing.Id,
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                }                
+            }
+
+            return Json(new
+            {
+                Message = Resource.EmptyRequestData
+            }, JsonRequestBehavior.AllowGet);
         }
 
         [AllowAnonymous]

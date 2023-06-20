@@ -1,4 +1,6 @@
-﻿<script type="text/javascript">
+﻿@using System.App.Model.Enums
+
+<script type="text/javascript">
     function editImage(id) {
 
         $.blockUI({ message: '<h4>' + '@Resource.Loading' + '</h4>', fadeIn: 0 });
@@ -104,8 +106,56 @@
         $('#thumbnail_list_filter').css("text-align", "left");
         $('#thumbnail_list_filter').parent().removeClass("col-sm-6").addClass("col-sm-12");
         $('#thumbnail_list_paginate').parent().removeClass("col-sm-7").addClass("col-sm-12");
+
+
+        //////////////////// Image Upload Dialog ////////////////////
+
+        $('#dialog-add-image').dialog({
+            autoOpen: false,
+            modal: true,
+            width: 400,
+            height: 200
+        });
+
+        //$('.ui-dialog-titlebar-close').val('[X]');
+
+        $('#dialog-add-image').bind('dialogclose', function (event) {
+            $("#imageFile").val("");
+            $('#edit-message').html("");
+        });
+
+        var options = {
+            type: 'POST',
+            success: function (obj) {
+                if (obj && obj["Message"]) {
+                    if (obj["Message"] == '@Resource.Success') {
+                        $('#edit-message').html('<span style="color:green">' + obj["Message"] + ' @DateTime.Now' + '</span>');
+                        // window.location.reload();
+                        $('#dialog-add-image').dialog('close');
+
+                        $.ajax({
+                            url: '@Url.Action("List")', type: "GET", // refresh list
+                            success: function (result) {
+                                $("#image-list").html(result);
+                                editImage(obj["Id"]);
+                            },
+                        });            
+                    }
+                    else {
+                        $('#edit-message').html('<span style="color:red">' + obj["Message"] + ', id = ' + obj["Id"] + ' @DateTime.Now'+'</span>');
+                        return;
+                    }
+                }
+                else {
+                    $('#edit-message').html('<span style="color:red">' + "@Resource.UploadFailed" +' @DateTime.Now'+ '</span>');
+                }
+            },
+            //beforeSubmit: beforeSubmit,  // pre-submit callback
+        };
+
+        $('#form-add-image').ajaxForm(options);
     });
-</script> 
+</script>
 
 <style>
     #thumbnail_list > tbody > tr > td:first-child {
@@ -118,6 +168,8 @@
 
 <div>
     <br/>
+    <input type="button" class="btn btn-success btn-lg" style="width: 100%" value="@Resource.UploadImage" onclick="$('#dialog-add-image').dialog('open');"/>
+    <br /><br/>
     <table id="thumbnail_list" class="table table-hover">
         <thead>
             <tr>
@@ -130,4 +182,29 @@
         <tbody>
         </tbody>
     </table>
+</div>
+
+
+<div id="dialog-add-image" title="@Resource.AddImageFile">
+    @using (Html.BeginForm("Upload", "Trainer", FormMethod.Post, new { enctype = "multipart/form-data", id = "form-add-image" }))
+    {
+        <fieldset class="ui-helper-reset">
+            <input type="hidden" id="imageID" name="imageID" value="@GlobalSetting.UNINITIALIZED_ENTITY_ID" />
+            <div class="editor-label">
+                @Resource.ChooseFile
+            </div>
+            <div>
+                <input type="file" name="imageFile" id="imageFile" 
+                       accept="image/*"
+                       class="form-control"
+                       style="width: 300px;" /> <!--multiple="multiple" -->
+            </div>
+            <br />            
+            <div class="editor-field">
+                <input class="btn btn-success btn-lg" type="submit" value="@Resource.Upload" />
+                <input type="button" class="btn btn-danger btn-lg" value="@Resource.Close" onclick="$('#dialog-add-image').dialog('close');" />
+            </div>
+            <p id="edit-message"></p>
+        </fieldset>
+    }
 </div>
