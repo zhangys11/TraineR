@@ -91,7 +91,7 @@ namespace System.App.Web.TraineR.Models.Domain
 
             foreach (var fn in new DirectoryInfo(dir_path).EnumerateFiles())
             {
-                var label = System.IO.Path.GetDirectoryName(dir_path);
+                var label = new DirectoryInfo(dir_path).Name;
                 var dict_item = DiagnosisStandardTermQuery.FirstOrDefault(x=>x.Name == label);
                 var code = "";
                 var comment = "";
