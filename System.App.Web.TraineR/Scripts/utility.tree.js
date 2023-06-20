@@ -383,6 +383,14 @@ function createTreeviewForRopDiagnosis(jquery_selector, checked_nodes, open_all)
                         'text': '卵黄样黄斑营养不良'
                     },
                     {
+                        'id': 'D010.D124',
+                        'text': '先天性白内障'
+                    },
+                    {
+                        'id': 'D010.D125',
+                        'text': '瞳孔残膜'
+                    },
+                    {
                         'id': 'D010.D110',
                         'text': '其它'
                     }
@@ -1611,6 +1619,14 @@ function createTreeviewForRopDiagnosisEn(jquery_selector, checked_nodes, open_al
                     'text': 'Yolk-like macular dystrophy'
                 },
                 {
+                    'id': 'D010.D124',
+                    'text': 'Congenital cataract'
+                },
+                {
+                    'id': 'D010.D125',
+                    'text': 'Pupillary remnant'
+                },
+                {
                     'id': 'D010.D110',
                     'text': 'Others'
                 }
@@ -1915,6 +1931,14 @@ function createTreeviewForRopLabel(jquery_selector, checked_nodes) {
                     'text': '卵黄样黄斑营养不良'
                 },
                 {
+                    'id': 'D010.D124',
+                    'text': '先天性白内障'
+                },
+                {
+                    'id': 'D010.D125',
+                    'text': '瞳孔残膜'
+                },
+                {
                     'id': 'D010.D110',
                     'text': '其它'
                 }
@@ -2203,6 +2227,14 @@ function createTreeviewForRopLabelEn(jquery_selector, checked_nodes) {
                 {
                     'id': 'D010.D123',
                     'text': 'Yolk-like macular dystrophy'
+                },
+                {
+                    'id': 'D010.D124',
+                    'text': 'Congenital cataract'
+                },
+                {
+                    'id': 'D010.D125',
+                    'text': 'Pupillary remnant'
                 },
                 {
                     'id': 'D010.D110',

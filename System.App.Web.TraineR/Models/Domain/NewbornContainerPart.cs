@@ -92,7 +92,7 @@ namespace System.App.Web.TraineR.Models.Domain
             foreach (var fn in new DirectoryInfo(dir_path).EnumerateFiles())
             {
                 var label = new DirectoryInfo(dir_path).Name;
-                var dict_item = DiagnosisStandardTermQuery.FirstOrDefault(x=>x.Name == label);
+                var dict_item = this.Dict_Diagnosis.FirstOrDefault(x=>x.Name == label);
                 var code = "";
                 var comment = "";
                 if (dict_item != null)
@@ -109,13 +109,15 @@ namespace System.App.Web.TraineR.Models.Domain
                 g.Tag06 = true; // 包含到培训系统题库v
 
                 var md5 = DigestGenerator.GetMD5(fn.FullName);
-                File.Move(fn.FullName, dir_path + md5 + Path.GetExtension(fn.Name)); // rename file by MD5
+                File.Move(fn.FullName, dir_path + "/" + md5 + Path.GetExtension(fn.Name)); // rename file by MD5
 
                 g.Description = fn.FullName; // source path
                 g.ImageFilePath = serve_dir_path + "/" + label + "/" + md5 + Path.GetExtension(fn.Name);
+                g.ImageFilePath = g.ImageFilePath.Replace("\\/", "/").Replace("//", "/").Replace("\\", "/"); 
                 g.Name = md5;
                 g.Type = "fundus";
                 g.Comment = comment;
+                g.TimeStamp = DateTime.Now;
 
                 //
                 // Base64 is redundant. Remove common prefix to save storage space

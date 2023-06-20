@@ -73,6 +73,10 @@
       <HintPath>..\packages\QrCode.Net.0.4.0.0\lib\net45\Gma.QrCodeNet.Encoding.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Imazen.WebP, Version=10.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\Imazen.WebP.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -198,8 +202,10 @@
     <Content Include="Assets\DNNs\Mobilenet_F2\fundus.png" />
     <Content Include="Assets\quiz.png" />
     <Content Include="Assets\retina.png" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Lib\EntityFramework.dll" />
     <Content Include="Lib\EntityFramework.SqlServer.dll" />
+    <Content Include="Lib\Imazen.WebP.dll" />
     <Content Include="Lib\System.App.Model.dll" />
     <Content Include="Lib\System.App.Utility.dll" />
     <Content Include="Lib\System.App.Web.Common.dll" />
@@ -219,6 +225,10 @@
     <Content Include="App_Data\TraineR.cn.s3db" />
     <Content Include="App_Data\TraineR.en.s3db" />
     <None Include="Dockerfile" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Dont OVERWRITE s3db files in the server!.pubxml" />
     <Content Include="Scripts\devtools_detect.js" />
@@ -252,7 +262,6 @@
     <Content Include="Scripts\utility.edit.ontology.js" />
     <Content Include="Scripts\utility.edit.search-pattern.js" />
     <Content Include="Scripts\utility.js" />
-    <Content Include="Scripts\utility.leaflet.js" />
     <Content Include="Scripts\utility.tree.js" />
     <Content Include="Scripts\utility.webgl.js" />
     <Content Include="Scripts\webcam.js" />
@@ -543,6 +552,7 @@
     <Content Include="Upload\Main\Quiz\Coats病\f163a0ff3d7479c234a64bad177383a0_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\Coats病\f9ea39b531c332e4b609012aa08dc141_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\FEVR\0f69829502e7e9fd3b59d06613c7e5ae_D640_Q70.jpg" />
+    <Content Include="Upload\Main\Quiz\FEVR\153d37f81ac7f4af3ef036e37d519935.png" />
     <Content Include="Upload\Main\Quiz\FEVR\1a32cc5e17544b672bd6bb33039e369d_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\FEVR\1b920736acc5a2ac3b9e49ce738ebef4_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\FEVR\1bb685a96d507aafde9bc34533b01b9a_D640_Q70.jpg" />
@@ -555,12 +565,14 @@
     <Content Include="Upload\Main\Quiz\FEVR\4e4d81e2fa9eda5663d60257b8aaba11_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\FEVR\50ad2e271e8b4a11bc38ea2c4b1c2bfe_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\FEVR\56646605df7252a470f9c7950fbb7f1e_D640_Q70.jpg" />
+    <Content Include="Upload\Main\Quiz\FEVR\568909d7c30ab1e5a8d78ff7cd824109.png" />
     <Content Include="Upload\Main\Quiz\FEVR\5c33df2730d4c4112501468e8e6cc173_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\FEVR\6de0c1c2cadcb839746b724487254bb0_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\FEVR\88e3f271c4b8580a732081433545ff3a_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\FEVR\9e0ace7d6c5875f4e7f432931394f5f3_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\FEVR\a17c0c4f88eaac5072e096f89530146b_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\FEVR\aad2633c6311294e7c1c6a8eb3715cbb_D640_Q70.jpg" />
+    <Content Include="Upload\Main\Quiz\FEVR\c1f34fac803a71c8e5faf861b6b27a5f.png" />
     <Content Include="Upload\Main\Quiz\FEVR\da0d8f0ebba6b4c61ca937b9356d411e_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\FEVR\db2e3313103fb1ca46ed8253e20782ca_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\FEVR\db9d5b288754b1c746cb709744dd9341_D640_Q70.jpg" />
@@ -577,6 +589,7 @@
     <Content Include="Upload\Main\Quiz\PHPV\68c6b0bb096177ed1f212f636151f058_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\PHPV\85e300695006350fbcaeccf85c83a985_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\PHPV\9725358b62ab5577b58b0803d921ad98_D640_Q70.jpg" />
+    <Content Include="Upload\Main\Quiz\PHPV\a5f36de9f963f936723c008f9971db0a.jpg" />
     <Content Include="Upload\Main\Quiz\PHPV\a91d015c217c5f6750b9399daa9f3b75_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\PHPV\aa9868a07e9474f169bea7042ed48b9f_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\PHPV\abbd6735c61474fadca9d2060a48a8d2_D640_Q70.jpg" />
@@ -604,6 +617,7 @@
     <Content Include="Upload\Main\Quiz\RB\1c82614436ba6e4d45c18dc65b25af4a_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RB\27ff07fc239d8f0c6030ee605c0d6da6_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RB\29ba1bdd9310cf910b8bb709ed1ae17b_D640_Q70.jpg" />
+    <Content Include="Upload\Main\Quiz\RB\2b523e2e4c9d99e2e9efbd015ad21fc9.jpg" />
     <Content Include="Upload\Main\Quiz\RB\2e3c6c2a6c32cf2ebcaebf4f3dcfb75d_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RB\336c29edc232f8314e96264e3864955d_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RB\35288734221abff2e051eec10703dfe5_D640_Q70.jpg" />
@@ -648,6 +662,7 @@
     <Content Include="Upload\Main\Quiz\RB\be458d8fb95bb49ea2248342b9f13cfc_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RB\c6b8ae6824a878ad57cdf2cb72d78511_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RB\c7f12a0b2b26bcf86bdfd8c056aa29a3_D640_Q70.jpg" />
+    <Content Include="Upload\Main\Quiz\RB\cab6ba5f9cf0da8ae6819e782294aefe.jpg" />
     <Content Include="Upload\Main\Quiz\RB\cdcb8d69d11d53e71fbe320d1b9129d8_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RB\d03f4df019b28a44cf46f5c99985738c_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RB\d2e2866dd5d37dede60590ba1a923cc5_D640_Q70.jpg" />
@@ -659,16 +674,26 @@
     <Content Include="Upload\Main\Quiz\RB\f073165b536b1ca94d795c7677c26e8b_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RB\f3cacdf01ed923809c9724fbf4dcdb2c_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RB\f59b98ab52db3798e27108ff6ee171c5_D640_Q70.jpg" />
+    <Content Include="Upload\Main\Quiz\RB\fd96054ff66d2631f3e2692691471b33.jpg" />
     <Content Include="Upload\Main\Quiz\RP\046fc401ebc680e718dcd30b7863e861_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RP\214ed890cc7f92ae275bb0d27d117a0f_D640_Q70.jpg" />
+    <Content Include="Upload\Main\Quiz\RP\30cf0e5bdfeaab3e774d94714883ed4c.jpg" />
+    <Content Include="Upload\Main\Quiz\RP\3d5c4b1f4829d3d4a4e333af40427964.jpg" />
+    <Content Include="Upload\Main\Quiz\RP\489edffa92b031d5fdc359919c57fb00.jpg" />
     <Content Include="Upload\Main\Quiz\RP\4de28b97c090a92b6ea9624f7c738b15_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RP\55b024b4ef09ca376eb4315be341f822_D640_Q70.jpg" />
+    <Content Include="Upload\Main\Quiz\RP\64942b5f4fb9bbf9b1c91daaf791de47.jpg" />
     <Content Include="Upload\Main\Quiz\RP\7f556a3a8b0e666c1cd3af5192cb4b29_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RP\a486ccd044f03291505c9d53447b1e77_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RP\bda3d1adfebf9a66f2a369da1c0b8032_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RP\c34bb4c83b5d74977ad18b73febf708b_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RP\eca6881f1af4b6b5319d1f6a08519880_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\RP\f9fd1edb503fe4fe6509b3cfb5cf9a50_D640_Q70.jpg" />
+    <Content Include="Upload\Main\Quiz\先天性白内障\2f8b8c0b0c51373b7a378645b2b8affa.jpg" />
+    <Content Include="Upload\Main\Quiz\先天性白内障\3967b5979dc1be4c1597e2c94b735325.jpg" />
+    <Content Include="Upload\Main\Quiz\先天性白内障\4350829b8e1e01d89e263f007ec15ac9.jpg" />
+    <Content Include="Upload\Main\Quiz\先天性脉络膜缺损\1bbeb0d9319ac2fd114f1b1faef86b56.jpg" />
+    <Content Include="Upload\Main\Quiz\先天性脉络膜缺损\20d5c62392f5669e00e4398ade5996ef.jpg" />
     <Content Include="Upload\Main\Quiz\先天性视网膜劈裂症\06e14401de303ba915b014fb6bd66024_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\先天性视网膜劈裂症\182495052ab34dccd68248982e4a3ea6_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\先天性视网膜劈裂症\1be39e8fca35d9fb7f200e884e54fc54_D640_Q70.jpg" />
@@ -717,6 +742,7 @@
     <Content Include="Upload\Main\Quiz\牵牛花综合征\0013c7ddba50d06f891e617dfa164ec2_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\牵牛花综合征\06d806e7a58397365e8b3b8da29d9117_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\牵牛花综合征\0aa38f8d4a16e34cb88be6885dc322ed_D640_Q70.jpg" />
+    <Content Include="Upload\Main\Quiz\牵牛花综合征\0eca1edd2d2b912ef1a22eb5d4793edf.jpg" />
     <Content Include="Upload\Main\Quiz\牵牛花综合征\0f13cf974ed9a78cd01dec2043b0b08d_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\牵牛花综合征\17ee62b97e25c0de2aea9d9322416dfb_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\牵牛花综合征\1ba316f0c662ec3749bdb46952b1c7ef_D640_Q70.jpg" />
@@ -746,6 +772,7 @@
     <Content Include="Upload\Main\Quiz\牵牛花综合征\95cf85ff189c199bdfd7b1fd5cf0c799_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\牵牛花综合征\95ddd98e5a1802b0101715d96c0eba02_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\牵牛花综合征\98d932760fd544aa4aba8ceaba5e5541_D640_Q70.jpg" />
+    <Content Include="Upload\Main\Quiz\牵牛花综合征\9e7c4e679ee35ca5deba89d77bfc35dd.jpg" />
     <Content Include="Upload\Main\Quiz\牵牛花综合征\a3b4008300512c8c75294cbd75900019_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\牵牛花综合征\abbfc3ad295dd21b8ec2b24412fc6a50_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\牵牛花综合征\b1f25f5f5a030d033e5a7984c184b808_D640_Q70.jpg" />
@@ -803,6 +830,10 @@
     <Content Include="Upload\Main\Quiz\白化病眼底\e85ce7c155101f68252fc8c6eee1fc55_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\白化病眼底\f07f28c7e717d84702934aa17ec5f9be_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\白化病眼底\fe7908e08a98e4df25408efca1652a71_D640_Q70.jpg" />
+    <Content Include="Upload\Main\Quiz\瞳孔残膜\19ec3ed4771c6c5a5283ae7476418e7b.jpg" />
+    <Content Include="Upload\Main\Quiz\瞳孔残膜\42db51974cb3872df083f0bcc80dfe02.jpg" />
+    <Content Include="Upload\Main\Quiz\瞳孔残膜\c537cacad0c59f822581a7a1d56384d0.jpg" />
+    <Content Include="Upload\Main\Quiz\瞳孔残膜\fea38a562142cc0390012b6cdfc00624.jpg" />
     <Content Include="Upload\Main\Quiz\脉络膜缺损\076bf0788a983b834932e627a39f86a5_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\脉络膜缺损\08387fb344a713fea6afdc18d27f0c8c_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\脉络膜缺损\0f8dce04f9a0e8feb2a706d08f19a692_D640_Q70.jpg" />
@@ -865,6 +896,7 @@
     <Content Include="Upload\Main\Quiz\视网膜有髓神经纤维\d866771deb73587c26f6ff3e2059cd3e_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\视网膜有髓神经纤维\e2efeed938a00ced0d3ecca817454721_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\视网膜有髓神经纤维\e5f63e4fd5d30ad8bf5e6e9c0084cc12_D640_Q70.jpg" />
+    <Content Include="Upload\Main\Quiz\视网膜有髓神经纤维\edb0193c064bcdb9ebdc51f7da67a922.jpg" />
     <Content Include="Upload\Main\Quiz\豹纹状眼底\0cf443e010a6539c92640afb26bfb28a_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\豹纹状眼底\1959d071defbb26f53fece8f2426e798_D640_Q70.jpg" />
     <Content Include="Upload\Main\Quiz\豹纹状眼底\19f539ef7d13eaaeb386db9d5335cd77_D640_Q70.jpg" />
